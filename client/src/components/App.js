@@ -1,7 +1,7 @@
+import Authentication from "pages/Authentication/index.js"
+
 const App = () => {
-    return (
-        <h1>Hi</h1>
-    )
+    return <Authentication />
 }
 
 export default App
