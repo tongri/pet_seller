@@ -29,6 +29,15 @@ code {
 .header-title {
     font-family: 'Pacifico';
 }
+
+.text-custom-gray {
+    color: #949494;
+}
+
+img {
+    object-fit: cover;
+}
+
 /* 
 .d-flex {
     align-items: center;
