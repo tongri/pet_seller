@@ -1,17 +1,13 @@
-import {
-    USER_SUCCESS,
-    USER_FAILED,
-    USER_LOADING
-} from "../types";
+import { USER_SUCCESS, USER_FAILED, USER_LOADING } from '../types'
 
 const initialState = {
-    token: localStorage.getItem('usr_token') || '',
+    token: localStorage.getItem('usr_token'),
     isAuthenticated: false,
     isLoading: false,
-    user: null
+    user: null,
 }
 
-const Reducer =  (state=initialState, action) => {
+const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_SUCCESS:
             localStorage.setItem('usr_token', action.payload.token)
@@ -20,20 +16,20 @@ const Reducer =  (state=initialState, action) => {
                 token: action.payload.token,
                 user: action.payload.user,
                 isAuthenticated: true,
-                isLoading: false
+                isLoading: false,
             }
         case USER_FAILED:
             return {
                 ...state,
-                token: '',
+                token: null,
                 user: null,
                 isLoading: false,
-                isAuthenticated: false
+                isAuthenticated: false,
             }
         case USER_LOADING:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
             }
         default:
             return state

@@ -1,7 +1,8 @@
-import Authentication from "pages/Authentication/index.js"
+import Authentication from 'pages/Authentication'
+import Main from 'pages/Main'
 
 const App = () => {
-    return <Authentication />
+    return <Main />
 }
 
 export default App
