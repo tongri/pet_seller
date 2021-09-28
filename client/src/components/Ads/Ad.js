@@ -2,25 +2,23 @@ import CatImage from 'assets/images/cat.jpg'
 
 import TagList from './TagList'
 
-const Ad = () => {
-    const tags = {
-        type: 'cat',
-        sex: 'female',
-        birth_date: '22.11.2020',
-        size: '40-50cm',
-    }
-
+const Ad = ({ gender, city, date, name, ...tags }) => {
     return (
         <div className="card mb-3">
             <div className="row g-0">
-                <div className="col-md-1">
-                    <img src={CatImage} alt="..." className="img-thumbnail" />
+                <div className="col-md-2 col-sm-6">
+                    <img
+                        src={CatImage}
+                        alt="Pet"
+                        className="img-thumbnail"
+                        style={{ height: '100%' }}
+                    />
                 </div>
-                <div className="col-md-11">
+                <div className="col-md-10 col-sm-6">
                     <div className="card-body">
                         <div className="row g-0">
                             <div className="col">
-                                <h5 className="card-title">Onix</h5>
+                                <h5 className="card-title">{name}</h5>
                             </div>
                             <div className="col text-end">
                                 <i className="far fa-heart fa-lg"></i>
@@ -30,16 +28,15 @@ const Ad = () => {
                         <TagList tags={tags} />
 
                         <div
-                            className="row p-0 g-0 mt-5"
+                            className="row p-0 g-0 mt-5 mb-0"
                             style={{ fontSize: '0.85rem' }}
                         >
                             <div className="col text-custom-gray gap-2">
                                 <span className="md-3">
-                                    <i class="fas fa-map-marker-alt"></i>{' '}
-                                    Wroclaw
+                                    <i class="fas fa-map-marker-alt"></i> {city}
                                 </span>
                                 <span className="ms-3">
-                                    <i class="far fa-clock"></i> 10 August
+                                    <i class="far fa-clock"></i> {date}
                                 </span>
                             </div>
                         </div>

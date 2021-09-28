@@ -4,7 +4,7 @@ import getTags from 'utils/categories'
 
 const TagList = ({ tags, ...rest }) => {
     return (
-        <div className="container-fluid d-flex gap-2 p-0">
+        <div className="container-fluid d-flex flex-wrap gap-2 p-0">
             {Object.entries(tags).map(([key, value]) => (
                 <Tag {...getTags(key, value)} />
             ))}
