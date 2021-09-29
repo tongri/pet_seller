@@ -15,7 +15,7 @@ const Header = () => {
                                 <a
                                     className="nav-link"
                                     aria-current="page"
-                                    href="#"
+                                    href="#navbarExample01"
                                 >
                                     <i className="far fa-heart fa-lg"></i>
                                 </a>

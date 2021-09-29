@@ -20,3 +20,8 @@
 // @method  GET
 // @output  { pets, countries, cities, kinds, genders, sizes, ages, health }
 // @info    Pets should contain: name: 'Pavel', country, city, kind, gender, size, age, health, date, birth_date
+
+// @path    /api/v1/pets/?
+// @method  GET
+// @output  { pets }
+// @desc    Filters

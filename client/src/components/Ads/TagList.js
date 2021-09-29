@@ -5,8 +5,8 @@ import getTags from 'utils/categories'
 const TagList = ({ tags, ...rest }) => {
     return (
         <div className="container-fluid d-flex flex-wrap gap-2 p-0">
-            {Object.entries(tags).map(([key, value]) => (
-                <Tag {...getTags(key, value)} />
+            {Object.entries(tags).map(([key, value], index) => (
+                <Tag key={index} {...getTags(key, value)} />
             ))}
         </div>
     )

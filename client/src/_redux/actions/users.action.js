@@ -1,7 +1,7 @@
 import axios from '_axios'
 import getConfig from 'utils/config'
 
-import { USER_SUCCESS, USER_FAILED, USER_LOADING } from '../types'
+import { USER_SUCCESS, USER_LOADING } from '../types'
 
 // @desc    Records users token and username, switches isAuthenticated to True
 // @method  POST

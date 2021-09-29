@@ -13,19 +13,23 @@ const LIST_OF_FILTERS = [
 
 const Filter = ({ filters }) => {
     return (
-        <div className="">
+        <div>
             <Search />
 
             <div className="card mt-4">
                 <div className="card-header">
                     <div className="card-title d-flex mb-0 align-items-center justify-content-between">
                         <h5 className="mb-0">Filter</h5>
-                        <i class="fas fa-filter"></i>
+                        <i className="fas fa-filter"></i>
                     </div>
                 </div>
                 <div className="card-body row gap-2">
-                    {LIST_OF_FILTERS.map((filt) => (
-                        <Select {...filt} options={filters[filt.name]} />
+                    {LIST_OF_FILTERS.map((filt, key) => (
+                        <Select
+                            key={key}
+                            {...filt}
+                            options={filters[filt.name]}
+                        />
                     ))}
                 </div>
             </div>

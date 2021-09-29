@@ -1,4 +1,8 @@
-const { PETS_SUCCESS, PETS_LOADING } = require('_redux/types')
+const {
+    PETS_SUCCESS,
+    PETS_LOADING,
+    PETS_FILTER_SUCCESS,
+} = require('_redux/types')
 
 // Test data
 const _temp_list = [
@@ -13,6 +17,7 @@ const _temp_list = [
         health: 'Healthy',
         date: '10 August',
         birth_date: '25.06.2020',
+        favourite: false,
     },
     {
         name: 'Pavel',
@@ -25,6 +30,7 @@ const _temp_list = [
         health: 'Sick',
         date: '12 August',
         birth_date: '25.11.2020',
+        favourite: true,
     },
 ]
 
@@ -48,6 +54,11 @@ const Reducer = (state = initialState, action) => {
                 ...action.payload,
                 list: action.payload.pets,
                 isLoading: false,
+            }
+        case PETS_FILTER_SUCCESS:
+            return {
+                ...state,
+                list: action.payload.pets,
             }
         case PETS_LOADING:
             return {

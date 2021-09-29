@@ -38,6 +38,14 @@ img {
     object-fit: cover;
 }
 
+.btn-to-top {
+    position: fixed!important;
+    bottom: 2rem;
+    right: 2rem;
+
+    cursor: pointer;
+}
+
 /* 
 .d-flex {
     align-items: center;

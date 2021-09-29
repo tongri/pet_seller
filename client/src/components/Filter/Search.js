@@ -2,14 +2,14 @@ import React from 'react'
 
 const Search = () => {
     return (
-        <div class="card form-outline bg-white">
-            <i class="fas fa-search trailing"></i>
+        <div className="card form-outline bg-white">
+            <i className="fas fa-search trailing"></i>
             <input
                 type="text"
                 id="form1"
-                class="form-control form-icon-trailing"
+                className="form-control form-icon-trailing"
             />
-            <label class="form-label" for="form1">
+            <label className="form-label" htmlFor="form1">
                 Search
             </label>
         </div>

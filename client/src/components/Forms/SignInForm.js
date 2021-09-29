@@ -46,7 +46,7 @@ const SignInForm = () => {
                 </label>
             </div>
             <div id="textExample1" className="form-text mb-3">
-                <a href="#" className="text-warning">
+                <a href="#testExample1" className="text-warning">
                     Forgot password?
                 </a>
             </div>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Header from 'components/Layout/Header'
 import AdList from 'components/Ads/AdList'
 import Filter from 'components/Filter/Filter'
+import Scroller from 'components/Layout/Scroller'
 
 const Main = () => {
     const { list, ...filters } = useSelector((state) => state.pets)
@@ -19,6 +20,8 @@ const Main = () => {
                     <AdList list={list} />
                 </div>
             </div>
+
+            <Scroller />
         </>
     )
 }
