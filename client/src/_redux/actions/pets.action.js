@@ -3,8 +3,9 @@ import getConfig from 'utils/config'
 
 import { PETS_FILTER_SUCCESS, PETS_LOADING, PETS_SUCCESS } from '_redux/types'
 
-// @desc    Uplaod pets data
-// @method  GET
+// @desc        Uplaod pets data
+// @method      GET
+// @permissions Any
 export const loadPets = () => async (dispatch, getState) => {
     // loading...
     dispatch({ type: PETS_LOADING })
@@ -21,8 +22,9 @@ export const loadPets = () => async (dispatch, getState) => {
     }
 }
 
-// @desc    Filter pets data
-// @method  GET
+// @desc        Filter pets data
+// @method      GET
+// @permissions Any
 export const filterPets = (filter) => async (dispatch, getState) => {
     dispatch({ type: PETS_LOADING })
 
@@ -37,6 +39,21 @@ export const filterPets = (filter) => async (dispatch, getState) => {
             type: PETS_FILTER_SUCCESS,
             payload: result.datas,
         })
+    } catch (err) {
+        // TODO: Handle errors...
+    }
+}
+
+// @desc        Add Ad to favourite
+// @method      POST
+// @permissions Authenticated only
+export const makeFavourite = (ad_id) => async (_, getState) => {
+    try {
+        await axios.post(
+            '/api/v1/ads/favourite/add/',
+            ad_id,
+            getConfig(getState)
+        )
     } catch (err) {
         // TODO: Handle errors...
     }

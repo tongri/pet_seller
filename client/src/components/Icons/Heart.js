@@ -1,11 +1,17 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-const Heart = ({ className, isActive = false }) => {
+import { makeFavourite } from '_redux/actions/pets.action'
+
+const Heart = ({ id, className, isActive = false }) => {
     const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
     const [active, setState] = useState(isActive)
+    const dsp = useDispatch()
 
-    const clickHandler = () => setState((state) => !state)
+    const clickHandler = () => {
+        setState((state) => !state)
+        dsp(makeFavourite(id))
+    }
 
     return isAuthenticated ? (
         <i

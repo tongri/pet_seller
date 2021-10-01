@@ -8,7 +8,7 @@ const Header = () => {
     const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
 
     return (
-        <header className="mb-4">
+        <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-white px-4">
                 <div className="container-fluid d-flex justify-content-space-between align-items-center">
                     <h3 className="header-title flex-fill">

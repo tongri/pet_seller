@@ -12,7 +12,7 @@ const Main = () => {
         <>
             <Header />
 
-            <div className="container-fluid row justify-content-center gap-5">
+            <div className="container-fluid row justify-content-center gap-5 mt-5">
                 <div className="col-md-2">
                     <Filter filters={filters} />
                 </div>

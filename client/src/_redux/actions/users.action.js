@@ -1,7 +1,12 @@
 import axios from '_axios'
 import getConfig from 'utils/config'
 
-import { USER_SUCCESS, USER_LOADING } from '../types'
+import {
+    USER_SUCCESS,
+    USER_LOADING,
+    RECENTLY_VIEWED_SUCCESS,
+    RECENTLY_VIEWED_LOADING,
+} from '../types'
 
 // @desc    Records users token and username, switches isAuthenticated to True
 // @method  POST
@@ -61,5 +66,21 @@ export const verifyToken = () => async (dispatch, getState) => {
         })
     } catch (err) {
         // TODO: Handle errors...
+    }
+}
+
+// @desc    Gets recently viewed Ads
+// @method  GET
+export const loadRecentlyViewed = () => async (dispatch, getState) => {
+    dispatch({ type: RECENTLY_VIEWED_LOADING })
+    try {
+        const result = await axios.get('/api/v1/recently-viewed/')
+
+        dispatch({
+            type: RECENTLY_VIEWED_SUCCESS,
+            payload: result.data,
+        })
+    } catch (err) {
+        // TODO: Handle errors
     }
 }

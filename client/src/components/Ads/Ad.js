@@ -18,21 +18,23 @@ const Ad = ({ id, city, date, name, favourite, ...tags }) => {
                     />
                 </div>
                 <div className="col-md-10 col-sm-6">
-                    <div className="card-body">
-                        <div className="row g-0">
-                            <div className="col">
-                                <Link to={`/ad/${id}`}>
-                                    <h5 className="card-title text-dark">
-                                        {name}
-                                    </h5>
-                                </Link>
+                    <div className="card-body d-flex flex-column justify-content-between h-100">
+                        <div>
+                            <div className="row g-0">
+                                <div className="col">
+                                    <Link to={`/ad/${id}`}>
+                                        <h5 className="card-title text-dark">
+                                            {name}
+                                        </h5>
+                                    </Link>
+                                </div>
+                                <div className="col text-end">
+                                    <Heart id={id} />
+                                </div>
                             </div>
-                            <div className="col text-end">
-                                <Heart />
-                            </div>
-                        </div>
 
-                        <TagList tags={tags} />
+                            <TagList tags={tags} />
+                        </div>
 
                         <div
                             className="row p-0 g-0 mt-5 mb-0"

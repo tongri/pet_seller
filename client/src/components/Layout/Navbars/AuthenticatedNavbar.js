@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Heart from 'components/Icons/Heart'
 
 const AuthenticatedNavbar = () => {
@@ -9,7 +10,9 @@ const AuthenticatedNavbar = () => {
                     aria-current="page"
                     href="#navbarExample01"
                 >
-                    <Heart className="fa-lg" />
+                    <Link to="/users/saved/">
+                        <Heart className="fa-lg nav-link p-0" />
+                    </Link>
                 </a>
             </li>
             <li className="nav-item dropdown">

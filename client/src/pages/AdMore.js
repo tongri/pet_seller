@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
 import Header from 'components/Layout/Header'
@@ -6,6 +7,8 @@ import Carousel from 'components/Utils/Carousel'
 
 import Heart from 'components/Icons/Heart'
 import TagList from 'components/Ads/TagList'
+
+import { loadRecentlyViewed } from '_redux/actions/users.action'
 
 // name: 'Onix',
 // country: 'Ukraine',
@@ -19,7 +22,7 @@ import TagList from 'components/Ads/TagList'
 // birth_date: '25.06.2020',
 // favourite: false,
 
-const AdMore = ({ match }) => {
+const AdMore = () => {
     const { id } = useParams()
     // TODO: Fetch info from server
     const {
@@ -33,11 +36,17 @@ const AdMore = ({ match }) => {
         biography,
         ...tags
     } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
+    const dsp = useDispatch()
+
+    // TODO: Remove to another place
+    // Retrieve recently viewed ads
+    // eslint-disable-next-line
+    useEffect(() => dsp(loadRecentlyViewed()), [])
 
     return (
         <>
             <Header />
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row justify-content-center">
                     <div className="col-lg-10 col-md-10 col-sm-12">
                         <div className="row">
@@ -48,7 +57,7 @@ const AdMore = ({ match }) => {
                         <div className="row">
                             <div className="col-md-2 col-lg-2 col-sm-3">
                                 <span className="h3 me-2">{name}</span>{' '}
-                                <Heart className="fa-lg" />
+                                <Heart className="fa-lg" id={id} />
                             </div>
                         </div>
                         <div className="row my-4 justify-content-between">

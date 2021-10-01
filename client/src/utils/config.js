@@ -11,4 +11,9 @@ const getConfig = (getState) => {
     return config
 }
 
+export const getConfigByToken = (token) => {
+    if (token) config.headers['Authorization'] = `JWT ${token}`
+    return config
+}
+
 export default getConfig
