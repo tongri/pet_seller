@@ -5,20 +5,25 @@ const combineIconAndTitle = (icon, title) => ({
 
 const getTags = (category, value) => {
     const ICONS = {
-        type: {
+        kind: {
             cat: 'fas fa-cat',
             dog: 'fas fa-dog',
         },
-        sex: {
+        gender: {
             male: 'fas fa-mars',
             female: 'fas fa-female',
         },
         birth_date: 'fas fa-birthday-cake',
         size: 'fas fa-ruler',
+        breed: 'fas fa-paw',
+    }
+    console.log(category, value)
+    if (!(category in ICONS)) {
+        return
     }
 
     if (ICONS[category] instanceof Object)
-        return combineIconAndTitle(ICONS[category][value], value)
+        return combineIconAndTitle(ICONS[category][value.toLowerCase()], value)
     return combineIconAndTitle(ICONS[category], value)
 }
 

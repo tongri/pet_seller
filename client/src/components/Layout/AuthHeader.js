@@ -1,9 +1,13 @@
+import { Link } from 'react-router-dom'
+
 const Header = () => {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
                 <div className="container-fluid justify-content-center">
-                    <h3 className="text-warning header-title">Pet Seller</h3>
+                    <Link to="/">
+                        <h3 className="text-warning header-title">Pet Home</h3>
+                    </Link>
                 </div>
             </nav>
         </header>

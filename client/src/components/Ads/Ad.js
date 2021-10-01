@@ -1,22 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { createError } from '_redux/actions/errors.action'
-
-import { AUTHORIZATION } from 'utils/errors'
-
+import { Link } from 'react-router-dom'
 import CatImage from 'assets/images/cat.jpg'
+
+import Heart from 'components/Icons/Heart'
 
 import TagList from './TagList'
 
-const Ad = ({ gender, city, date, name, favourite, ...tags }) => {
-    const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
-    const dsp = useDispatch()
-
-    const clickHandler = (e) => {
-        console.log('Clicked', isAuthenticated)
-        // On heart click
-        if (isAuthenticated) dsp()
-        else dsp(createError(AUTHORIZATION))
-    }
+const Ad = ({ id, city, date, name, favourite, ...tags }) => {
     return (
         <div className="card mb-3">
             <div className="row g-0">
@@ -32,15 +21,14 @@ const Ad = ({ gender, city, date, name, favourite, ...tags }) => {
                     <div className="card-body">
                         <div className="row g-0">
                             <div className="col">
-                                <h5 className="card-title">{name}</h5>
+                                <Link to={`/ad/${id}`}>
+                                    <h5 className="card-title text-dark">
+                                        {name}
+                                    </h5>
+                                </Link>
                             </div>
                             <div className="col text-end">
-                                <i
-                                    className={`${
-                                        favourite ? 'fas' : 'far'
-                                    } fa-heart fa-lg`}
-                                    onClick={clickHandler}
-                                ></i>
+                                <Heart />
                             </div>
                         </div>
 

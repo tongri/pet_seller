@@ -1,31 +1,30 @@
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import AuthenticatedNavbar from './Navbars/AuthenticatedNavbar'
+import NotAuthenticatedNavbar from './Navbars/NotAuthenticatedNavbar'
+
 const Header = () => {
+    const isAuthenticated = useSelector((state) => state.users.isAuthenticated)
+
     return (
         <header className="mb-4">
             <nav className="navbar navbar-expand-lg navbar-light bg-white px-4">
                 <div className="container-fluid d-flex justify-content-space-between align-items-center">
-                    <h3 className="text-warning header-title flex-fill">
-                        Pet Seller
+                    <h3 className="header-title flex-fill">
+                        <Link to="/" className="text-warning">
+                            Pet Home
+                        </Link>
                     </h3>
                     <div
                         className="collapse navbar-collapse flex-fill justify-content-end"
                         id="navbarExample01"
                     >
-                        <ul className="navbar-nav d-flex align-items-center gap-2">
-                            <li className="nav-item active">
-                                <a
-                                    className="nav-link"
-                                    aria-current="page"
-                                    href="#navbarExample01"
-                                >
-                                    <i className="far fa-heart fa-lg"></i>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <button className="btn btn-warning">
-                                    Sign in
-                                </button>
-                            </li>
-                        </ul>
+                        {isAuthenticated ? (
+                            <AuthenticatedNavbar />
+                        ) : (
+                            <NotAuthenticatedNavbar />
+                        )}
                     </div>
                 </div>
             </nav>

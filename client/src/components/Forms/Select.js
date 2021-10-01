@@ -22,11 +22,15 @@ const Select = ({ name, title, options }) => {
                 onChange={changeHandler}
             >
                 <option value="none">All</option>
-                {options.map((opt, key) => (
-                    <option key={key} value={opt}>
-                        {opt}
-                    </option>
-                ))}
+                {options
+                    .filter(
+                        (value, index, self) => self.indexOf(value) === index
+                    )
+                    .map((opt, key) => (
+                        <option key={key} value={opt}>
+                            {opt}
+                        </option>
+                    ))}
             </select>
         </div>
     )

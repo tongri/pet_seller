@@ -7,6 +7,7 @@ const {
 // Test data
 const _temp_list = [
     {
+        id: 0,
         name: 'Onix',
         country: 'Ukraine',
         city: 'Kharkiv',
@@ -14,12 +15,24 @@ const _temp_list = [
         gender: 'Male',
         size: '30-40cm',
         age: '0.5 year',
-        health: 'Healthy',
         date: '10 August',
         birth_date: '25.06.2020',
         favourite: false,
+        breed: 'Siamese',
+        biography: 'Lorem ipsum...',
+        health: {
+            vac: 'Distemper',
+            alg: 'Food allergy',
+            gnl: 'Healthy',
+            bhv: 'None',
+        },
+        images: [
+            'https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
+            'https://images.unsplash.com/photo-1494256997604-768d1f608cac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3029&q=80',
+        ],
     },
     {
+        id: 1,
         name: 'Pavel',
         country: 'Russia',
         city: 'Moskow',
@@ -27,10 +40,21 @@ const _temp_list = [
         gender: 'Male',
         size: '60-80cm',
         age: '1 year',
-        health: 'Sick',
         date: '12 August',
         birth_date: '25.11.2020',
         favourite: true,
+        breed: 'Dog',
+        biography: 'Lorem ipsum...',
+        health: {
+            vac: 'Distemper',
+            alg: 'None',
+            gnl: 'Healthy',
+            bhv: 'None',
+        },
+        images: [
+            'https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=778&q=80',
+            'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1674&q=80',
+        ],
     },
 ]
 

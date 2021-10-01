@@ -8,7 +8,6 @@ const LIST_OF_FILTERS = [
     { name: 'genders', title: 'Gender' },
     { name: 'sizes', title: 'Size' },
     { name: 'ages', title: 'Age' },
-    { name: 'health', title: 'State of health' },
 ]
 
 const Filter = ({ filters }) => {
