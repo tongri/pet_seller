@@ -62,7 +62,7 @@ class VerifyToken(APIView):
                 'username': user.username,
                 'token': user.auth_token.key
             })
-        return Response({'user': None})
+        return Response({'error': 'invalid user credentials'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class CitiesByCountry(APIView): # view to get cities according to country
@@ -94,6 +94,8 @@ class PetModelViewSet(ModelViewSet):
 
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
+        if self.action == 'retrieve':
+            return queryset
         if self.request.user.is_authenticated and self.request.method in SAFE_METHODS:
             queryset = queryset.exclude(owner=self.request.user)
         return queryset
