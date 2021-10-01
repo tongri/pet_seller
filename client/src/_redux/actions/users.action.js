@@ -6,6 +6,7 @@ import {
     USER_LOADING,
     RECENTLY_VIEWED_SUCCESS,
     RECENTLY_VIEWED_LOADING,
+    USER_LOGOUT,
 } from '../types'
 
 // @desc    Records users token and username, switches isAuthenticated to True
@@ -84,3 +85,6 @@ export const loadRecentlyViewed = () => async (dispatch, getState) => {
         // TODO: Handle errors
     }
 }
+
+// @desc    Log out user
+export const logoutUser = () => (dispatch) => dispatch({ type: USER_LOGOUT })

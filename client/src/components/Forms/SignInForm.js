@@ -20,13 +20,13 @@ const SignInForm = () => {
             <div className="form mb-2">
                 <input
                     type="text"
-                    id="form1Example1"
+                    id="username-login"
                     className="form-control"
                     name="username"
                     value={formValues.username}
                     onChange={(e) => inputHandler(e)}
                 />
-                <label className="form-label mb-0" hmtlFor="form1Example1">
+                <label className="form-label mb-0" htmlFor="username-login">
                     Username
                 </label>
             </div>
@@ -34,14 +34,14 @@ const SignInForm = () => {
             <div className="form">
                 <input
                     type="password"
-                    id="form1Example2"
+                    id="password"
                     className="form-control"
                     aria-describedby="testExample1"
                     name="password"
                     value={formValues.password}
                     onChange={(e) => inputHandler(e)}
                 />
-                <label className="form-label mb-0" htmlFor="form1Example2">
+                <label className="form-label mb-0" htmlFor="password-login">
                     Password
                 </label>
             </div>

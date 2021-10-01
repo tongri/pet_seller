@@ -4,6 +4,7 @@ import {
     USER_LOADING,
     RECENTLY_VIEWED_SUCCESS,
     RECENTLY_VIEWED_LOADING,
+    USER_LOGOUT,
 } from '../types'
 
 const initialState = {
@@ -38,6 +39,13 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
+            }
+        case USER_LOGOUT:
+            localStorage.removeItem('usr_token')
+            return {
+                ...state,
+                user: null,
+                token: null,
             }
         case RECENTLY_VIEWED_LOADING:
             return {

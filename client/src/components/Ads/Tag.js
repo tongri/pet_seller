@@ -1,5 +1,4 @@
 const Tag = ({ iconClass, tagTitle }) => {
-    console.log(iconClass, tagTitle)
     return iconClass && tagTitle ? (
         <span
             className="badge text-custom-gray"
