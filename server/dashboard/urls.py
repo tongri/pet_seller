@@ -3,7 +3,7 @@ from rest_framework import routers
 
 from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet
 
-from dashboard.views import CreateAuth
+from .views import CreateAuth
 
 router = routers.SimpleRouter()
 router.register(r'pets', PetModelViewSet)
