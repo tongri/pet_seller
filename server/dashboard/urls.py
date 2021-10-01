@@ -1,10 +1,18 @@
 from django.urls import path
-from .views import CustomAuthToken, verify_token
+from rest_framework import routers
 
-from dashboard.views import create_auth
+from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet
+
+from dashboard.views import CreateAuth
+
+router = routers.SimpleRouter()
+router.register(r'pets', PetModelViewSet)
+
 
 urlpatterns = [
-    path('reg/', create_auth),
+    path('reg/', CreateAuth.as_view()),
     path('login/', CustomAuthToken.as_view()),
-    path('token-verify/', verify_token)
+    path('token-verify/', VerifyToken.as_view()),
+    path('get-cities/', CitiesByCountry.as_view()),
+    *router.urls
 ]
