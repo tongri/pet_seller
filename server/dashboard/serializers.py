@@ -16,16 +16,10 @@ class LoginUserSerializer(serializers.Serializer):
 
 
 class RegSerializer(serializers.ModelSerializer):
-    password_confirm = serializers.CharField()
 
     class Meta:
         fields = '__all__'
         model = MyUser
-
-    def validate(self, data):
-        if data['password'] != data['password_confirm']:
-            raise serializers.ValidationError('passwords must match')
-        return data
 
     def create(self, validated_data):
         user = MyUser.objects.create_user(username=validated_data['username'], password=validated_data['password'])
