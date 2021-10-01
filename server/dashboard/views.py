@@ -2,11 +2,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.decorators import action
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
+from .custom_health_permission import OwnHealthPermission
 from .custom_pet_permission import OwnPetPermission
 from .models import Pet, MyUser, Health
 # Create your views here.
@@ -78,7 +79,7 @@ class CitiesByCountry(APIView): # view to get cities according to country
 class HealthModelViewSet(ModelViewSet):
     serializer_class = HealthSerializer
     queryset = Health.objects.all()
-    #permission_classes =
+    permission_classes = (OwnHealthPermission, )
 
 
 class PetModelViewSet(ModelViewSet):
@@ -91,11 +92,11 @@ class PetModelViewSet(ModelViewSet):
             return DetailPetSerializer
         return super().get_serializer_class()
 
-    '''def filter_queryset(self, queryset):
+    def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated and self.request.method in SAFE_METHODS:
             queryset = queryset.exclude(owner=self.request.user)
-        return queryset'''
+        return queryset
 
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
     def get_my_ads(self, request):
