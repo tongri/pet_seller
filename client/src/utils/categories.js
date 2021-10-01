@@ -17,7 +17,7 @@ const getTags = (category, value) => {
         size: 'fas fa-ruler',
         breed: 'fas fa-paw',
     }
-    console.log(category, value)
+
     if (!(category in ICONS)) {
         return
     }

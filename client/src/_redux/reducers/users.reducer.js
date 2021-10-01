@@ -7,7 +7,7 @@ import {
 } from '../types'
 
 const initialState = {
-    token: localStorage.getItem('usr_token'),
+    token: localStorage.getItem('usr_token') || null,
     isAuthenticated: false,
     isLoading: false,
     user: null,
