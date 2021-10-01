@@ -8,7 +8,7 @@ import {
 
 const initialState = {
     token: localStorage.getItem('usr_token'),
-    isAuthenticated: true,
+    isAuthenticated: false,
     isLoading: false,
     user: null,
     recentlyViewed: null,

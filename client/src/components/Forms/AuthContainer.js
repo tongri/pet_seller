@@ -1,5 +1,7 @@
-import SignInForm from './SignInForm'
-import SignUpForm from './SignUpForm'
+import { lazy } from 'react'
+
+const SignInForm = lazy(() => import('./SignInForm'))
+const SignUpForm = lazy(() => import('./SignUpForm'))
 
 const AuthContainer = () => {
     return (
@@ -70,11 +72,11 @@ const AuthContainer = () => {
                         </div>
                         <div className="d-flex flex-column mt-3 gap-2">
                             <button className="btn btn-outline-dark flex-fill align-items-center d-flex justify-content-center gap-1">
-                                <i class="fab fa-facebook-f fa-2x text-primary"></i>
+                                <i className="fab fa-facebook-f fa-2x text-primary"></i>
                                 Continue with Facebook
                             </button>
                             <button className="btn btn-outline-dark flex-fill align-items-center d-flex justify-content-center gap-1">
-                                <i class="fab fa-google fa-2x text-success"></i>
+                                <i className="fab fa-google fa-2x text-success"></i>
                                 Continue with Google
                             </button>
                         </div>

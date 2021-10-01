@@ -12,6 +12,7 @@ import {
 // @method  POST
 export const loginUser = (data) => async (dispatch, getState) => {
     dispatch({ type: USER_LOADING })
+    console.log(process.env.REACT_APP_BASE_URL)
 
     try {
         const result = await axios.post(

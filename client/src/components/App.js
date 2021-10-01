@@ -1,5 +1,7 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { verifyToken } from '_redux/actions/users.action'
 
 import PrivateRoute from 'routes/PrivateRoute'
 import PublicRoute from 'routes/PublicRoute'
@@ -12,6 +14,11 @@ const AdMore = lazy(() => import('pages/AdMore'))
 const Liked = lazy(() => import('pages/Liked'))
 
 const App = () => {
+    const dsp = useDispatch()
+
+    // eslint-disable-next-line
+    useEffect(() => dsp(verifyToken()), [])
+
     return (
         <BrowserRouter>
             <Suspense fallback={<p>Loading...</p>}>

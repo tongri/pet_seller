@@ -26,7 +26,7 @@ const SignUpForm = () => {
                     value={formValues.username}
                     onChange={(e) => inputHandler(e)}
                 />
-                <label className="form-label mb-0" for="form1Example1">
+                <label className="form-label mb-0" htmlFor="form1Example1">
                     Username
                 </label>
             </div>
@@ -40,7 +40,7 @@ const SignUpForm = () => {
                     value={formValues.password}
                     onChange={(e) => inputHandler(e)}
                 />
-                <label className="form-label mb-0" for="form1Example2">
+                <label className="form-label mb-0" htmlFor="form1Example2">
                     Password
                 </label>
             </div>
