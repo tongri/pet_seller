@@ -7,6 +7,7 @@ from dashboard.views import CreateAuth
 
 router = routers.SimpleRouter()
 router.register(r'pets', PetModelViewSet)
+router.register(r'user', MyUserModelViewSet)
 
 
 urlpatterns = [

@@ -1,15 +1,16 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
+from .custom_account_permission import OwnAccountPermission
 from .custom_pet_permission import OwnPetPermission
 from .models import Pet, MyUser
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer
 from pet import settings
@@ -87,6 +88,7 @@ class PetModelViewSet(ModelViewSet):
         return queryset
 
 
-class MyUserModelViewSet(ModelViewSet):
+class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
+    permission_classes = (OwnAccountPermission, )
     serializer_class = MyUserSerializer
     queryset = MyUser.objects.all()
