@@ -1,18 +1,21 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from rest_framework.decorators import action
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
 from .custom_pet_permission import OwnPetPermission
-from .models import Pet, MyUser
+from .models import Pet, MyUser, Health
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
-from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer
+from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer, \
+    HealthSerializer
 from pet import settings
 
 
@@ -52,12 +55,13 @@ class CustomAuthToken(ObtainAuthToken):
 class VerifyToken(APIView):
 
     def post(self, request):
-        user = request.auth.user
-        if user.is_authenticated:
+        if request.auth is not None and request.auth.user:
+            user = request.auth.user
             return Response({
                 'username': user.username,
                 'token': user.auth_token.key
             })
+        return Response({'user': None})
 
 
 class CitiesByCountry(APIView): # view to get cities according to country
@@ -71,6 +75,12 @@ class CitiesByCountry(APIView): # view to get cities according to country
         return Response({'data': None})
 
 
+class HealthModelViewSet(ModelViewSet):
+    serializer_class = HealthSerializer
+    queryset = Health.objects.all()
+    #permission_classes =
+
+
 class PetModelViewSet(ModelViewSet):
     serializer_class = PetSerializer
     queryset = Pet.objects.all()
@@ -81,11 +91,16 @@ class PetModelViewSet(ModelViewSet):
             return DetailPetSerializer
         return super().get_serializer_class()
 
-    def filter_queryset(self, queryset):
+    '''def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
         if self.request.user.is_authenticated:
             queryset = queryset.exclude(owner=self.request.user)
-        return queryset
+        return queryset'''
+
+    @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
+    def get_my_ads(self, request):
+        ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), many=True)
+        return Response({'data': ser.data})
 
 
 class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
