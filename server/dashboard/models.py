@@ -31,18 +31,6 @@ class Pet(models.Model):
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     )
-    HEALTHY = 'H'
-    ILL = 'I'
-    HEALTH_CHOICES = (
-        (HEALTHY, 'Healthy'),
-        (ILL, 'Ill')
-    )
-    FEARFULNESS = 'F'
-    RABIES = 'R'
-    DISORDER_CHOICES = (
-        (FEARFULNESS, 'Fearfulness'),
-        (RABIES, 'Rabies')
-    )
     UKRAINE = 'U'
     POLAND = 'P'
     COUNTRY_CHOICES = (
@@ -57,11 +45,27 @@ class Pet(models.Model):
     days = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(365)])
     breed = models.CharField(max_length=40, blank=True)
     bio = models.TextField()
+    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES)
+    city = models.CharField(max_length=20)
+
+
+class Health(models.Model):
+    HEALTHY = 'H'
+    ILL = 'I'
+    HEALTH_CHOICES = (
+        (HEALTHY, 'Healthy'),
+        (ILL, 'Ill')
+    )
+    FEARFULNESS = 'F'
+    RABIES = 'R'
+    DISORDER_CHOICES = (
+        (FEARFULNESS, 'Fearfulness'),
+        (RABIES, 'Rabies')
+    )
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     vaccination = models.CharField(max_length=40, blank=True)
     allergies = models.CharField(max_length=40, blank=True)
     state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True)
     disease = models.TextField(blank=True)
     behaviour_disorders = models.CharField(max_length=1, choices=DISORDER_CHOICES, blank=True)
     disorders_description = models.TextField(blank=True)
-    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES)
-    city = models.CharField(max_length=20)

@@ -18,6 +18,3 @@ class OwnPetPermission(BasePermission):
             else:
                 return True if pet.owner == request.user or request.user.is_superuser else False
         return True
-
-
-# create, update, partial_update, destroy
