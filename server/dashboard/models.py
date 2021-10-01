@@ -13,7 +13,8 @@ class MyUser(AbstractUser):
         (POLAND, 'Poland')
     )
     username = models.CharField(max_length=20, unique=True)
-    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True)
+    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'^[+]*[0-9]{9,14}$')],
+                              blank=True, null=True)
     country = models.CharField(max_length=1, choices=COUNTRY_CHOICES, blank=True)
     city = models.CharField(max_length=20, blank=True)
 
@@ -62,7 +63,7 @@ class Health(models.Model):
         (FEARFULNESS, 'Fearfulness'),
         (RABIES, 'Rabies')
     )
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    pet = models.OneToOneField(Pet, on_delete=models.CASCADE)
     vaccination = models.CharField(max_length=40, blank=True)
     allergies = models.CharField(max_length=40, blank=True)
     state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True)
