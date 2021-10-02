@@ -46,6 +46,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 user: null,
                 token: null,
+                isAuthenticated: false,
             }
         case RECENTLY_VIEWED_LOADING:
             return {

@@ -1,16 +1,12 @@
 import { useDispatch } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { logoutUser } from '_redux/actions/users.action'
 import Heart from 'components/Icons/Heart'
 
 const AuthenticatedNavbar = () => {
     const dsp = useDispatch()
-    // const history = useHistory()
 
-    const logoutHandler = () => {
-        dsp(logoutUser())
-        // history.push('/')
-    }
+    const logoutHandler = () => dsp(logoutUser())
 
     return (
         <ul className="navbar-nav d-flex align-items-center gap-2">
@@ -59,7 +55,9 @@ const AuthenticatedNavbar = () => {
                 </ul>
             </li>
             <li className="nav-item">
-                <button className="btn btn-warning">Create ad</button>
+                <Link to="/ad/create/" className="btn btn-warning">
+                    Create ad
+                </Link>
             </li>
         </ul>
     )

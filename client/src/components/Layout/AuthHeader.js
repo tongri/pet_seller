@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const AuthHeader = () => {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
@@ -14,4 +14,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default AuthHeader
