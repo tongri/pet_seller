@@ -1,27 +1,38 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { filterPets } from '_redux/actions/pets.action'
 
-const Select = ({ name, title, options }) => {
+const Select = ({
+    name,
+    title,
+    options,
+    disabled = false,
+    onChange,
+    dflt = 'All',
+    startFromFirstOption = false,
+    className = '',
+}) => {
     const [val, setVal] = useState('none')
-    const dsp = useDispatch()
 
     const changeHandler = (e) => {
         setVal(e.target.value)
-
-        dsp(filterPets(val))
+        onChange(e)
     }
+
     return (
-        <div className="form-outline">
-            <label htmlFor={name}>{title}</label>
+        <div className={`form-outline ${className}`}>
+            {title && (
+                <label className="text-muted" htmlFor={name}>
+                    {title}
+                </label>
+            )}
             <select
                 name={name}
                 id={name}
                 className="form-select"
                 value={val}
                 onChange={changeHandler}
+                disabled={disabled}
             >
-                <option value="none">All</option>
+                {!startFromFirstOption && <option value="none">{dflt}</option>}
                 {options
                     .filter(
                         (value, index, self) => self.indexOf(value) === index

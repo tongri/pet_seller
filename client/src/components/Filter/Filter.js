@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux'
+import { filterPets } from '_redux/actions/pets.action'
+
 import Search from './Search'
 import Select from '../Forms/Select'
 
@@ -11,6 +14,9 @@ const LIST_OF_FILTERS = [
 ]
 
 const Filter = ({ filters }) => {
+    const dsp = useDispatch()
+    const changeHandler = (val) => dsp(filterPets(val))
+
     return (
         <div>
             <Search />
@@ -28,6 +34,7 @@ const Filter = ({ filters }) => {
                             key={key}
                             {...filt}
                             options={filters[filt.name]}
+                            onChange={changeHandler}
                         />
                     ))}
                 </div>

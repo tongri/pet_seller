@@ -13,17 +13,12 @@ const Photo = ({ main = false, value, ...rest }) => {
             <div
                 className={` ${
                     main && 'text-light'
-                } card-body align-items-center d-flex fw-bold`}
+                } card-body align-items-center d-flex fw-bold justify-content-center`}
             >
-                Main Photo
+                {value ? 'Uploaded' : `${main ? 'Main' : ''} Photo`}
             </div>
             {/* I HAVE NO FUCKING IDEA HOW THE HELL THIS IS WORKING... */}
-            <input
-                type="file"
-                style={{ display: 'none' }}
-                value={value.filename}
-                {...rest}
-            />
+            <input type="file" style={{ display: 'none' }} {...rest} />
         </label>
     )
 }
