@@ -1,7 +1,7 @@
 import AdList from 'components/Ads/AdList'
 import { useSelector } from 'react-redux'
 
-import useFetch from 'hooks/useFetch'
+// import useFetch from 'hooks/useFetch'
 
 const AdsActive = () => {
     // const { data, isLoading, isError } = useFetch('/api/v1/my-pets/')[0]

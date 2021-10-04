@@ -7,7 +7,6 @@ import {
     MDBDropdownMenu,
     MDBDropdownItem,
     MDBDropdownDivider,
-    MDBDropdownLink,
 } from 'mdb-react-ui-kit'
 
 import { logoutUser } from '_redux/actions/users.action'

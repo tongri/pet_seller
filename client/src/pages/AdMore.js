@@ -1,5 +1,8 @@
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
+
+import addAd from 'utils/rviewed'
 
 import Header from 'components/Layout/Header'
 import Carousel from 'components/Utils/Carousel'
@@ -39,6 +42,11 @@ const AdMore = () => {
         ...tags
     } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
 
+    useEffect(() => {
+        console.log('USE EFFECT')
+        addAd(id)
+    }, [id])
+
     return (
         <>
             <Header />
@@ -56,11 +64,11 @@ const AdMore = () => {
                                 <Heart className="fa-lg" id={id} />
                             </div>
                             {username === author && (
-                                <div className="col-md-4 col-lg-4 col-sm-12 d-flex justify-content-between gap-3">
+                                <div className="col-md-4 col-lg-4 col-sm-12 d-flex flex-wrap justify-content-between gap-3">
                                     {isActive ? (
-                                        <Active className="w-100" />
+                                        <Active className="flex-fill" />
                                     ) : (
-                                        <Inactive className="w-100" />
+                                        <Inactive className="flex-fill" />
                                     )}
                                 </div>
                             )}

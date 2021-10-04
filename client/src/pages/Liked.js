@@ -11,6 +11,7 @@ import {
 
 import Header from 'components/Layout/Header'
 import Watchlist from 'components/User/Watchlist'
+import RecentlyViewed from 'components/User/RecentlyViewed'
 
 const Liked = () => {
     // const { data, isLoading, isError } = useFetch('/api/v1/users/favourite/')[0]
@@ -56,7 +57,7 @@ const Liked = () => {
                     <Watchlist list={pets} />
                 </MDBTabsPane>
                 <MDBTabsPane show={tabActive === 'tab2'}>
-                    Tab content 2...
+                    <RecentlyViewed />
                 </MDBTabsPane>
             </MDBTabsContent>
         </>
