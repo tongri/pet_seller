@@ -16,7 +16,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer, \
-    HealthSerializer
+    HealthSerializer, PetIdSerializer
 from pet import settings
 
 
@@ -104,6 +104,15 @@ class PetModelViewSet(ModelViewSet):
     def get_my_ads(self, request):
         ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), many=True)
         return Response({'data': ser.data})
+
+    @action(methods=('post', ), detail=False)
+    def get_recently_viewed(self, request):
+        ser = PetIdSerializer(data=request.data)
+        if ser.is_valid():
+            pets = Pet.objects.filter(id__in=ser.data.get('ids'))
+            pets_serialized = DetailPetSerializer(pets, many=True)
+            return Response({'data': pets_serialized.data})
+        return Response({'errors': ser.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
