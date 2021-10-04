@@ -44,6 +44,10 @@ class PetSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PetIdSerializer(serializers.Serializer):
+    ids = serializers.ListField(child=serializers.IntegerField())
+
+
 class DetailPetSerializer(serializers.ModelSerializer):
     owner = MyUserSerializer()
     health = HealthSerializer()
