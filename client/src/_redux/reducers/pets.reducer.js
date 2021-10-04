@@ -20,6 +20,8 @@ const _temp_list = [
         favourite: false,
         breed: 'Siamese',
         biography: 'Lorem ipsum...',
+        author: 'test1',
+        isActive: true,
         health: {
             vac: 'Distemper',
             alg: 'Food allergy',
@@ -45,6 +47,8 @@ const _temp_list = [
         favourite: true,
         breed: 'Dog',
         biography: 'Lorem ipsum...',
+        author: 'test1',
+        isActive: false,
         health: {
             vac: 'Distemper',
             alg: 'None',

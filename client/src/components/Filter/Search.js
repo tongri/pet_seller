@@ -1,17 +1,10 @@
-import React from 'react'
+import { MDBInput } from 'mdb-react-ui-kit'
 
 const Search = () => {
     return (
         <div className="card form-outline bg-white">
             <i className="fas fa-search trailing"></i>
-            <input
-                type="text"
-                id="form1"
-                className="form-control form-icon-trailing"
-            />
-            <label className="form-label" htmlFor="form1">
-                Search
-            </label>
+            <MDBInput name="search" label="Search" />
         </div>
     )
 }

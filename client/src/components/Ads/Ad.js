@@ -1,11 +1,23 @@
 import { Link } from 'react-router-dom'
-import CatImage from 'assets/images/cat.jpg'
 
+import CatImage from 'assets/images/cat.jpg'
 import Heart from 'components/Icons/Heart'
+
+import Active from 'components/Buttons/Active'
+import Inactive from 'components/Buttons/Inactive'
 
 import TagList from './TagList'
 
-const Ad = ({ id, city, date, name, favourite, ...tags }) => {
+const Ad = ({
+    id,
+    city,
+    date,
+    name,
+    favourite,
+    isOwner = false,
+    isActive = true,
+    ...tags
+}) => {
     return (
         <div className="card mb-3">
             <div className="row g-0">
@@ -13,8 +25,8 @@ const Ad = ({ id, city, date, name, favourite, ...tags }) => {
                     <img
                         src={CatImage}
                         alt="Pet"
-                        className="img-thumbnail"
-                        style={{ height: '100%' }}
+                        className="rounded w-100 h-100"
+                        style={{ objectFit: 'cover' }}
                     />
                 </div>
                 <div className="col-md-10 col-sm-6">
@@ -29,7 +41,7 @@ const Ad = ({ id, city, date, name, favourite, ...tags }) => {
                                     </Link>
                                 </div>
                                 <div className="col text-end">
-                                    <Heart id={id} />
+                                    {!isOwner && <Heart id={id} />}
                                 </div>
                             </div>
 
@@ -37,10 +49,10 @@ const Ad = ({ id, city, date, name, favourite, ...tags }) => {
                         </div>
 
                         <div
-                            className="row p-0 g-0 mt-5 mb-0"
+                            className="row p-0 g-0 mt-5 mb-0 align-items-center"
                             style={{ fontSize: '0.85rem' }}
                         >
-                            <div className="col text-custom-gray gap-2">
+                            <div className="col text-muted gap-2">
                                 <span className="md-3">
                                     <i className="fas fa-map-marker-alt"></i>{' '}
                                     {city}
@@ -49,6 +61,15 @@ const Ad = ({ id, city, date, name, favourite, ...tags }) => {
                                     <i className="far fa-clock"></i> {date}
                                 </span>
                             </div>
+                            {isOwner && isActive ? (
+                                <div className="col d-flex justify-content-end gap-2">
+                                    <Active />
+                                </div>
+                            ) : isOwner && !isActive ? (
+                                <div className="col d-flex justify-content-end gap-2">
+                                    <Inactive />
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
 import Header from 'components/Layout/Header'
@@ -7,8 +6,8 @@ import Carousel from 'components/Utils/Carousel'
 
 import Heart from 'components/Icons/Heart'
 import TagList from 'components/Ads/TagList'
-
-import { loadRecentlyViewed } from '_redux/actions/users.action'
+import Active from 'components/Buttons/Active'
+import Inactive from 'components/Buttons/Inactive'
 
 // name: 'Onix',
 // country: 'Ukraine',
@@ -24,6 +23,7 @@ import { loadRecentlyViewed } from '_redux/actions/users.action'
 
 const AdMore = () => {
     const { id } = useParams()
+    const username = useSelector((state) => state.users.username)
     // TODO: Fetch info from server
     const {
         name,
@@ -34,14 +34,10 @@ const AdMore = () => {
         favourite,
         health,
         biography,
+        isActive,
+        author,
         ...tags
     } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
-    const dsp = useDispatch()
-
-    // TODO: Remove to another place
-    // Retrieve recently viewed ads
-    // eslint-disable-next-line
-    useEffect(() => dsp(loadRecentlyViewed()), [])
 
     return (
         <>
@@ -54,11 +50,20 @@ const AdMore = () => {
                                 <i className="far fa-clock"></i> {date}
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row justify-content-between">
                             <div className="col-md-2 col-lg-2 col-sm-3">
                                 <span className="h3 me-2">{name}</span>{' '}
                                 <Heart className="fa-lg" id={id} />
                             </div>
+                            {username === author && (
+                                <div className="col-md-4 col-lg-4 col-sm-12 d-flex justify-content-between gap-3">
+                                    {isActive ? (
+                                        <Active className="w-100" />
+                                    ) : (
+                                        <Inactive className="w-100" />
+                                    )}
+                                </div>
+                            )}
                         </div>
                         <div className="row my-4 justify-content-between">
                             <div className="col-md-8 col-lg-8 col-sm-12">

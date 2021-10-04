@@ -1,5 +1,13 @@
 // import useFetch from 'hooks/useFetch'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import {
+    MDBTabs,
+    MDBTabsItem,
+    MDBTabsLink,
+    MDBTabsContent,
+    MDBTabsPane,
+} from 'mdb-react-ui-kit'
 
 import Header from 'components/Layout/Header'
 import Watchlist from 'components/User/Watchlist'
@@ -8,6 +16,11 @@ const Liked = () => {
     // const { data, isLoading, isError } = useFetch('/api/v1/users/favourite/')[0]
 
     const pets = useSelector((state) => state.pets.list)
+    const [tabActive, setTabActive] = useState('tab1')
+    const handleTabClick = (value) => {
+        if (tabActive === value) return
+        setTabActive(value)
+    }
 
     return (
         <>
@@ -15,60 +28,37 @@ const Liked = () => {
 
             <div className="navbar navbar-light bg-light p-0 m-0 g-0">
                 <div className="container">
-                    <ul className="nav nav-tabs" id="ex1" role="tablist">
-                        <li className="nav-item" role="presentation">
-                            <a
-                                href="#ex1-tabs-1"
-                                className="nav-link active"
-                                data-mdb-toggle="tab"
-                                role="tab"
-                                aria-controls="ex1-tabs-1"
-                                aria-selected="true"
+                    <MDBTabs>
+                        <MDBTabsItem>
+                            <MDBTabsLink
+                                onClick={() => handleTabClick('tab1')}
+                                active={tabActive === 'tab1'}
+                                style={{ background: 'transparent' }}
                             >
-                                Watchlist
-                            </a>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <a
-                                href="#ex1-tabs-2"
-                                className="nav-link"
-                                data-mdb-toggle="tab"
-                                role="tab"
-                                aria-controls="ex1-tabs-2"
-                                aria-selected="true"
+                                Whatchlist
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                        <MDBTabsItem>
+                            <MDBTabsLink
+                                onClick={() => handleTabClick('tab2')}
+                                active={tabActive === 'tab2'}
+                                style={{ background: 'transparent' }}
                             >
                                 Recently viewed
-                            </a>
-                        </li>
-                    </ul>
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                    </MDBTabs>
                 </div>
             </div>
 
-            <div className="tab-content" id="ex1-content">
-                <div
-                    className="tab-pane fade show active"
-                    id="ex1-tabs-1"
-                    role="tabpanel"
-                    aria-labelledby="ex1-tab-1"
-                >
-                    {/* {isLoading ? (
-                        <p>Loading...</p>
-                    ) : isError ? (
-                        <p>Error occured...</p>
-                    ) : (
-                        <Watchlist list={data} />
-                    )} */}
+            <MDBTabsContent>
+                <MDBTabsPane show={tabActive === 'tab1'}>
                     <Watchlist list={pets} />
-                </div>
-                <div
-                    className="tab-pane fade show"
-                    id="ex1-tabs-2"
-                    role="tabpanel"
-                    aria-labelledby="ex1-tab-2"
-                >
-                    Tab 2 content
-                </div>
-            </div>
+                </MDBTabsPane>
+                <MDBTabsPane show={tabActive === 'tab2'}>
+                    Tab content 2...
+                </MDBTabsPane>
+            </MDBTabsContent>
         </>
     )
 }

@@ -22,8 +22,7 @@ const Reducer = (state = initialState, action) => {
             localStorage.setItem('usr_token', action.payload.token)
             return {
                 ...state,
-                token: action.payload.token,
-                user: action.payload.user,
+                ...action.payload,
                 isAuthenticated: true,
                 isLoading: false,
             }
