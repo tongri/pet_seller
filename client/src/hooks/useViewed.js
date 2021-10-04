@@ -18,8 +18,8 @@ const useViewed = () => {
 
             try {
                 const result = await axios.post(
-                    '/api/v1/something/',
-                    list,
+                    '/api/v1/pets/get_recently_viewed/',
+                    { ids: list },
                     getConfigByToken(token)
                 )
 

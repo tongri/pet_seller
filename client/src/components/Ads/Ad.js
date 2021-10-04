@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-import CatImage from 'assets/images/cat.jpg'
 import Heart from 'components/Icons/Heart'
 
 import Active from 'components/Buttons/Active'
@@ -23,10 +22,10 @@ const Ad = ({
             <div className="row g-0">
                 <div className="col-md-2 col-sm-6">
                     <img
-                        src={CatImage}
+                        src={tags.images[0]}
                         alt="Pet"
                         className="rounded w-100 h-100"
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                     />
                 </div>
                 <div className="col-md-10 col-sm-6">

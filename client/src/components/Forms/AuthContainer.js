@@ -1,9 +1,23 @@
-import { lazy } from 'react'
+import { useState, lazy } from 'react'
+import {
+    MDBTabs,
+    MDBTabsItem,
+    MDBTabsLink,
+    MDBTabsContent,
+    MDBTabsPane,
+} from 'mdb-react-ui-kit'
 
 const SignInForm = lazy(() => import('./SignInForm'))
 const SignUpForm = lazy(() => import('./SignUpForm'))
 
 const AuthContainer = () => {
+    const [activeTab, setActiveTab] = useState('tab1')
+
+    const handleActiveTab = (val) => {
+        if (activeTab === val) return
+        setActiveTab(val)
+    }
+
     return (
         <div
             className="row justify-content-center align-items-center"
@@ -11,58 +25,32 @@ const AuthContainer = () => {
         >
             <div className="card col-md-4 col-sm-6">
                 <div className="card-body">
-                    <ul
-                        className="nav nav-tabs nav-fill mb-3 d-flex"
-                        id="ex1"
-                        role="tablist"
-                    >
-                        <li className="nav-item" role="presentation">
-                            <a
-                                className="nav-link active"
-                                id="ex1-tab-1"
-                                data-mdb-toggle="tab"
-                                href="#ex1-tabs-1"
-                                role="tab"
-                                aria-controls="ex1-tabs-1"
-                                aria-selected="true"
+                    <MDBTabs className="mb-3" fill>
+                        <MDBTabsItem>
+                            <MDBTabsLink
+                                active={activeTab === 'tab1'}
+                                onClick={() => handleActiveTab('tab1')}
                             >
-                                Sign in
-                            </a>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <a
-                                className="nav-link"
-                                id="ex1-tab-2"
-                                data-mdb-toggle="tab"
-                                href="#ex1-tabs-2"
-                                role="tab"
-                                aria-controls="ex1-tabs-2"
-                                aria-selected="false"
+                                Log in
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                        <MDBTabsItem>
+                            <MDBTabsLink
+                                active={activeTab === 'tab2'}
+                                onClick={() => handleActiveTab('tab2')}
                             >
                                 Sign up
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div className="tab-content" id="ex1-content">
-                        <div
-                            className="tab-pane fade show active"
-                            id="ex1-tabs-1"
-                            role="tabpanel"
-                            aria-labelledby="ex1-tab-1"
-                        >
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                    </MDBTabs>
+                    <MDBTabsContent>
+                        <MDBTabsPane show={activeTab === 'tab1'}>
                             <SignInForm />
-                        </div>
-
-                        <div
-                            className="tab-pane fade show"
-                            id="ex1-tabs-2"
-                            role="tabpanel"
-                            aria-labelledby="ex1-tab-2"
-                        >
+                        </MDBTabsPane>
+                        <MDBTabsPane show={activeTab === 'tab2'}>
                             <SignUpForm />
-                        </div>
-                    </div>
+                        </MDBTabsPane>
+                    </MDBTabsContent>
 
                     <div className="extra-options">
                         <div className="d-flex align-items-center mt-3">
