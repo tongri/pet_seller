@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
+from .custom_exceptions import NoFiles
 from .custom_health_permission import OwnHealthPermission
 from .custom_pet_permission import OwnPetPermission
 from .models import Pet, MyUser, Health, ImagePet
@@ -107,7 +108,8 @@ class PetModelViewSet(ModelViewSet):
             instance = Pet.objects.get(id=serializer.data.get('id'))
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                          .getlist('files')])
-        return Response({'errors': 'pet must have images'}, status=status.HTTP_400_BAD_REQUEST)
+        raise NoFiles
+
 
     def perform_update(self, serializer):
         if self.request.method == 'put':
@@ -117,7 +119,7 @@ class PetModelViewSet(ModelViewSet):
                 ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                              .getlist('files')])
             else:
-                return Response({'errors': 'pet must have images'}, status=status.HTTP_400_BAD_REQUEST)
+                raise NoFiles
         else:
             super().perform_update(serializer)
 
