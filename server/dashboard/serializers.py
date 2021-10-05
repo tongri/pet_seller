@@ -58,6 +58,7 @@ class DetailPetSerializer(serializers.ModelSerializer):
     owner = MyUserSerializer()
     health = HealthSerializer()
     images = ImagePetHyperlinked(many=True)
+    birthday = serializers.CharField()
 
     class Meta:
         model = Pet

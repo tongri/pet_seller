@@ -1,8 +1,11 @@
+import datetime as dt
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.db import models
-
+from dateutil.relativedelta import relativedelta
 # Create your models here.
+from django.utils import timezone
 
 
 class MyUser(AbstractUser):
@@ -18,7 +21,7 @@ class MyUser(AbstractUser):
     city = models.CharField(max_length=20, blank=True, null=True)
     first_name = models.CharField(max_length=20, null=True)
     last_name = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=20, null=True)
+    email = models.EmailField(max_length=20, null=True)
 
 
 class Pet(models.Model):
@@ -40,6 +43,14 @@ class Pet(models.Model):
         (UKRAINE, 'Ukraine'),
         (POLAND, 'Poland')
     )
+    S_SIZE = 'S'
+    M_SIZE = 'M'
+    L_SIZE = 'L'
+    SIZES = (
+        (S_SIZE, S_SIZE),
+        (M_SIZE, M_SIZE),
+        (L_SIZE, L_SIZE)
+    )
     owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     kind_of_animal = models.CharField(max_length=3, choices=ANIMALS_CHOICES)
@@ -50,6 +61,12 @@ class Pet(models.Model):
     bio = models.TextField()
     country = models.CharField(max_length=1, choices=COUNTRY_CHOICES)
     city = models.CharField(max_length=20)
+    date = models.DateField(auto_now_add=True)
+    size = models.CharField(max_length=1, default=M_SIZE)
+
+    @property
+    def birthday(self):
+        return dt.date.today() - relativedelta(years=self.age, days=self.days)
 
 
 class ImagePet(models.Model):
