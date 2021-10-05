@@ -1,17 +1,10 @@
-import {
-    USER_SUCCESS,
-    USER_FAILED,
-    USER_LOADING,
-    RECENTLY_VIEWED_SUCCESS,
-    RECENTLY_VIEWED_LOADING,
-    USER_LOGOUT,
-} from '../types'
+import { USER_SUCCESS, USER_FAILED, USER_LOADING, USER_LOGOUT } from '../types'
 
 const initialState = {
     token: localStorage.getItem('usr_token') || null,
     isAuthenticated: false,
     isLoading: false,
-    user: null,
+    username: null,
     recentlyViewed: null,
     recentlyViewedLoading: false,
 }
@@ -30,7 +23,7 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: null,
-                user: null,
+                username: null,
                 isLoading: false,
                 isAuthenticated: false,
             }
@@ -43,20 +36,9 @@ const Reducer = (state = initialState, action) => {
             localStorage.removeItem('usr_token')
             return {
                 ...state,
-                user: null,
+                username: null,
                 token: null,
                 isAuthenticated: false,
-            }
-        case RECENTLY_VIEWED_LOADING:
-            return {
-                ...state,
-                recentlyViewedLoading: true,
-            }
-        case RECENTLY_VIEWED_SUCCESS:
-            return {
-                ...state,
-                recentlyViewedLoading: false,
-                recentlyViewed: action.payload,
             }
         default:
             return state

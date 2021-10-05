@@ -26,7 +26,7 @@ import Inactive from 'components/Buttons/Inactive'
 
 const AdMore = () => {
     const { id } = useParams()
-    const username = useSelector((state) => state.users.username)
+    const { isAuthenticated, username } = useSelector((state) => state.users)
     // TODO: Fetch info from server
     const {
         name,
@@ -42,10 +42,7 @@ const AdMore = () => {
         ...tags
     } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
 
-    useEffect(() => {
-        console.log('USE EFFECT')
-        addAd(id)
-    }, [id])
+    useEffect(() => addAd(id), [id])
 
     return (
         <>
@@ -63,7 +60,7 @@ const AdMore = () => {
                                 <span className="h3 me-2">{name}</span>{' '}
                                 <Heart className="fa-lg" id={id} />
                             </div>
-                            {username === author && (
+                            {isAuthenticated && username === author && (
                                 <div className="col-md-4 col-lg-4 col-sm-12 d-flex flex-wrap justify-content-between gap-3">
                                     {isActive ? (
                                         <Active className="flex-fill" />

@@ -12,18 +12,19 @@ const useViewed = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const list = sessionStorage.getItem(STORAGE_VIEWED) || []
+            const list = sessionStorage.getItem(STORAGE_VIEWED) || ''
+            const res_list = list.split(',').filter((el) => el !== '')
 
-            if (list.length === 0) return
+            if (res_list.length === 0) return
 
             try {
                 const result = await axios.post(
                     '/api/v1/pets/get_recently_viewed/',
-                    { ids: list },
+                    { ids: res_list },
                     getConfigByToken(token)
                 )
 
-                setAds(result.data)
+                setAds(result.data.data)
             } catch (err) {
                 return
             }
