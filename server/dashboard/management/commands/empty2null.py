@@ -10,7 +10,7 @@ class Command(BaseCommand):
         check_related = [OneToOneRel, ManyToOneRel, ForeignKey, AnotherOne]
         for instance in model.objects.all():
             fields = [i.name for i in model._meta.get_fields() if type(i) not in check_related and
-                      not getattr(instance, i.name)]
+                      (not getattr(instance, i.name) and getattr(instance, i.name) != False)]
             for field in fields:
                 setattr(instance, field, None)
             instance.save()
