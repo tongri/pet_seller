@@ -19,6 +19,7 @@ class MyUser(AbstractUser):
     first_name = models.CharField(max_length=20, null=True)
     last_name = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=20, null=True)
+    is_superuser = models.BooleanField(null=True)
 
 
 class Pet(models.Model):

@@ -102,14 +102,22 @@ class PetModelViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
-            instance = super().perform_create(serializer)
-            ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request.files
+            super().perform_create(serializer)
+            instance = Pet.objects.get(id=serializer.data.get('id'))
+            ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                          .getlist('files')])
 
-
     def perform_update(self, serializer):
-        x = 5
-        super().perform_update()
+        if self.request.method == 'put':
+            if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
+                super().perform_update(serializer)
+                instance = Pet.objects.get(id=serializer.data.get('id'))
+                ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
+                                             .getlist('files')])
+            else:
+                return Response({'errors': 'pet must have images'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            super().perform_update(serializer)
 
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
     def get_my_ads(self, request):
