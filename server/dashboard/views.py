@@ -27,6 +27,12 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
+@receiver(post_save, sender=Pet)
+def create_health_pet(sender, instance=None, created=False, **kwargs):
+    if created:
+        Health.objects.create(pet=instance)
+
+
 class CreateAuth(APIView):  # creating new user
 
     def post(self, request, *args, **kwargs):
