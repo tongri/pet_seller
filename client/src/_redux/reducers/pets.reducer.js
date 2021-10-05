@@ -22,16 +22,33 @@ const _temp_list = [
         biography: 'Lorem ipsum...',
         author: 'test1',
         isActive: true,
+        contacts: {
+            name: 'Viacheslav',
+            email: 'iskenderov.vsl@gmail.com',
+            phone: '+380950075367',
+            country: 'Ukraine',
+            city: 'Kharkiv',
+        },
+        location: {
+            country: 'Ukraine',
+            city: 'Kharkiv',
+        },
         health: {
             vac: 'Distemper',
             alg: 'Food allergy',
-            gnl: 'Healthy',
-            bhv: 'None',
+            gnr: {
+                state: 'Healthy',
+                desc: '',
+            },
+            bhv: {
+                state: 'None',
+                desc: '',
+            },
         },
-        images: [
-            'https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
-            'https://images.unsplash.com/photo-1494256997604-768d1f608cac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3029&q=80',
-        ],
+        images: {
+            main: 'https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
+            image1: 'https://images.unsplash.com/photo-1494256997604-768d1f608cac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3029&q=80',
+        },
     },
     {
         id: 1,
@@ -49,16 +66,33 @@ const _temp_list = [
         biography: 'Lorem ipsum...',
         author: 'test1',
         isActive: false,
+        contacts: {
+            name: 'Viacheslav',
+            email: 'iskenderov.vsl@gmail.com',
+            phone: '+380950075367',
+            country: 'Russia',
+            city: 'Saint Peterburg',
+        },
+        location: {
+            country: 'Russia',
+            city: 'Moskow',
+        },
         health: {
             vac: 'Distemper',
             alg: 'None',
-            gnl: 'Healthy',
-            bhv: 'None',
+            gnr: {
+                state: 'Healthy',
+                desc: '',
+            },
+            bhv: {
+                state: 'None',
+                desc: '',
+            },
         },
-        images: [
-            'https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=778&q=80',
-            'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1674&q=80',
-        ],
+        images: {
+            main: 'https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=778&q=80',
+            image1: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1674&q=80',
+        },
     },
 ]
 

@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import { MDBInput } from 'mdb-react-ui-kit'
+import useUpdateAd from 'hooks/useUpdateAd'
 
-import useCreateAd from 'hooks/useCreateAd'
+import { MDBInput } from 'mdb-react-ui-kit'
 
 import Header from 'components/Layout/Header'
 import Card from 'components/Layout/Card'
@@ -9,50 +8,26 @@ import Photo from 'components/Forms/Photo'
 import Select from 'components/Forms/Select'
 import AgeInput from 'components/Forms/AgeInput'
 
-const AdCreate = () => {
-    const [form, setForm, setFormAge] = useCreateAd()
-    const [accepted, setAcceptance] = useState(false)
+const AdUpdate = () => {
+    const [form, { setAdData, setAdAge }] = useUpdateAd({
+        testing: true,
+        downloadingURL: '',
+        uploadingURL: '',
+    })
 
-    const setPhoto = (e) => setForm({ e, files: true })
-    const setNested = (e, name) => setForm({ e, nested: true, name })
+    const setPhoto = (e) => setAdData({ e, files: true })
+    const setNested = (e, name) => setAdData({ e, nested: true, name })
     const setNested2 = (e, name, name2) =>
-        setForm({ e, nested: true, nested2: true, name, name2 })
-    const setNotNested = (e) => setForm({ e })
-    const setAge = (value) => setFormAge(value)
+        setAdData({ e, nested: true, nested2: true, name, name2 })
+    const setNotNested = (e) => setAdData({ e })
+    const setAge = (value) => setAdAge(value)
 
     return (
         <>
             <Header />
 
-            <div className="row justify-content-center mt-5 w-100">
+            <div className="row justify-content-center w-100">
                 <div className="col-lg-8 col-md-8 col-sm-12">
-                    <h4 className="m-0">Remember</h4>
-                    <p className="my-3">
-                        Petshome is an ad aggregator, created to connect people
-                        interested in animal adoption with people interested in
-                        finding a host for an animal. This is not a store, but a
-                        platform that helps animals in need find home. We are
-                        not the shop. All sales ads will be deleted without
-                        warning.
-                    </p>
-                    <div className="form-check d-flex">
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={accepted}
-                            id="policies"
-                            onChange={(e) => setAcceptance((state) => !state)}
-                        />
-                        <label
-                            htmlFor="policies"
-                            className="form-check-label small"
-                        >
-                            Check here to indicate that you have read and agree
-                            to the terms of the “Pets Home Agreement", without
-                            this you can't fill form of adding advertisement.
-                        </label>
-                    </div>
-
                     <Card
                         title="Photos*"
                         className="mt-5"
@@ -65,7 +40,6 @@ const AdCreate = () => {
                             value={form.images.main}
                             onChange={setPhoto}
                             required
-                            disabled={!accepted}
                         />
                         <Photo
                             name="image1"
@@ -73,7 +47,6 @@ const AdCreate = () => {
                             value={form.images.image1}
                             onChange={setPhoto}
                             required
-                            disabled={!accepted}
                         />
                         <Photo
                             name="image2"
@@ -81,7 +54,6 @@ const AdCreate = () => {
                             value={form.images.image2}
                             onChange={setPhoto}
                             required
-                            disabled={!accepted}
                         />
                         <Photo
                             name="image3"
@@ -89,9 +61,9 @@ const AdCreate = () => {
                             value={form.images.image3}
                             onChange={setPhoto}
                             required
-                            disabled={!accepted}
                         />
                     </Card>
+
                     <Card
                         title="Description*"
                         className="mt-5"
@@ -102,46 +74,43 @@ const AdCreate = () => {
                             label="Name*"
                             value={form.name}
                             onChange={setNotNested}
-                            disabled={!accepted}
                         />
                         {/* TODO: Redo select */}
                         <Select
                             name="kind"
                             title="Kind of animal*"
                             options={['Cat', 'Dog']}
+                            value={form.kind}
                             onChange={setNotNested}
                             dflt="Choose"
-                            disabled={!accepted}
                         />
                         <Select
                             name="gender"
                             title="Gender*"
                             options={['Male', 'Female']}
                             onChange={setNotNested}
+                            value={form.gender}
                             dflt="Choose"
-                            disabled={!accepted}
                         />
                         <Select
                             name="size"
                             title="Size*"
                             options={['10-30', '30-40']}
                             onChange={setNotNested}
+                            value={form.size}
                             dflt="Choose"
-                            disabled={!accepted}
                         />
                         <AgeInput
                             title="Age*"
                             name="age"
                             onChange={setAge}
-                            disabled={!accepted}
+                            value={form.age}
                         />
-                        {/* TODO: Add age */}
                         <MDBInput
                             name="breed"
                             label="Breed*"
                             value={form.breed}
                             onChange={setNotNested}
-                            disabled={!accepted}
                         />
                     </Card>
                     <Card title="Biography*" className="mt-5">
@@ -153,7 +122,6 @@ const AdCreate = () => {
                             onChange={setNotNested}
                             value={form.biography}
                             name="biography"
-                            disabled={!accepted}
                         />
                         <div className="form-text">Min 40 characters</div>
                     </Card>
@@ -168,7 +136,6 @@ const AdCreate = () => {
                                 name="vac"
                                 value={form.health.vac}
                                 onChange={(e) => setNested(e, 'health')}
-                                disabled={!accepted}
                             />
                             <div className="form-text">
                                 Enter here only title of vaccinations
@@ -179,16 +146,14 @@ const AdCreate = () => {
                             value={form.health.alr}
                             onChange={(e) => setNested(e, 'health')}
                             name="alr"
-                            disabled={!accepted}
                         />
                         <Select
                             title="General state of health"
                             name="state"
                             dflt="Choose"
-                            options={['Health', 'Sick']}
+                            options={['Healthy', 'Sick']}
                             value={form.health.gnr.state}
                             onChange={(e) => setNested2(e, 'health', 'gnr')}
-                            disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the disease of animal"
@@ -196,7 +161,6 @@ const AdCreate = () => {
                             name="dsc"
                             value={form.health.gnr.dsc}
                             onChange={(e) => setNested2(e, 'health', 'gnr')}
-                            disabled={!accepted}
                         />
 
                         <Select
@@ -206,7 +170,6 @@ const AdCreate = () => {
                             name="state"
                             value={form.health.bhv.state}
                             onChange={(e) => setNested2(e, 'health', 'bhv')}
-                            disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the behavioral disorder of animal"
@@ -214,7 +177,6 @@ const AdCreate = () => {
                             name="dsc"
                             value={form.health.bhv.dsc}
                             onChange={(e) => setNested2(e, 'health', 'bhv')}
-                            disabled={!accepted}
                         />
                     </Card>
                     <Card
@@ -228,15 +190,13 @@ const AdCreate = () => {
                             name="country"
                             value={form.location.country}
                             onChange={(e) => setNested(e, 'location')}
-                            disabled={!accepted}
                         />
                         <Select
                             title="City"
-                            options={['Khrakiv', 'Moskow']}
+                            options={['Kharkiv', 'Moskow']}
                             name="city"
                             value={form.location.city}
                             onChange={(e) => setNested(e, 'location')}
-                            disabled={!accepted}
                         />
                     </Card>
                     <Card
@@ -249,7 +209,6 @@ const AdCreate = () => {
                             name="name"
                             value={form.contacts.name}
                             onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
                         />
                         <MDBInput
                             label="Your phone number*"
@@ -257,7 +216,6 @@ const AdCreate = () => {
                             name="phone"
                             value={form.contacts.phone}
                             onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
                         />
                         <MDBInput
                             label="Your email*"
@@ -265,7 +223,6 @@ const AdCreate = () => {
                             name="email"
                             value={form.contacts.email}
                             onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
                         />
                         <Select
                             title="Country"
@@ -273,24 +230,19 @@ const AdCreate = () => {
                             name="country"
                             value={form.contacts.country}
                             onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
                         />
                         <Select
                             title="City"
-                            options={['Khrakiv', 'Moskow']}
+                            options={['Kharkiv', 'Moskow']}
                             name="city"
                             value={form.contacts.city}
                             onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
                         />
                     </Card>
 
                     <div className="row mb-5">
                         <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end mt-5">
-                            <button
-                                className="btn btn-warning btn-lg"
-                                disabled={!accepted}
-                            >
+                            <button className="btn btn-warning btn-lg">
                                 Save
                             </button>
                         </div>
@@ -301,4 +253,4 @@ const AdCreate = () => {
     )
 }
 
-export default AdCreate
+export default AdUpdate

@@ -14,6 +14,7 @@ const AdMore = lazy(() => import('pages/AdMore'))
 const Liked = lazy(() => import('pages/Liked'))
 const AdCreate = lazy(() => import('pages/AdCreate'))
 const Profile = lazy(() => import('pages/Profile'))
+const AdUpdate = lazy(() => import('pages/AdUpdate'))
 
 const App = () => {
     const dsp = useDispatch()
@@ -36,6 +37,9 @@ const App = () => {
                     </PrivateRoute>
                     <PrivateRoute path="/profile">
                         <Profile />
+                    </PrivateRoute>
+                    <PrivateRoute path="/ad/edit/:id/">
+                        <AdUpdate />
                     </PrivateRoute>
                     <Route path="/ad/:id/">
                         <AdMore />

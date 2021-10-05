@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Select = ({
     name,
     title,
+    value,
     options,
     disabled = false,
     onChange,
@@ -10,7 +11,12 @@ const Select = ({
     startFromFirstOption = false,
     className = '',
 }) => {
-    const [val, setVal] = useState('none')
+    const [val, setVal] = useState('None')
+
+    useEffect(() => {
+        console.log(value)
+        if (value) setVal(value)
+    }, [value])
 
     const changeHandler = (e) => {
         setVal(e.target.value)
@@ -32,7 +38,7 @@ const Select = ({
                 onChange={changeHandler}
                 disabled={disabled}
             >
-                {!startFromFirstOption && <option value="none">{dflt}</option>}
+                {!startFromFirstOption && <option value="None">{dflt}</option>}
                 {options
                     .filter(
                         (value, index, self) => self.indexOf(value) === index

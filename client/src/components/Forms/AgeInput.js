@@ -3,9 +3,17 @@ import { useEffect, useState } from 'react'
 import { MDBInput } from 'mdb-react-ui-kit'
 import Select from './Select'
 
-const AgeInput = ({ title, onChange, disabled }) => {
+const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
     const [age, setAge] = useState('')
     const [measure, setMeasure] = useState('days')
+
+    useEffect(() => {
+        if (value) {
+            const tmp = value.split(' ')
+            setAge(tmp[0])
+            setMeasure(tmp[1])
+        }
+    }, [value])
 
     // eslint-disable-next-line
     useEffect(() => onChange(`${age} ${measure}`), [age, measure])
@@ -27,6 +35,7 @@ const AgeInput = ({ title, onChange, disabled }) => {
                     options={['days', 'years']}
                     onChange={(e) => setMeasure(e.target.value)}
                     className="w-100"
+                    value={measure}
                     startFromFirstOption
                     disabled={disabled}
                 />
