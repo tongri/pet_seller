@@ -13,7 +13,6 @@ const useUpdateAd = ({ downloadingURL, uploadingURL, testing }) => {
     const firstAd = useSelector((state) => state.pets.list[0])
 
     useEffect(() => {
-        console.log('USE UPDATE AD')
         const loadAd = async () => {
             try {
                 const result = await axios.get(
@@ -27,6 +26,7 @@ const useUpdateAd = ({ downloadingURL, uploadingURL, testing }) => {
             }
         }
         testing ? setAd(firstAd) : loadAd()
+        // eslint-disable-next-line
     }, [downloadingURL, token])
 
     const save = () => {

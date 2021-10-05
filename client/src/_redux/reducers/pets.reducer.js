@@ -38,11 +38,11 @@ const _temp_list = [
             alg: 'Food allergy',
             gnr: {
                 state: 'Healthy',
-                desc: '',
+                desc: 'Description...',
             },
             bhv: {
                 state: 'None',
-                desc: '',
+                desc: 'Description...',
             },
         },
         images: {
@@ -82,11 +82,11 @@ const _temp_list = [
             alg: 'None',
             gnr: {
                 state: 'Healthy',
-                desc: '',
+                desc: 'Description...',
             },
             bhv: {
                 state: 'None',
-                desc: '',
+                desc: 'Description...',
             },
         },
         images: {

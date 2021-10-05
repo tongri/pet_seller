@@ -22,7 +22,7 @@ const Ad = ({
             <div className="row g-0">
                 <div className="col-md-2 col-sm-6">
                     <img
-                        src={tags.images[0]}
+                        src={tags.images.main}
                         alt="Pet"
                         className="rounded w-100 h-100"
                         style={{ objectFit: 'cover', objectPosition: 'center' }}

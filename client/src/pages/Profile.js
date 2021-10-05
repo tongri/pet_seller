@@ -28,6 +28,7 @@ const Profile = () => {
                     <MDBTabsLink
                         onClick={() => handleTabClick('tab1')}
                         active={tabActive === 'tab1'}
+                        style={{ background: 'transparent' }}
                     >
                         My ads
                     </MDBTabsLink>
@@ -36,6 +37,7 @@ const Profile = () => {
                     <MDBTabsLink
                         onClick={() => handleTabClick('tab2')}
                         active={tabActive === 'tab2'}
+                        style={{ background: 'transparent' }}
                     >
                         Settings
                     </MDBTabsLink>

@@ -12,18 +12,6 @@ import TagList from 'components/Ads/TagList'
 import Active from 'components/Buttons/Active'
 import Inactive from 'components/Buttons/Inactive'
 
-// name: 'Onix',
-// country: 'Ukraine',
-// city: 'Kharkiv',
-// kind: 'Cat',
-// gender: 'Male',
-// size: '30-40cm',
-// age: '0.5 year',
-// health: 'Healthy',
-// date: '10 August',
-// birth_date: '25.06.2020',
-// favourite: false,
-
 const AdMore = () => {
     const { id } = useParams()
     const { isAuthenticated, username } = useSelector((state) => state.users)
@@ -73,7 +61,9 @@ const AdMore = () => {
                         <div className="row my-4 justify-content-between">
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
-                                    <Carousel imageSet={images} />
+                                    <Carousel
+                                        imageSet={Object.values(images)}
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-4 col-lg-4 col-sm-12">
@@ -167,13 +157,21 @@ const AdMore = () => {
                                             <span className="fw-bold me-2">
                                                 General state of health:
                                             </span>
-                                            {health.gnl}
+                                            {health.gnr.state}
+                                            <br />
+                                            <span className="m-0 text-muted">
+                                                {health.gnr.desc}
+                                            </span>
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 Behavioral disorders:
                                             </span>
-                                            {health.bhv}
+                                            {health.bhv.state}
+                                            <br />
+                                            <span className="m-0 text-muted">
+                                                {health.bhv.desc}
+                                            </span>
                                         </p>
                                     </div>
                                 </div>

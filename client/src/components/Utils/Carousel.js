@@ -10,7 +10,7 @@ const Carousel = ({ imageSet }) => {
         <MDBCarousel showIndicators showControls>
             <MDBCarouselInner>
                 {imageSet.map((image, index) => (
-                    <MDBCarouselItem itemId={index}>
+                    <MDBCarouselItem key={index} itemId={index}>
                         <MDBCarouselElement src={image} />
                     </MDBCarouselItem>
                 ))}
