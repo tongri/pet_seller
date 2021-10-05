@@ -107,6 +107,7 @@ class PetModelViewSet(ModelViewSet):
             instance = Pet.objects.get(id=serializer.data.get('id'))
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                          .getlist('files')])
+        return Response({'errors': 'pet must have images'}, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_update(self, serializer):
         if self.request.method == 'put':
