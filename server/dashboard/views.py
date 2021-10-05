@@ -108,7 +108,8 @@ class PetModelViewSet(ModelViewSet):
             instance = Pet.objects.get(id=serializer.data.get('id'))
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                          .getlist('files')])
-        raise NoFiles
+        else:
+            raise NoFiles
 
 
     def perform_update(self, serializer):
