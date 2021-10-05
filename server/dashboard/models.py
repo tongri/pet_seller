@@ -14,8 +14,11 @@ class MyUser(AbstractUser):
     )
     username = models.CharField(max_length=20, unique=True)
     number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True, null=True)
-    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES, blank=True)
-    city = models.CharField(max_length=20, blank=True)
+    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
+    city = models.CharField(max_length=20, blank=True, null=True)
+    first_name = models.CharField(max_length=20, null=True)
+    last_name = models.CharField(max_length=20, null=True)
+    email = models.CharField(max_length=20, null=True)
 
 
 class Pet(models.Model):
@@ -43,10 +46,15 @@ class Pet(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     age = models.PositiveSmallIntegerField()
     days = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(365)])
-    breed = models.CharField(max_length=40, blank=True)
+    breed = models.CharField(max_length=40, blank=True, null=True)
     bio = models.TextField()
     country = models.CharField(max_length=1, choices=COUNTRY_CHOICES)
     city = models.CharField(max_length=20)
+
+
+class ImagePet(models.Model):
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='images', related_query_name='images')
+    image = models.FileField(upload_to='uploads/')
 
 
 class Health(models.Model):
@@ -63,9 +71,9 @@ class Health(models.Model):
         (RABIES, 'Rabies')
     )
     pet = models.OneToOneField(Pet, on_delete=models.CASCADE)
-    vaccination = models.CharField(max_length=40, blank=True)
-    allergies = models.CharField(max_length=40, blank=True)
-    state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True)
-    disease = models.TextField(blank=True)
-    behaviour_disorders = models.CharField(max_length=1, choices=DISORDER_CHOICES, blank=True)
-    disorders_description = models.TextField(blank=True)
+    vaccination = models.CharField(max_length=40, blank=True, null=True)
+    allergies = models.CharField(max_length=40, blank=True, null=True)
+    state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True, null=True)
+    disease = models.TextField(blank=True, null=True)
+    behaviour_disorders = models.CharField(max_length=1, choices=DISORDER_CHOICES, blank=True, null=True)
+    disorders_description = models.TextField(blank=True, null=True)

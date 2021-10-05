@@ -9,7 +9,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .custom_account_permission import OwnAccountPermission
 from .custom_health_permission import OwnHealthPermission
 from .custom_pet_permission import OwnPetPermission
-from .models import Pet, MyUser, Health
+from .models import Pet, MyUser, Health, ImagePet
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -99,6 +99,17 @@ class PetModelViewSet(ModelViewSet):
         if self.request.user.is_authenticated and self.request.method in SAFE_METHODS:
             queryset = queryset.exclude(owner=self.request.user)
         return queryset
+
+    def perform_create(self, serializer):
+        if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
+            instance = super().perform_create(serializer)
+            ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request.files
+                                         .getlist('files')])
+
+
+    def perform_update(self, serializer):
+        x = 5
+        super().perform_update()
 
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
     def get_my_ads(self, request):

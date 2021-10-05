@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import MyUser, Pet, Health
+from .models import MyUser, Pet, Health, ImagePet
 
 
 class LoginUserSerializer(serializers.Serializer):
@@ -48,10 +48,23 @@ class PetIdSerializer(serializers.Serializer):
     ids = serializers.ListField(child=serializers.IntegerField())
 
 
+class ImagePetHyperlinked(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ImagePet
+        fields = ('image', )
+
+
 class DetailPetSerializer(serializers.ModelSerializer):
     owner = MyUserSerializer()
     health = HealthSerializer()
+    images = ImagePetHyperlinked(many=True)
 
     class Meta:
         model = Pet
+        fields = '__all__'
+
+
+class ImagePetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImagePet
         fields = '__all__'
