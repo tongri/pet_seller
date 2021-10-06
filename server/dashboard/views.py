@@ -1,5 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http import HttpResponse
 from rest_framework.decorators import action
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
@@ -149,3 +150,10 @@ class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
     permission_classes = (OwnAccountPermission, )
     serializer_class = MyUserSerializer
     queryset = MyUser.objects.all()
+
+
+class ImageApiView(APIView):
+    def get(self, request, *args, **kwargs):
+        file = open(f'uploads/{kwargs.get("path")}', 'rb')
+        return Response(file.read())
+
