@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
+import moment from 'moment'
+
 import addAd from 'utils/rviewed'
 
 import Header from 'components/Layout/Header'
@@ -24,9 +26,9 @@ const AdMore = () => {
         country,
         favourite,
         health,
-        biography,
-        isActive,
-        author,
+        bio,
+        isActive = false,
+        owner,
         ...tags
     } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
 
@@ -40,7 +42,8 @@ const AdMore = () => {
                     <div className="col-lg-10 col-md-10 col-sm-12">
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-2 small">
-                                <i className="far fa-clock"></i> {date}
+                                <i className="far fa-clock"></i>{' '}
+                                {moment(date).format('MMM Do YY')}
                             </div>
                         </div>
                         <div className="row justify-content-between">
@@ -48,7 +51,7 @@ const AdMore = () => {
                                 <span className="h3 me-2">{name}</span>{' '}
                                 <Heart className="fa-lg" id={id} />
                             </div>
-                            {isAuthenticated && username === author && (
+                            {isAuthenticated && username === owner.username && (
                                 <div className="col-md-4 col-lg-4 col-sm-12 d-flex flex-wrap justify-content-between gap-3">
                                     {isActive ? (
                                         <Active className="flex-fill" />
@@ -62,7 +65,9 @@ const AdMore = () => {
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
                                     <Carousel
-                                        imageSet={Object.values(images)}
+                                        imageSet={images.map(
+                                            (img) => img.image
+                                        )}
                                     />
                                 </div>
                             </div>
@@ -79,16 +84,18 @@ const AdMore = () => {
                                                 <div className="d-flex align-items-center mb-3">
                                                     <i className="far fa-user-circle fa-3x me-2"></i>
                                                     <span className="h4 m-0 p-0 g-0 lh-1">
-                                                        Vlad
+                                                        {owner.first_name ||
+                                                            'No name'}
                                                     </span>
                                                 </div>
                                                 <div>
                                                     <i className="fas fa-phone-alt me-3"></i>
-                                                    +380950075367
+                                                    {owner.number ||
+                                                        'No number'}
                                                 </div>
                                                 <div>
                                                     <i className="fas fa-envelope me-3"></i>
-                                                    iskenderov.vsl@gmail.com
+                                                    {owner.email || 'No email'}
                                                 </div>
                                             </div>
                                         </div>
@@ -126,9 +133,7 @@ const AdMore = () => {
                                             Biography
                                         </div>
                                     </div>
-                                    <div className="card-body px-5">
-                                        {biography}
-                                    </div>
+                                    <div className="card-body px-5">{bio}</div>
                                 </div>
                             </div>
                         </div>
@@ -145,32 +150,34 @@ const AdMore = () => {
                                             <span className="fw-bold me-2">
                                                 Basic vaccinations:
                                             </span>
-                                            {health.vac}
+                                            {health.vaccination || 'None'}
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 Alergies:
                                             </span>
-                                            {health.alg}
+                                            {health.allergies || 'None'}
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 General state of health:
                                             </span>
-                                            {health.gnr.state}
+                                            {health.state_of_health || 'None'}
                                             <br />
                                             <span className="m-0 text-muted">
-                                                {health.gnr.desc}
+                                                {health.disease || 'None'}
                                             </span>
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 Behavioral disorders:
                                             </span>
-                                            {health.bhv.state}
+                                            {health.behaviour_disorders ||
+                                                'None'}
                                             <br />
                                             <span className="m-0 text-muted">
-                                                {health.bhv.desc}
+                                                {health.disorders_description ||
+                                                    'None'}
                                             </span>
                                         </p>
                                     </div>

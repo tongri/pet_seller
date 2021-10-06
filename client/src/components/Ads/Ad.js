@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 import Heart from 'components/Icons/Heart'
 
@@ -22,7 +23,7 @@ const Ad = ({
             <div className="row g-0">
                 <div className="col-md-2 col-sm-6">
                     <img
-                        src={tags.images.main}
+                        src={tags.images[0].image}
                         alt="Pet"
                         className="rounded w-100 h-100"
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
@@ -57,7 +58,8 @@ const Ad = ({
                                     {city}
                                 </span>
                                 <span className="ms-3">
-                                    <i className="far fa-clock"></i> {date}
+                                    <i className="far fa-clock"></i>{' '}
+                                    {moment(date).format('MMM Do YY')}
                                 </span>
                             </div>
                             {isOwner && isActive ? (

@@ -5,7 +5,7 @@ import axios from '_axios'
 import { getConfigByToken } from 'utils/config'
 
 const useFetch = (URL) => {
-    const [data, setData] = useState({ list: [] })
+    const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [url, setUrl] = useState(URL)
@@ -18,7 +18,8 @@ const useFetch = (URL) => {
 
             try {
                 const result = await axios.get(url, getConfigByToken(token))
-                setData(result)
+                setData(result.data)
+                console.log(result.data)
             } catch (err) {
                 setIsError(true)
             } finally {

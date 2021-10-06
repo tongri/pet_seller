@@ -1,17 +1,12 @@
 import AdList from 'components/Ads/AdList'
 import { useSelector } from 'react-redux'
 
-// import useFetch from 'hooks/useFetch'
+import useFetch from 'hooks/useFetch'
 
 const AdsActive = () => {
-    // const { data, isLoading, isError } = useFetch('/api/v1/my-pets/')[0]
-    const data = useSelector((state) => state.pets.list)
+    const { data, isLoading, isError } = useFetch('/api/v1/pets/get_my_ads/')[0]
 
-    return (
-        <>
-            <AdList list={data} isOwner />
-        </>
-    )
+    return isLoading ? <p>Loading...</p> : <AdList list={data} isOwner />
 }
 
 export default AdsActive

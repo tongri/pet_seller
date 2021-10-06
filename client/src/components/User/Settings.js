@@ -1,8 +1,15 @@
-import Select from 'components/Forms/Select'
+import { useSelector } from 'react-redux'
+
 import { MDBInput } from 'mdb-react-ui-kit'
+import Select from 'components/Forms/Select'
+
+import useFetch from 'hooks/useFetch'
 
 const Settings = () => {
-    return (
+    const id = useSelector((state) => state.users.id)
+    const { data, isLoading } = useFetch(`/api/v1/user/${id}/`)
+
+    return isLoading ? (
         <div className="row justify-content-center">
             <div className="col-lg-5 col-md-5 col-sm-12 d-flex flex-column gap-3">
                 <div className="card">
@@ -11,9 +18,17 @@ const Settings = () => {
                     </div>
                     <div className="card-body d-flex flex-column gap-3">
                         Add your contact details so that people can contact you
-                        <MDBInput label="Name*" />
-                        <MDBInput label="Contact number*" type="phone" />
-                        <MDBInput label="Email*" type="email" />
+                        <MDBInput label="Name*" value={data.first_name || ''} />
+                        <MDBInput
+                            label="Contact number*"
+                            type="phone"
+                            value={data.number || ''}
+                        />
+                        <MDBInput
+                            label="Email*"
+                            type="email"
+                            value={data.email || ''}
+                        />
                         <Select
                             name="country"
                             title="Country"
@@ -64,6 +79,8 @@ const Settings = () => {
                 </div>
             </div>
         </div>
+    ) : (
+        <p>Loading...</p>
     )
 }
 
