@@ -134,7 +134,7 @@ class PetModelViewSet(ModelViewSet):
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
     def get_my_ads(self, request):
         ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), many=True)
-        return Response({'data': ser.data})
+        return Response(ser.data)
 
     @action(methods=('post', ), detail=False)
     def get_recently_viewed(self, request):

@@ -1,8 +1,6 @@
-from django.conf.urls.static import static
 from django.urls import path
 from rest_framework import routers
 
-from pet import settings
 from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet, \
     HealthModelViewSet, ImageApiView
 
@@ -21,4 +19,4 @@ urlpatterns = [
     path('get-cities/', CitiesByCountry.as_view()),
     #path('/', ImageApiView.as_view()),
     *router.urls
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
