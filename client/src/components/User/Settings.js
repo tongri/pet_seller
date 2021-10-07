@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { MDBInput } from 'mdb-react-ui-kit'
-import Select from 'components/Forms/Select'
+// import Select from 'components/Forms/Select'
 
 import useFetch from 'hooks/useFetch'
 

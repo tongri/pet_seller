@@ -24,10 +24,10 @@ export const AD = {
         disorders_description: '',
     },
     contacts: {
-        name: '',
-        phone: '',
-        email: '',
-        country: '',
-        city: '',
+        contact_name: '',
+        contact_phone: '',
+        contact_email: '',
+        contact_country: '',
+        contact_city: '',
     },
 }

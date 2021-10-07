@@ -111,11 +111,11 @@ class PetModelViewSet(ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        if 'files[]' in self.request._files.keys() and len(self.request._files.getlist('files[]')):
+        if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
             super().perform_create(serializer)
             instance = Pet.objects.get(id=serializer.data.get('id'))
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
-                                         .getlist('files[]')])
+                                         .getlist('files')])
         else:
             print(self.request._files)
             raise NoFiles

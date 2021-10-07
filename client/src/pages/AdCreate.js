@@ -22,8 +22,8 @@ const AdCreate = () => {
         <>
             <Header />
 
-            <div className="row justify-content-center mt-5 w-100">
-                <div className="col-lg-8 col-md-8 col-sm-12">
+            <div className="row justify-content-center mt-5">
+                <div className="col-lg-8 col-md-8 col-sm-10">
                     <h4 className="m-0">Remember</h4>
                     <p className="my-3">
                         Petshome is an ad aggregator, created to connect people
@@ -244,7 +244,7 @@ const AdCreate = () => {
                     >
                         <MDBInput
                             label="Your name*"
-                            name="name"
+                            name="contact_name"
                             value={form.contacts.name}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
@@ -252,7 +252,7 @@ const AdCreate = () => {
                         <MDBInput
                             label="Your phone number*"
                             type="phone"
-                            name="phone"
+                            name="contact_phone"
                             value={form.contacts.phone}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
@@ -260,7 +260,7 @@ const AdCreate = () => {
                         <MDBInput
                             label="Your email*"
                             type="email"
-                            name="email"
+                            name="contact_email"
                             value={form.contacts.email}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
@@ -268,7 +268,7 @@ const AdCreate = () => {
                         <Select
                             title="Country"
                             options={['Ukraine', 'Russia']}
-                            name="country"
+                            name="contact_country"
                             value={form.contacts.country}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
@@ -276,7 +276,7 @@ const AdCreate = () => {
                         <Select
                             title="City"
                             options={['Khrakiv', 'Moskow']}
-                            name="city"
+                            name="contact_city"
                             value={form.contacts.city}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
