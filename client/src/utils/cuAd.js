@@ -10,8 +10,8 @@ export const changeAd = ({
     if (files) {
         setAd((state) => ({
             ...state,
-            images: {
-                ...state.images,
+            files: {
+                ...state.files,
                 [e.target.name]: e.target.files[0],
             },
         }))
@@ -51,8 +51,11 @@ export const changeAd = ({
     }))
 }
 
-export const changeAdAge = ({ value, setAd }) =>
+export const changeAdAge = ({ value, setAd }) => {
+    const [num, measure] = value.split(' ')
     setAd((state) => ({
         ...state,
-        age: value,
+        age: measure === 'years' ? num : 1,
+        days: measure === 'days' ? num : 1,
     }))
+}

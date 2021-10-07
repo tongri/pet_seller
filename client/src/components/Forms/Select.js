@@ -11,10 +11,9 @@ const Select = ({
     startFromFirstOption = false,
     className = '',
 }) => {
-    const [val, setVal] = useState('None')
+    const [val, setVal] = useState('none')
 
     useEffect(() => {
-        console.log(value)
         if (value) setVal(value)
     }, [value])
 
@@ -44,7 +43,7 @@ const Select = ({
                         (value, index, self) => self.indexOf(value) === index
                     )
                     .map((opt, key) => (
-                        <option key={key} value={opt}>
+                        <option key={key} value={opt.toLowerCase()}>
                             {opt}
                         </option>
                     ))}

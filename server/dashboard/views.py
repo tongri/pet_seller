@@ -42,7 +42,7 @@ class CreateAuth(APIView):  # creating new user
             user = serialized.save()
             user.save()
             token = Token.objects.get(user=user)
-            return Response({'token': token.key, 'username': user.username}, status=status.HTTP_201_CREATED)
+            return Response({'id': user.id, 'token': token.key, 'username': user.username}, status=status.HTTP_201_CREATED)
         else:
             return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -68,6 +68,7 @@ class VerifyToken(APIView):
         if request.auth is not None and request.auth.user:
             user = request.auth.user
             return Response({
+		'id': user.id,
                 'username': user.username,
                 'token': user.auth_token.key
             })
@@ -110,12 +111,13 @@ class PetModelViewSet(ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
+        if 'files[]' in self.request._files.keys() and len(self.request._files.getlist('files[]')):
             super().perform_create(serializer)
             instance = Pet.objects.get(id=serializer.data.get('id'))
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
-                                         .getlist('files')])
+                                         .getlist('files[]')])
         else:
+            print(self.request._files)
             raise NoFiles
 
 

@@ -7,9 +7,16 @@ import useFetch from 'hooks/useFetch'
 
 const Settings = () => {
     const id = useSelector((state) => state.users.id)
-    const { data, isLoading } = useFetch(`/api/v1/user/${id}/`)
 
-    return isLoading ? (
+    // eslint-disable-next-line
+    const [{ data, isLoading }, setData, _, save] = useFetch(
+        `/api/v1/user/${id}/`
+    )
+
+    const handleInput = (e) =>
+        setData((state) => ({ ...state, [e.target.name]: e.target.value }))
+
+    return !isLoading ? (
         <div className="row justify-content-center">
             <div className="col-lg-5 col-md-5 col-sm-12 d-flex flex-column gap-3">
                 <div className="card">
@@ -18,18 +25,27 @@ const Settings = () => {
                     </div>
                     <div className="card-body d-flex flex-column gap-3">
                         Add your contact details so that people can contact you
-                        <MDBInput label="Name*" value={data.first_name || ''} />
+                        <MDBInput
+                            label="Name*"
+                            name="first_name"
+                            onChange={handleInput}
+                            value={data.first_name || ''}
+                        />
                         <MDBInput
                             label="Contact number*"
-                            type="phone"
+                            type="tel"
                             value={data.number || ''}
+                            name="number"
+                            onChange={handleInput}
                         />
                         <MDBInput
                             label="Email*"
                             type="email"
                             value={data.email || ''}
+                            name="email"
+                            onChange={handleInput}
                         />
-                        <Select
+                        {/* <Select
                             name="country"
                             title="Country"
                             dflt="Choose"
@@ -42,7 +58,15 @@ const Settings = () => {
                             dflt="Choose"
                             options={['Kharkiv', 'Moskow']}
                             onChange={(e) => console.log('h')}
-                        />
+                        /> */}
+                        <div className="d-flex justify-content-end">
+                            <button
+                                className="btn btn-outline-warning"
+                                onClick={() => save()}
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="card">

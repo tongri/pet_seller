@@ -1,32 +1,27 @@
 export const AD = {
     name: '',
-    kind: '',
+    kind_of_animal: '',
     breed: '',
     gender: '',
     age: '',
+    days: '',
     size: '',
-    biography: '',
-    images: {
+    bio: '',
+    country: '',
+    city: '',
+    files: {
         main: '',
         photo1: '',
         photo2: '',
         photo3: '',
     },
     health: {
-        vac: '',
-        alr: '',
-        gnr: {
-            state: '',
-            dsc: '',
-        },
-        bhv: {
-            state: '',
-            dsc: '',
-        },
-    },
-    location: {
-        country: '',
-        city: '',
+        vaccination: '',
+        allergies: '',
+        state_of_health: '',
+        disease: '',
+        behaviour_disorders: '',
+        disorders_description: '',
     },
     contacts: {
         name: '',

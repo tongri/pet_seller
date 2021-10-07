@@ -10,13 +10,11 @@ import Select from 'components/Forms/Select'
 import AgeInput from 'components/Forms/AgeInput'
 
 const AdCreate = () => {
-    const [form, setForm, setFormAge] = useCreateAd()
+    const [form, setForm, setFormAge, save] = useCreateAd()
     const [accepted, setAcceptance] = useState(false)
 
     const setPhoto = (e) => setForm({ e, files: true })
     const setNested = (e, name) => setForm({ e, nested: true, name })
-    const setNested2 = (e, name, name2) =>
-        setForm({ e, nested: true, nested2: true, name, name2 })
     const setNotNested = (e) => setForm({ e })
     const setAge = (value) => setFormAge(value)
 
@@ -62,7 +60,7 @@ const AdCreate = () => {
                             main
                             name="main"
                             id="main"
-                            value={form.images.main}
+                            value={form.files.main}
                             onChange={setPhoto}
                             required
                             disabled={!accepted}
@@ -70,7 +68,7 @@ const AdCreate = () => {
                         <Photo
                             name="image1"
                             id="image1"
-                            value={form.images.image1}
+                            value={form.files.image1}
                             onChange={setPhoto}
                             required
                             disabled={!accepted}
@@ -78,7 +76,7 @@ const AdCreate = () => {
                         <Photo
                             name="image2"
                             id="image2"
-                            value={form.images.image2}
+                            value={form.files.image2}
                             onChange={setPhoto}
                             required
                             disabled={!accepted}
@@ -86,7 +84,7 @@ const AdCreate = () => {
                         <Photo
                             name="image3"
                             id="image3"
-                            value={form.images.image3}
+                            value={form.files.image3}
                             onChange={setPhoto}
                             required
                             disabled={!accepted}
@@ -106,7 +104,7 @@ const AdCreate = () => {
                         />
                         {/* TODO: Redo select */}
                         <Select
-                            name="kind"
+                            name="kind_of_animal"
                             title="Kind of animal*"
                             options={['Cat', 'Dog']}
                             onChange={setNotNested}
@@ -151,8 +149,8 @@ const AdCreate = () => {
                             label="Bio*"
                             className="mt-3"
                             onChange={setNotNested}
-                            value={form.biography}
-                            name="biography"
+                            value={form.bio}
+                            name="bio"
                             disabled={!accepted}
                         />
                         <div className="form-text">Min 40 characters</div>
@@ -165,8 +163,8 @@ const AdCreate = () => {
                         <div>
                             <MDBInput
                                 label="Basic vaccination"
-                                name="vac"
-                                value={form.health.vac}
+                                name="vaccination"
+                                value={form.health.vaccination}
                                 onChange={(e) => setNested(e, 'health')}
                                 disabled={!accepted}
                             />
@@ -176,26 +174,26 @@ const AdCreate = () => {
                         </div>
                         <MDBInput
                             label="Allergies"
-                            value={form.health.alr}
+                            value={form.health.allergies}
                             onChange={(e) => setNested(e, 'health')}
-                            name="alr"
+                            name="allergies"
                             disabled={!accepted}
                         />
                         <Select
                             title="General state of health"
-                            name="state"
+                            name="state_of_health"
                             dflt="Choose"
                             options={['Health', 'Sick']}
-                            value={form.health.gnr.state}
-                            onChange={(e) => setNested2(e, 'health', 'gnr')}
+                            value={form.health.state_of_health}
+                            onChange={(e) => setNested(e, 'health')}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the disease of animal"
                             textarea
-                            name="dsc"
-                            value={form.health.gnr.dsc}
-                            onChange={(e) => setNested2(e, 'health', 'gnr')}
+                            name="disease"
+                            value={form.health.disease}
+                            onChange={(e) => setNested(e, 'health')}
                             disabled={!accepted}
                         />
 
@@ -203,17 +201,17 @@ const AdCreate = () => {
                             title="Behavioral disorders"
                             dflt="Choose"
                             options={['Psycho', 'Another one']}
-                            name="state"
-                            value={form.health.bhv.state}
-                            onChange={(e) => setNested2(e, 'health', 'bhv')}
+                            name="behaviour_disorders"
+                            value={form.health.behaviour_disorders}
+                            onChange={(e) => setNested(e, 'health')}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the behavioral disorder of animal"
                             textarea
-                            name="dsc"
-                            value={form.health.bhv.dsc}
-                            onChange={(e) => setNested2(e, 'health', 'bhv')}
+                            name="disorders_description"
+                            value={form.health.disorders_description}
+                            onChange={(e) => setNested(e, 'health')}
                             disabled={!accepted}
                         />
                     </Card>
@@ -226,16 +224,16 @@ const AdCreate = () => {
                             title="Country"
                             options={['Ukraine', 'Russia']}
                             name="country"
-                            value={form.location.country}
-                            onChange={(e) => setNested(e, 'location')}
+                            value={form.country}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
                         <Select
                             title="City"
                             options={['Khrakiv', 'Moskow']}
                             name="city"
-                            value={form.location.city}
-                            onChange={(e) => setNested(e, 'location')}
+                            value={form.city}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
                     </Card>
@@ -290,6 +288,7 @@ const AdCreate = () => {
                             <button
                                 className="btn btn-warning btn-lg"
                                 disabled={!accepted}
+                                onClick={() => save()}
                             >
                                 Save
                             </button>
