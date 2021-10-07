@@ -1,6 +1,7 @@
 import { USER_SUCCESS, USER_FAILED, USER_LOADING, USER_LOGOUT } from '../types'
 
 const initialState = {
+    id: null,
     token: localStorage.getItem('usr_token') || null,
     isAuthenticated: false,
     isLoading: false,
@@ -20,6 +21,7 @@ const Reducer = (state = initialState, action) => {
                 isLoading: false,
             }
         case USER_FAILED:
+            localStorage.removeItem('usr_token')
             return {
                 ...state,
                 token: null,

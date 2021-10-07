@@ -1,7 +1,7 @@
 import axios from '_axios'
 import getConfig from 'utils/config'
 
-import { USER_SUCCESS, USER_LOADING, USER_LOGOUT } from '../types'
+import { USER_SUCCESS, USER_LOADING, USER_LOGOUT, USER_FAILED } from '../types'
 
 // @desc    Records users token and username, switches isAuthenticated to True
 // @method  POST
@@ -60,7 +60,7 @@ export const verifyToken = () => async (dispatch, getState) => {
             payload: result.data,
         })
     } catch (err) {
-        // TODO: Handle errors...
+        dispatch({ type: USER_FAILED })
     }
 }
 

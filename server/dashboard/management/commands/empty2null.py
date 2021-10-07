@@ -3,6 +3,7 @@ from dashboard.models import Pet, MyUser, Health
 from django.db.models.fields.reverse_related import OneToOneRel, ManyToOneRel
 from django.db.models.fields.related import ForeignKey, OneToOneRel as AnotherOne
 
+
 class Command(BaseCommand):
     help = 'convert empty strings to null'
 

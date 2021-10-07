@@ -98,7 +98,7 @@ const _temp_list = [
 
 const initialState = {
     isLoading: false,
-    list: _temp_list,
+    list: [],
     countries: _temp_list.map((el) => el.country),
     cities: _temp_list.map((el) => el.city),
     kinds: _temp_list.map((el) => el.kind),
@@ -113,8 +113,7 @@ const Reducer = (state = initialState, action) => {
         case PETS_SUCCESS:
             return {
                 ...state,
-                ...action.payload,
-                list: action.payload.pets,
+                list: action.payload,
                 isLoading: false,
             }
         case PETS_FILTER_SUCCESS:

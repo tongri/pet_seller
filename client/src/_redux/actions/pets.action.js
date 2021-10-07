@@ -12,7 +12,7 @@ export const loadPets = () => async (dispatch, getState) => {
 
     try {
         const result = await axios.get('/api/v1/pets/', getConfig(getState))
-
+        console.log(result.data)
         dispatch({
             type: PETS_SUCCESS,
             payload: result.data,

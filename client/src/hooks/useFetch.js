@@ -5,7 +5,7 @@ import axios from '_axios'
 import { getConfigByToken } from 'utils/config'
 
 const useFetch = (URL) => {
-    const [data, setData] = useState({ list: [] })
+    const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [url, setUrl] = useState(URL)
@@ -18,7 +18,7 @@ const useFetch = (URL) => {
 
             try {
                 const result = await axios.get(url, getConfigByToken(token))
-                setData(result)
+                setData(result.data)
             } catch (err) {
                 setIsError(true)
             } finally {
@@ -29,7 +29,16 @@ const useFetch = (URL) => {
         fetchData()
     }, [url, token])
 
-    return [{ data, isLoading, isError }, setUrl]
+    const save = async () => {
+        try {
+            console.log(data)
+            await axios.patch(url, data, getConfigByToken(token))
+        } catch {
+            setIsError(true)
+        }
+    }
+
+    return [{ data, isLoading, isError }, setData, setUrl, save]
 }
 
 export default useFetch

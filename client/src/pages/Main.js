@@ -1,4 +1,7 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { loadPets } from '_redux/actions/pets.action'
 
 import Header from 'components/Layout/Header'
 import AdList from 'components/Ads/AdList'
@@ -7,6 +10,10 @@ import Scroller from 'components/Layout/Scroller'
 
 const Main = () => {
     const { list, ...filters } = useSelector((state) => state.pets)
+    const dsp = useDispatch()
+
+    // eslint-disable-next-line
+    useEffect(() => dsp(loadPets()), [])
 
     return (
         <>

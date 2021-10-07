@@ -42,7 +42,7 @@ class CreateAuth(APIView):  # creating new user
             user = serialized.save()
             user.save()
             token = Token.objects.get(user=user)
-            return Response({'token': token.key, 'username': user.username}, status=status.HTTP_201_CREATED)
+            return Response({'id': user.id, 'token': token.key, 'username': user.username}, status=status.HTTP_201_CREATED)
         else:
             return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -56,6 +56,7 @@ class CustomAuthToken(ObtainAuthToken):
         user = serializer.validated_data
         token, created = Token.objects.get_or_create(user=user)
         return Response({
+            'id': user.id,
             'token': token.key,
             "username": user.username
         })
@@ -67,6 +68,7 @@ class VerifyToken(APIView):
         if request.auth is not None and request.auth.user:
             user = request.auth.user
             return Response({
+		'id': user.id,
                 'username': user.username,
                 'token': user.auth_token.key
             })
@@ -115,6 +117,7 @@ class PetModelViewSet(ModelViewSet):
             ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
                                          .getlist('files')])
         else:
+            print(self.request._files)
             raise NoFiles
 
 
@@ -133,7 +136,7 @@ class PetModelViewSet(ModelViewSet):
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
     def get_my_ads(self, request):
         ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), many=True)
-        return Response({'data': ser.data})
+        return Response(ser.data)
 
     @action(methods=('post', ), detail=False)
     def get_recently_viewed(self, request):
