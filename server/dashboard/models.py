@@ -63,6 +63,24 @@ class Pet(models.Model):
     city = models.CharField(max_length=20)
     date = models.DateField(auto_now_add=True)
     size = models.CharField(max_length=1, default=M_SIZE)
+    HEALTHY = 'H'
+    ILL = 'I'
+    HEALTH_CHOICES = (
+        (HEALTHY, 'Healthy'),
+        (ILL, 'Ill')
+    )
+    FEARFULNESS = 'F'
+    RABIES = 'R'
+    DISORDER_CHOICES = (
+        (FEARFULNESS, 'Fearfulness'),
+        (RABIES, 'Rabies')
+    )
+    vaccination = models.CharField(max_length=40, blank=True, null=True)
+    allergies = models.CharField(max_length=40, blank=True, null=True)
+    state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True, null=True)
+    disease = models.TextField(blank=True, null=True)
+    behaviour_disorders = models.CharField(max_length=1, choices=DISORDER_CHOICES, blank=True, null=True)
+    disorders_description = models.TextField(blank=True, null=True)
 
     @property
     def birthday(self):
@@ -74,7 +92,7 @@ class ImagePet(models.Model):
     image = models.FileField(upload_to='uploads/')
 
 
-class Health(models.Model):
+'''class Health(models.Model):
     HEALTHY = 'H'
     ILL = 'I'
     HEALTH_CHOICES = (
@@ -93,4 +111,4 @@ class Health(models.Model):
     state_of_health = models.CharField(max_length=1, choices=HEALTH_CHOICES, blank=True, null=True)
     disease = models.TextField(blank=True, null=True)
     behaviour_disorders = models.CharField(max_length=1, choices=DISORDER_CHOICES, blank=True, null=True)
-    disorders_description = models.TextField(blank=True, null=True)
+    disorders_description = models.TextField(blank=True, null=True)'''

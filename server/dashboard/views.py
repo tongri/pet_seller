@@ -11,14 +11,14 @@ from .custom_account_permission import OwnAccountPermission
 from .custom_exceptions import NoFiles
 from .custom_health_permission import OwnHealthPermission
 from .custom_pet_permission import OwnPetPermission
-from .models import Pet, MyUser, Health, ImagePet
+from .models import Pet, MyUser, ImagePet
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
-from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer, \
-    HealthSerializer, PetIdSerializer
+from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer,\
+    PetIdSerializer
 from pet import settings
 
 
@@ -28,10 +28,10 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-@receiver(post_save, sender=Pet)
+''''@receiver(post_save, sender=Pet)
 def create_health_pet(sender, instance=None, created=False, **kwargs):
     if created:
-        Health.objects.create(pet=instance)
+        Health.objects.create(pet=instance)'''
 
 
 class CreateAuth(APIView):  # creating new user
@@ -84,10 +84,10 @@ class CitiesByCountry(APIView): # view to get cities according to country
         return Response({'data': None})
 
 
-class HealthModelViewSet(ModelViewSet):
+'''class HealthModelViewSet(ModelViewSet):
     serializer_class = HealthSerializer
     queryset = Health.objects.all()
-    permission_classes = (OwnHealthPermission, )
+    permission_classes = (OwnHealthPermission, )'''
 
 
 class PetModelViewSet(ModelViewSet):
@@ -149,10 +149,3 @@ class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
     permission_classes = (OwnAccountPermission, )
     serializer_class = MyUserSerializer
     queryset = MyUser.objects.all()
-
-
-class ImageApiView(APIView):
-    def get(self, request, *args, **kwargs):
-        file = open(f'uploads/{kwargs.get("path")}', 'rb')
-        return Response(file.read())
-
