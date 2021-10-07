@@ -9,15 +9,17 @@ from django.utils import timezone
 
 
 class MyUser(AbstractUser):
-    UKRAINE = 'U'
-    POLAND = 'P'
+    UKRAINE = 'ukraine'
+    POLAND = 'poland'
+    RUSSIA = 'russia'
     COUNTRY_CHOICES = (
         (UKRAINE, 'Ukraine'),
-        (POLAND, 'Poland')
+        (POLAND, 'Poland'),
+	(RUSSIA, 'Russia')
     )
     username = models.CharField(max_length=20, unique=True)
     number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True, null=True)
-    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
+    country = models.CharField(max_length=7, choices=COUNTRY_CHOICES, blank=True, null=True)
     city = models.CharField(max_length=20, blank=True, null=True)
     first_name = models.CharField(max_length=20, null=True)
     last_name = models.CharField(max_length=20, null=True)
@@ -31,21 +33,23 @@ class Pet(models.Model):
         (DOG, 'Dog'),
         (CAT, 'Cat')
     )
-    MALE = 'm'
-    FEMALE = 'f'
+    MALE = 'male'
+    FEMALE = 'female'
     GENDER_CHOICES = (
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     )
-    UKRAINE = 'U'
-    POLAND = 'P'
+    UKRAINE = 'ukraine'
+    POLAND = 'polland'
+    RUSSIA = 'russia'
     COUNTRY_CHOICES = (
         (UKRAINE, 'Ukraine'),
-        (POLAND, 'Poland')
+        (POLAND, 'Poland'),
+	(RUSSIA, 'Russia')
     )
-    S_SIZE = 'S'
-    M_SIZE = 'M'
-    L_SIZE = 'L'
+    S_SIZE = '10-30'
+    M_SIZE = '30-50'
+    L_SIZE = '50-70'
     SIZES = (
         (S_SIZE, S_SIZE),
         (M_SIZE, M_SIZE),
@@ -53,16 +57,16 @@ class Pet(models.Model):
     )
     owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    kind_of_animal = models.CharField(max_length=3, choices=ANIMALS_CHOICES)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    kind_of_animal = models.CharField(max_length=10, choices=ANIMALS_CHOICES)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
     age = models.PositiveSmallIntegerField()
     days = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(365)])
     breed = models.CharField(max_length=40, blank=True, null=True)
     bio = models.TextField()
-    country = models.CharField(max_length=1, choices=COUNTRY_CHOICES)
+    country = models.CharField(max_length=7, choices=COUNTRY_CHOICES)
     city = models.CharField(max_length=20)
     date = models.DateField(auto_now_add=True)
-    size = models.CharField(max_length=1, default=M_SIZE)
+    size = models.CharField(max_length=10, default=M_SIZE)
     HEALTHY = 'H'
     ILL = 'I'
     HEALTH_CHOICES = (

@@ -106,7 +106,10 @@ const AdCreate = () => {
                         <Select
                             name="kind_of_animal"
                             title="Kind of animal*"
-                            options={['Cat', 'Dog']}
+                            options={[
+                                { value: 'cat', title: 'Cat' },
+                                { value: 'dog', title: 'Dog' },
+                            ]}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -114,7 +117,10 @@ const AdCreate = () => {
                         <Select
                             name="gender"
                             title="Gender*"
-                            options={['Male', 'Female']}
+                            options={[
+                                { value: 'male', title: 'Male' },
+                                { value: 'female', title: 'Female' },
+                            ]}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -122,7 +128,11 @@ const AdCreate = () => {
                         <Select
                             name="size"
                             title="Size*"
-                            options={['10-30', '30-40']}
+                            options={[
+                                { value: '10-30', title: '10-30' },
+                                { value: '30-50', title: '30-50' },
+                                { value: '50-70', title: '50-70' },
+                            ]}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -183,7 +193,10 @@ const AdCreate = () => {
                             title="General state of health"
                             name="state_of_health"
                             dflt="Choose"
-                            options={['Health', 'Sick']}
+                            options={[
+                                { value: 'H', title: 'Healthy' },
+                                { value: 'I', title: 'Ill' },
+                            ]}
                             value={form.health.state_of_health}
                             onChange={(e) => setNested(e, 'health')}
                             disabled={!accepted}
@@ -200,7 +213,10 @@ const AdCreate = () => {
                         <Select
                             title="Behavioral disorders"
                             dflt="Choose"
-                            options={['Psycho', 'Another one']}
+                            options={[
+                                { value: 'F', title: 'Fearfulness' },
+                                { value: 'R', title: 'Rabies' },
+                            ]}
                             name="behaviour_disorders"
                             value={form.health.behaviour_disorders}
                             onChange={(e) => setNested(e, 'health')}
@@ -222,7 +238,11 @@ const AdCreate = () => {
                     >
                         <Select
                             title="Country"
-                            options={['Ukraine', 'Russia']}
+                            options={[
+                                { value: 'ukraine', title: 'Ukraine' },
+                                { value: 'russia', title: 'Russia' },
+                                { value: 'poland', title: 'Polland' },
+                            ]}
                             name="country"
                             value={form.country}
                             onChange={(e) => setNotNested(e)}
@@ -230,7 +250,11 @@ const AdCreate = () => {
                         />
                         <Select
                             title="City"
-                            options={['Khrakiv', 'Moskow']}
+                            options={[
+                                { value: 'kharkiv', title: 'Kharkiv' },
+                                { value: 'moskow', title: 'Moskow' },
+                                { value: 'warsawa', title: 'Warsawa' },
+                            ]}
                             name="city"
                             value={form.city}
                             onChange={(e) => setNotNested(e)}
@@ -267,7 +291,11 @@ const AdCreate = () => {
                         />
                         <Select
                             title="Country"
-                            options={['Ukraine', 'Russia']}
+                            options={[
+                                { value: 'ukraine', title: 'Ukraine' },
+                                { value: 'russia', title: 'Russia' },
+                                { value: 'poland', title: 'Polland' },
+                            ]}
                             name="contact_country"
                             value={form.contacts.country}
                             onChange={(e) => setNested(e, 'contacts')}
@@ -275,7 +303,11 @@ const AdCreate = () => {
                         />
                         <Select
                             title="City"
-                            options={['Khrakiv', 'Moskow']}
+                            options={[
+                                { value: 'kharkiv', title: 'Kharkiv' },
+                                { value: 'moskow', title: 'Moskow' },
+                                { value: 'warsawa', title: 'Warsawa' },
+                            ]}
                             name="contact_city"
                             value={form.contacts.city}
                             onChange={(e) => setNested(e, 'contacts')}

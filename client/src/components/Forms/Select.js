@@ -38,15 +38,11 @@ const Select = ({
                 disabled={disabled}
             >
                 {!startFromFirstOption && <option value="None">{dflt}</option>}
-                {options
-                    .filter(
-                        (value, index, self) => self.indexOf(value) === index
-                    )
-                    .map((opt, key) => (
-                        <option key={key} value={opt.toLowerCase()}>
-                            {opt}
-                        </option>
-                    ))}
+                {Object.values(options).map(({ value, title }, key) => (
+                    <option key={key} value={value}>
+                        {title}
+                    </option>
+                ))}
             </select>
         </div>
     )

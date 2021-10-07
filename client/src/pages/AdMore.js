@@ -4,6 +4,8 @@ import { useParams } from 'react-router'
 
 import moment from 'moment'
 
+import useRetrieveAd from 'hooks/useRetrieveAd'
+
 import addAd from 'utils/rviewed'
 
 import Header from 'components/Layout/Header'
@@ -18,23 +20,14 @@ const AdMore = () => {
     const { id } = useParams()
     const { isAuthenticated, username } = useSelector((state) => state.users)
     // TODO: Fetch info from server
-    const {
-        name,
-        date,
-        images,
-        city,
-        country,
-        favourite,
-        health,
-        bio,
-        isActive = false,
-        owner,
-        ...tags
-    } = useSelector((state) => state.pets.list.find((pet) => pet.id === +id))
+    const [ad, isLoading] = useRetrieveAd(+id)
 
     useEffect(() => addAd(id), [id])
+    console.log(ad)
 
-    return (
+    return isLoading ? (
+        <p>Loading...</p>
+    ) : (
         <>
             <Header />
             <div className="container mt-5">
@@ -43,32 +36,35 @@ const AdMore = () => {
                         <div className="row">
                             <div className="col-lg-2 col-md-2 col-sm-2 small">
                                 <i className="far fa-clock"></i>{' '}
-                                {moment(date).format('MMM Do YY')}
+                                {moment(ad.date).format('MMM Do YY')}
                             </div>
                         </div>
                         <div className="row justify-content-between">
                             <div className="col-md-2 col-lg-2 col-sm-3">
-                                <span className="h3 me-2">{name}</span>{' '}
+                                <span className="h3 me-2">{ad.name}</span>{' '}
                                 <Heart className="fa-lg" id={id} />
                             </div>
-                            {isAuthenticated && username === owner.username && (
-                                <div className="col-md-4 col-lg-4 col-sm-12 d-flex flex-wrap justify-content-between gap-3">
-                                    {isActive ? (
-                                        <Active className="flex-fill" />
-                                    ) : (
-                                        <Inactive className="flex-fill" />
-                                    )}
-                                </div>
-                            )}
+                            {isAuthenticated &&
+                                username === ad.owner.username && (
+                                    <div className="col-md-4 col-lg-4 col-sm-12 d-flex flex-wrap justify-content-between gap-3">
+                                        {ad.isActive ? (
+                                            <Active className="flex-fill" />
+                                        ) : (
+                                            <Inactive className="flex-fill" />
+                                        )}
+                                    </div>
+                                )}
                         </div>
                         <div className="row my-4 justify-content-between">
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
-                                    <Carousel
-                                        imageSet={images.map(
-                                            (img) => img.image
-                                        )}
-                                    />
+                                    {ad.images.length && (
+                                        <Carousel
+                                            imageSet={ad.images.map(
+                                                (img) => img && img.image
+                                            )}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="col-md-4 col-lg-4 col-sm-12">
@@ -84,18 +80,19 @@ const AdMore = () => {
                                                 <div className="d-flex align-items-center mb-3">
                                                     <i className="far fa-user-circle fa-3x me-2"></i>
                                                     <span className="h4 m-0 p-0 g-0 lh-1">
-                                                        {owner.first_name ||
+                                                        {ad.owner.first_name ||
                                                             'No name'}
                                                     </span>
                                                 </div>
                                                 <div>
                                                     <i className="fas fa-phone-alt me-3"></i>
-                                                    {owner.number ||
+                                                    {ad.owner.number ||
                                                         'No number'}
                                                 </div>
                                                 <div>
                                                     <i className="fas fa-envelope me-3"></i>
-                                                    {owner.email || 'No email'}
+                                                    {ad.owner.email ||
+                                                        'No email'}
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +106,7 @@ const AdMore = () => {
                                             </div>
                                             <div className="card-body px-5 py-4">
                                                 <i className="fas fa-map-marker-alt"></i>{' '}
-                                                {city}, {country}
+                                                {ad.city}, {ad.country}
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +117,7 @@ const AdMore = () => {
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
                                     <div className="card-body px-5">
-                                        <TagList tags={tags} />
+                                        <TagList tags={ad} />
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +130,9 @@ const AdMore = () => {
                                             Biography
                                         </div>
                                     </div>
-                                    <div className="card-body px-5">{bio}</div>
+                                    <div className="card-body px-5">
+                                        {ad.bio}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -150,33 +149,32 @@ const AdMore = () => {
                                             <span className="fw-bold me-2">
                                                 Basic vaccinations:
                                             </span>
-                                            {health.vaccination || 'None'}
+                                            {ad.vaccination || 'None'}
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 Alergies:
                                             </span>
-                                            {health.allergies || 'None'}
+                                            {ad.allergies || 'None'}
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 General state of health:
                                             </span>
-                                            {health.state_of_health || 'None'}
+                                            {ad.state_of_health || 'None'}
                                             <br />
                                             <span className="m-0 text-muted">
-                                                {health.disease || 'None'}
+                                                {ad.disease || 'None'}
                                             </span>
                                         </p>
                                         <p className="m-0">
                                             <span className="fw-bold me-2">
                                                 Behavioral disorders:
                                             </span>
-                                            {health.behaviour_disorders ||
-                                                'None'}
+                                            {ad.behaviour_disorders || 'None'}
                                             <br />
                                             <span className="m-0 text-muted">
-                                                {health.disorders_description ||
+                                                {ad.disorders_description ||
                                                     'None'}
                                             </span>
                                         </p>

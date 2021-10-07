@@ -20,4 +20,4 @@ urlpatterns = [
     path('get-cities/', CitiesByCountry.as_view()),
     #path('/', ImageApiView.as_view()),
     *router.urls
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
