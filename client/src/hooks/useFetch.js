@@ -31,7 +31,6 @@ const useFetch = (URL) => {
 
     const save = async () => {
         try {
-            console.log(data)
             await axios.patch(url, data, getConfigByToken(token))
         } catch {
             setIsError(true)

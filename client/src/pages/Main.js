@@ -1,19 +1,14 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-
-import { loadPets } from '_redux/actions/pets.action'
+import { useSelector } from 'react-redux'
 
 import Header from 'components/Layout/Header'
 import AdList from 'components/Ads/AdList'
 import Filter from 'components/Filter/Filter'
 import Scroller from 'components/Layout/Scroller'
+import useFetch from 'hooks/useFetch'
 
 const Main = () => {
     const { list, ...filters } = useSelector((state) => state.pets)
-    const dsp = useDispatch()
-
-    // eslint-disable-next-line
-    useEffect(() => dsp(loadPets()), [])
+    const { data, isLoading } = useFetch('/api/v1/pets/')[0]
 
     return (
         <>
@@ -24,7 +19,11 @@ const Main = () => {
                     <Filter filters={filters} />
                 </div>
                 <div className="col-md-6">
-                    <AdList list={list} />
+                    {isLoading ? (
+                        <p className="text-center">Loading...</p>
+                    ) : (
+                        <AdList list={data} />
+                    )}
                 </div>
             </div>
 

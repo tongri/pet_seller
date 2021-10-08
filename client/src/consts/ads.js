@@ -9,7 +9,6 @@ export const AD = {
     bio: '',
     country: '',
     city: '',
-    images: [],
     vaccination: '',
     allergies: '',
     state_of_health: '',
@@ -20,6 +19,12 @@ export const AD = {
         first_name: '',
         phone: '',
         email: '',
+    },
+    files: {
+        main: '',
+        photo1: '',
+        photo2: '',
+        photo3: '',
     },
     contacts: {
         contact_name: '',

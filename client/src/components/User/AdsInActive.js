@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux'
 
 // import useFetch from 'hooks/useFetch'
 
-const AdsInActive = () => {
+const AdsInActive = ({ list, isLoading }) => {
     // const { data, isLoading, isError } = useFetch('/api/v1/my-pets/')[0]
-    const data = useSelector((state) => state.pets.list)
 
-    return (
+    return isLoading ? (
+        <p>Loading...</p>
+    ) : (
         <>
-            <AdList list={data} isOwner isActive={false} />
+            <AdList list={list} isOwner isActive={false} />
         </>
     )
 }

@@ -106,10 +106,7 @@ const AdCreate = () => {
                         <Select
                             name="kind_of_animal"
                             title="Kind of animal*"
-                            options={[
-                                { value: 'cat', title: 'Cat' },
-                                { value: 'dog', title: 'Dog' },
-                            ]}
+                            options={['Cat', 'Dog']}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -117,10 +114,7 @@ const AdCreate = () => {
                         <Select
                             name="gender"
                             title="Gender*"
-                            options={[
-                                { value: 'male', title: 'Male' },
-                                { value: 'female', title: 'Female' },
-                            ]}
+                            options={['Male', 'Female']}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -128,11 +122,7 @@ const AdCreate = () => {
                         <Select
                             name="size"
                             title="Size*"
-                            options={[
-                                { value: '10-30', title: '10-30' },
-                                { value: '30-50', title: '30-50' },
-                                { value: '50-70', title: '50-70' },
-                            ]}
+                            options={['10-30', '30-50', '50-70']}
                             onChange={setNotNested}
                             dflt="Choose"
                             disabled={!accepted}
@@ -174,8 +164,8 @@ const AdCreate = () => {
                             <MDBInput
                                 label="Basic vaccination"
                                 name="vaccination"
-                                value={form.health.vaccination}
-                                onChange={(e) => setNested(e, 'health')}
+                                value={form.vaccination}
+                                onChange={(e) => setNotNested(e)}
                                 disabled={!accepted}
                             />
                             <div className="form-text">
@@ -184,8 +174,8 @@ const AdCreate = () => {
                         </div>
                         <MDBInput
                             label="Allergies"
-                            value={form.health.allergies}
-                            onChange={(e) => setNested(e, 'health')}
+                            value={form.allergies}
+                            onChange={(e) => setNotNested(e)}
                             name="allergies"
                             disabled={!accepted}
                         />
@@ -193,41 +183,35 @@ const AdCreate = () => {
                             title="General state of health"
                             name="state_of_health"
                             dflt="Choose"
-                            options={[
-                                { value: 'H', title: 'Healthy' },
-                                { value: 'I', title: 'Ill' },
-                            ]}
-                            value={form.health.state_of_health}
-                            onChange={(e) => setNested(e, 'health')}
+                            options={['Healthy', 'Ill']}
+                            value={form.state_of_health}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the disease of animal"
                             textarea
                             name="disease"
-                            value={form.health.disease}
-                            onChange={(e) => setNested(e, 'health')}
+                            value={form.disease}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
 
                         <Select
                             title="Behavioral disorders"
                             dflt="Choose"
-                            options={[
-                                { value: 'F', title: 'Fearfulness' },
-                                { value: 'R', title: 'Rabies' },
-                            ]}
+                            options={['Fearfulness', 'Rabies']}
                             name="behaviour_disorders"
-                            value={form.health.behaviour_disorders}
-                            onChange={(e) => setNested(e, 'health')}
+                            value={form.behaviour_disorders}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Describe the behavioral disorder of animal"
                             textarea
                             name="disorders_description"
-                            value={form.health.disorders_description}
-                            onChange={(e) => setNested(e, 'health')}
+                            value={form.disorders_description}
+                            onChange={(e) => setNotNested(e)}
                             disabled={!accepted}
                         />
                     </Card>
@@ -238,11 +222,7 @@ const AdCreate = () => {
                     >
                         <Select
                             title="Country"
-                            options={[
-                                { value: 'ukraine', title: 'Ukraine' },
-                                { value: 'russia', title: 'Russia' },
-                                { value: 'poland', title: 'Polland' },
-                            ]}
+                            options={['Ukraine', 'Russia', 'Polland']}
                             name="country"
                             value={form.country}
                             onChange={(e) => setNotNested(e)}
@@ -250,11 +230,7 @@ const AdCreate = () => {
                         />
                         <Select
                             title="City"
-                            options={[
-                                { value: 'kharkiv', title: 'Kharkiv' },
-                                { value: 'moskow', title: 'Moskow' },
-                                { value: 'warsawa', title: 'Warsawa' },
-                            ]}
+                            options={['Kharkiv', 'Moskow', 'Warsawa']}
                             name="city"
                             value={form.city}
                             onChange={(e) => setNotNested(e)}
@@ -291,11 +267,7 @@ const AdCreate = () => {
                         />
                         <Select
                             title="Country"
-                            options={[
-                                { value: 'ukraine', title: 'Ukraine' },
-                                { value: 'russia', title: 'Russia' },
-                                { value: 'poland', title: 'Polland' },
-                            ]}
+                            options={['Ukraine', 'Russia', 'Polland']}
                             name="contact_country"
                             value={form.contacts.country}
                             onChange={(e) => setNested(e, 'contacts')}
@@ -303,11 +275,7 @@ const AdCreate = () => {
                         />
                         <Select
                             title="City"
-                            options={[
-                                { value: 'kharkiv', title: 'Kharkiv' },
-                                { value: 'moskow', title: 'Moskow' },
-                                { value: 'warsawa', title: 'Warsawa' },
-                            ]}
+                            options={['Kharkiv', 'Moskow', 'Russia']}
                             name="contact_city"
                             value={form.contacts.city}
                             onChange={(e) => setNested(e, 'contacts')}

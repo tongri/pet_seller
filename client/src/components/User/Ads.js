@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useFetch from 'hooks/useFetch'
 
 import {
     MDBTabs,
@@ -12,6 +13,7 @@ import AdsActive from './AdsActive'
 import AdsInActive from './AdsInActive'
 
 const Ads = () => {
+    const { data, isLoading } = useFetch('/api/v1/pets/get_my_ads/')[0]
     const [tabActive, setTabActive] = useState('tab1')
 
     const handleTabClick = (value) => {
@@ -44,10 +46,16 @@ const Ads = () => {
 
             <MDBTabsContent>
                 <MDBTabsPane show={tabActive === 'tab1'}>
-                    <AdsActive />
+                    <AdsActive
+                        list={data.filter((el) => el.is_active)}
+                        isLoading={isLoading}
+                    />
                 </MDBTabsPane>
                 <MDBTabsPane show={tabActive === 'tab2'}>
-                    <AdsInActive />
+                    <AdsInActive
+                        list={data.filter((el) => !el.is_active)}
+                        isLoading={isLoading}
+                    />
                 </MDBTabsPane>
             </MDBTabsContent>
         </div>

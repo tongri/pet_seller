@@ -12,7 +12,7 @@ import Ads from 'components/User/Ads'
 import Settings from 'components/User/Settings'
 
 const Profile = () => {
-    const [tabActive, setTabActive] = useState('tab2')
+    const [tabActive, setTabActive] = useState('tab1')
 
     const handleTabClick = (value) => {
         if (value === tabActive) return

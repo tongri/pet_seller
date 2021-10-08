@@ -38,9 +38,9 @@ const Select = ({
                 disabled={disabled}
             >
                 {!startFromFirstOption && <option value="None">{dflt}</option>}
-                {Object.values(options).map(({ value, title }, key) => (
+                {options.map((value, key) => (
                     <option key={key} value={value}>
-                        {title}
+                        {value}
                     </option>
                 ))}
             </select>

@@ -33,8 +33,6 @@ const useCreateAd = () => {
     const setAdAge = (value) => changeAdAge({ value, setAd })
 
     const save = async () => {
-        // const form = new FormData(
-        // const test = convert2FormData(ad)
         const form = convertToFormData({
             ...ad,
             files: Object.values(ad.files).filter((el) => el !== ''),
@@ -42,25 +40,22 @@ const useCreateAd = () => {
         })
 
         try {
-            await axios.post(
+            const petRequest = axios.post(
                 '/api/v1/pets/',
                 form,
                 getConfigByToken(token, true)
             )
+
+            const userRequest = axios.patch(
+                `/api/v1/user/${id}/`,
+                ad.contacts,
+                getConfigByToken(token)
+            )
+
+            await Promise.all([petRequest, userRequest])
         } catch (err) {
-            console.log(err.response)
+            console.log(err)
         }
-
-        // for (let key in ad) form.append(key, ad[key])
-        // form.append('asd', 'test')
-        // console.log(Object.fromEntries(Object.entries(test)))
-        // console.log(test.get('name'))
-
-        // test.forEach((value, key) => {
-        //     if (typeof value === 'object')
-        //         console.log('OBJECT', value.entries())
-        //     console.log(key, value)
-        // })
     }
 
     return [ad, setAdData, setAdAge, save]

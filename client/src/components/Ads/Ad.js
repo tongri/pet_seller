@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import LazyLoad from 'react-lazyload'
 import moment from 'moment'
 
 import Heart from 'components/Icons/Heart'
@@ -22,12 +23,17 @@ const Ad = ({
         <div className="card mb-3">
             <div className="row g-0">
                 <div className="col-md-2 col-sm-6">
-                    <img
-                        src={tags.images[0].image}
-                        alt="Pet"
-                        className="rounded w-100 h-100"
-                        style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    />
+                    <LazyLoad className="h-100">
+                        <img
+                            src={tags.images[0].image}
+                            alt="Pet"
+                            className="rounded w-100 h-100"
+                            style={{
+                                objectFit: 'cover',
+                                objectPosition: 'center',
+                            }}
+                        />
+                    </LazyLoad>
                 </div>
                 <div className="col-md-10 col-sm-6">
                     <div className="card-body d-flex flex-column justify-content-between h-100">
@@ -64,11 +70,11 @@ const Ad = ({
                             </div>
                             {isOwner && isActive ? (
                                 <div className="col d-flex justify-content-end gap-2">
-                                    <Active />
+                                    <Active id={id} />
                                 </div>
                             ) : isOwner && !isActive ? (
                                 <div className="col d-flex justify-content-end gap-2">
-                                    <Inactive />
+                                    <Inactive id={id} />
                                 </div>
                             ) : null}
                         </div>

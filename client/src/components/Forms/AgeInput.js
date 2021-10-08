@@ -32,10 +32,7 @@ const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
 
                 <Select
                     name="measure"
-                    options={[
-                        { value: 'days', title: 'Days' },
-                        { value: 'years', title: 'Years' },
-                    ]}
+                    options={['Days', 'Years']}
                     onChange={(e) => setMeasure(e.target.value)}
                     className="w-100"
                     value={measure}

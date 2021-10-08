@@ -23,7 +23,6 @@ const AdMore = () => {
     const [ad, isLoading] = useRetrieveAd(+id)
 
     useEffect(() => addAd(id), [id])
-    console.log(ad)
 
     return isLoading ? (
         <p>Loading...</p>
@@ -58,7 +57,7 @@ const AdMore = () => {
                         <div className="row my-4 justify-content-between">
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
-                                    {ad.images.length && (
+                                    {ad.images && (
                                         <Carousel
                                             imageSet={ad.images.map(
                                                 (img) => img && img.image
