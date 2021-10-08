@@ -15,10 +15,11 @@ class MyUser(AbstractUser):
     COUNTRY_CHOICES = (
         (UKRAINE, 'Ukraine'),
         (POLAND, 'Poland'),
-	(RUSSIA, 'Russia')
+        (RUSSIA, 'Russia')
     )
     username = models.CharField(max_length=20, unique=True)
-    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True, null=True)
+    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True,
+                              null=True)
     country = models.CharField(max_length=7, choices=COUNTRY_CHOICES, blank=True, null=True)
     city = models.CharField(max_length=20, blank=True, null=True)
     first_name = models.CharField(max_length=20, null=True)
@@ -39,13 +40,13 @@ class Pet(models.Model):
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     )
-    UKRAINE = 'ukraine'
+    UKRAINE = 'Ukraine'
     POLAND = 'polland'
-    RUSSIA = 'russia'
+    RUSSIA = 'Russia'
     COUNTRY_CHOICES = (
         (UKRAINE, 'Ukraine'),
         (POLAND, 'Poland'),
-	(RUSSIA, 'Russia')
+        (RUSSIA, 'Russia')
     )
     S_SIZE = '10-30'
     M_SIZE = '30-50'
@@ -56,6 +57,7 @@ class Pet(models.Model):
         (L_SIZE, L_SIZE)
     )
     owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=30)
     kind_of_animal = models.CharField(max_length=10, choices=ANIMALS_CHOICES)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
