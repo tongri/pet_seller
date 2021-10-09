@@ -18,7 +18,7 @@ class MyUser(AbstractUser):
         (RUSSIA, 'Russia')
     )
     username = models.CharField(max_length=20, unique=True)
-    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9, 14}')], blank=True,
+    number = models.CharField(max_length=13, unique=True, validators=[RegexValidator(regex=r'\+\d{9,14}')], blank=True,
                               null=True)
     country = models.CharField(max_length=7, choices=COUNTRY_CHOICES, blank=True, null=True)
     city = models.CharField(max_length=20, blank=True, null=True)
