@@ -94,7 +94,7 @@ class CitiesByCountry(APIView): # view to get cities according to country
 
 class PetModelViewSet(ModelViewSet):
     serializer_class = PetSerializer
-    queryset = Pet.objects.all()
+    queryset = Pet.objects.filter(is_active=True)
     permission_classes = (OwnPetPermission, )
 
     def get_serializer_class(self):
