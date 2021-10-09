@@ -98,6 +98,10 @@ class ImagePet(models.Model):
     image = models.FileField(upload_to='uploads/')
 
 
+class FavouritePet(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+
 '''class Health(models.Model):
     HEALTHY = 'H'
     ILL = 'I'

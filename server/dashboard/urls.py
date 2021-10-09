@@ -3,13 +3,15 @@ from django.urls import path
 from rest_framework import routers
 
 from pet import settings
-from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet
+from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet, \
+    FavouriteModelViewSet
 
 from .views import CreateAuth
 
 router = routers.SimpleRouter()
 router.register(r'pets', PetModelViewSet)
 router.register(r'user', MyUserModelViewSet)
+router.register(r'fvaourite', FavouriteModelViewSet)
 #router.register(r'health', HealthModelViewSet)
 
 
