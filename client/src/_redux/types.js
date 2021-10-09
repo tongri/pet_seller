@@ -13,6 +13,15 @@ export const PETS_FAILED = 'PETS_FAILED'
 
 export const PETS_FILTER_SUCCESS = 'PETS_FILTER_SUCCESS'
 
+// Users Ads
+export const ADS_LOADING = 'ADS_LOADING'
+export const ADS_SUCCESS = 'ADS_SUCCESS'
+
+export const AD_TO_INACTIVE = 'AD_TO_INACTIVE'
+export const AD_TO_ACTIVE = 'AD_TO_ACTIVE'
+
+export const AD_DELETE = 'AD_DELETE'
+
 // Errors
 
 export const ERROR_CREATE = 'ERROR_CREATE'

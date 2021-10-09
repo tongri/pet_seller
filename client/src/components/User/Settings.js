@@ -1,17 +1,20 @@
 import { useSelector } from 'react-redux'
+import { saveUserSettings } from 'api/ads.api'
 
 import { MDBInput } from 'mdb-react-ui-kit'
 // import Select from 'components/Forms/Select'
 
 import useFetch from 'hooks/useFetch'
+import { getConfigByToken } from 'utils/config'
 
 const Settings = () => {
-    const id = useSelector((state) => state.users.id)
+    const { id, token } = useSelector((state) => state.users)
 
     // eslint-disable-next-line
-    const [{ data, isLoading }, setData, _, save] = useFetch(
-        `/api/v1/user/${id}/`
-    )
+    const [{ data, isLoading }, setData, _] = useFetch(`/api/v1/user/${id}/`)
+
+    const handleSave = () =>
+        saveUserSettings({ id, data, config: getConfigByToken(token) })
 
     const handleInput = (e) =>
         setData((state) => ({ ...state, [e.target.name]: e.target.value }))
@@ -62,43 +65,11 @@ const Settings = () => {
                         <div className="d-flex justify-content-end">
                             <button
                                 className="btn btn-outline-warning"
-                                onClick={() => save()}
+                                onClick={() => handleSave()}
                             >
                                 Save
                             </button>
                         </div>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="card-header">
-                        <h5 className="card-title m-0">Phone number</h5>
-                    </div>
-                    <div className="card-body d-flex flex-column gap-3">
-                        You can add your personal phone number for better
-                        security. We automaticly add it to contact details.
-                        <MDBInput
-                            label="Current phone number"
-                            type="phone"
-                            value=""
-                            disabled
-                        />
-                        <MDBInput label="Contact number*" type="phone" />
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="card-header">
-                        <h5 className="card-title m-0">Email</h5>
-                    </div>
-                    <div className="card-body d-flex flex-column gap-3">
-                        You can add your email for better security. We
-                        automaticly add it to contact details.
-                        <MDBInput
-                            label="Current email"
-                            type="email"
-                            value=""
-                            disabled
-                        />
-                        <MDBInput label="New email*" type="email" />
                     </div>
                 </div>
             </div>

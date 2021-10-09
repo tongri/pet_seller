@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux'
-import { changeAdState } from 'api/ads.api'
+import { useDispatch } from 'react-redux'
+import { convertToInactive } from '_redux/actions/usersAds.action'
 import { getConfigByToken } from 'utils/config'
 
 const Active = ({ id, className }) => {
-    const token = useSelector((state) => state.users.token)
+    const dsp = useDispatch()
 
-    const stateHandler = () =>
-        changeAdState({ id, isActive: false, config: getConfigByToken(token) })
+    const stateHandler = () => dsp(convertToInactive(id))
 
     return (
         <>

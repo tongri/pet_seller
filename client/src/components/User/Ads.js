@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import useFetch from 'hooks/useFetch'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadUsersAds } from '_redux/actions/usersAds.action'
 
 import {
     MDBTabs,
@@ -13,9 +14,15 @@ import AdsActive from './AdsActive'
 import AdsInActive from './AdsInActive'
 
 const Ads = () => {
-    const { data, isLoading } = useFetch('/api/v1/pets/get_my_ads/')[0]
-    const [tabActive, setTabActive] = useState('tab1')
+    const { isLoading, active, inactive } = useSelector(
+        (state) => state.usersAds
+    )
+    const dsp = useDispatch()
 
+    // eslint-disable-next-line
+    useEffect(() => dsp(loadUsersAds()), [])
+
+    const [tabActive, setTabActive] = useState('tab1')
     const handleTabClick = (value) => {
         if (tabActive === value) return
         setTabActive(value)
@@ -46,16 +53,10 @@ const Ads = () => {
 
             <MDBTabsContent>
                 <MDBTabsPane show={tabActive === 'tab1'}>
-                    <AdsActive
-                        list={data.filter((el) => el.is_active)}
-                        isLoading={isLoading}
-                    />
+                    <AdsActive list={active} isLoading={isLoading} />
                 </MDBTabsPane>
                 <MDBTabsPane show={tabActive === 'tab2'}>
-                    <AdsInActive
-                        list={data.filter((el) => !el.is_active)}
-                        isLoading={isLoading}
-                    />
+                    <AdsInActive list={inactive} isLoading={isLoading} />
                 </MDBTabsPane>
             </MDBTabsContent>
         </div>

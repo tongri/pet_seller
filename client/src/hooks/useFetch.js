@@ -29,15 +29,7 @@ const useFetch = (URL) => {
         fetchData()
     }, [url, token])
 
-    const save = async () => {
-        try {
-            await axios.patch(url, data, getConfigByToken(token))
-        } catch {
-            setIsError(true)
-        }
-    }
-
-    return [{ data, isLoading, isError }, setData, setUrl, save]
+    return [{ data, isLoading, isError }, setData, setUrl]
 }
 
 export default useFetch

@@ -25,7 +25,7 @@ const AuthenticatedNavbar = () => {
                     className="nav-link"
                     aria-current="page"
                 >
-                    <Heart className="fa-lg nav-link p-0" />
+                    <Heart className="fa-lg nav-link p-0" clickable={false} />
                 </Link>
             </li>
             <li className="nav-item dropdown">

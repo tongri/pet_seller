@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux'
-import { changeAdState } from 'api/ads.api'
-import { getConfigByToken } from 'utils/config'
+import { useDispatch } from 'react-redux'
+import { convertToActive, deleteAd } from '_redux/actions/usersAds.action'
 
 const InActive = ({ id, className }) => {
-    const token = useSelector((state) => state.users.token)
+    const dsp = useDispatch()
 
-    const stateHandler = () =>
-        changeAdState({ id, isActive: true, config: getConfigByToken(token) })
+    const stateHandler = () => dsp(convertToActive(id))
+
+    const deleteHandler = () => dsp(deleteAd(id))
 
     return (
         <>
@@ -16,7 +16,12 @@ const InActive = ({ id, className }) => {
             >
                 Activate
             </button>
-            <button className={`btn btn-dark ${className}`}>Delete</button>
+            <button
+                className={`btn btn-dark ${className}`}
+                onClick={deleteHandler}
+            >
+                Delete
+            </button>
         </>
     )
 }
