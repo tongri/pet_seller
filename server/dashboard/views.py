@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
 from .custom_exceptions import NoFiles
-from .custom_favourite_eprmission import FavouritePermission
+# from .custom_favourite_permission import FavouritePermission
 from .custom_pet_permission import OwnPetPermission, PrivatePetPermission
 from .models import Pet, MyUser, ImagePet, FavouritePet
 # Create your views here.

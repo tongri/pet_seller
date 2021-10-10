@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { verifyToken } from '_redux/actions/users.action'
@@ -8,13 +8,7 @@ import PublicRoute from 'routes/PublicRoute'
 
 import Modal from 'components/Layout/Modal'
 
-const Authentication = lazy(() => import('pages/Authentication'))
-const Main = lazy(() => import('pages/Main'))
-const AdMore = lazy(() => import('pages/AdMore'))
-const Liked = lazy(() => import('pages/Liked'))
-const AdCreate = lazy(() => import('pages/AdCreate'))
-const Profile = lazy(() => import('pages/Profile'))
-const AdUpdate = lazy(() => import('pages/AdUpdate'))
+import { PRIVATE_ROUTES, PUBLIC_ROUTES, ROUTES } from 'consts/routes'
 
 const App = () => {
     const dsp = useDispatch()
@@ -26,29 +20,28 @@ const App = () => {
         <BrowserRouter>
             <Suspense fallback={<p>Loading...</p>}>
                 <Switch>
-                    <Route path="/" exact>
-                        <Main />
-                    </Route>
-                    <PublicRoute path="/login">
-                        <Authentication />
-                    </PublicRoute>
-                    <PrivateRoute path="/ad/create/">
-                        <AdCreate />
-                    </PrivateRoute>
-                    <PrivateRoute path="/profile">
-                        <Profile />
-                    </PrivateRoute>
-                    <PrivateRoute path="/ad/edit/:id/">
-                        <AdUpdate />
-                    </PrivateRoute>
-                    <Route path="/ad/:id/">
-                        <AdMore />
-                    </Route>
-                    <PrivateRoute path="/users/saved/">
-                        <Liked />
-                    </PrivateRoute>
+                    {ROUTES.map(({ path, component: Component }, index) => (
+                        <Route path={path} exact key={index}>
+                            <Component />
+                        </Route>
+                    ))}
+                    {PUBLIC_ROUTES.map(
+                        ({ path, component: Component }, index) => (
+                            <PublicRoute path={path} exact key={index}>
+                                <Component />
+                            </PublicRoute>
+                        )
+                    )}
+                    {PRIVATE_ROUTES.map(
+                        ({ path, component: Component }, index) => (
+                            <PrivateRoute path={path} exact key={index}>
+                                <Component />
+                            </PrivateRoute>
+                        )
+                    )}
                 </Switch>
             </Suspense>
+
             <Modal />
         </BrowserRouter>
     )

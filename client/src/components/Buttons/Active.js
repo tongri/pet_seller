@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { convertToInactive } from '_redux/actions/usersAds.action'
-import { getConfigByToken } from 'utils/config'
 
 const Active = ({ id, className }) => {
     const dsp = useDispatch()

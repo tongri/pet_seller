@@ -8,7 +8,7 @@ import Photo from 'components/Forms/Photo'
 import Select from 'components/Forms/Select'
 import AgeInput from 'components/Forms/AgeInput'
 
-const AdUpdate = () => {
+const AdEdit = () => {
     const [form, { setAdData, setAdAge }] = useUpdateAd({
         testing: true,
         downloadingURL: '',
@@ -253,4 +253,4 @@ const AdUpdate = () => {
     )
 }
 
-export default AdUpdate
+export default AdEdit
