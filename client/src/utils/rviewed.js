@@ -10,4 +10,6 @@ const addAd = (id) => {
     }
 }
 
+export const clearAds = () => sessionStorage.setItem(STORAGE_VIEWED, [])
+
 export default addAd

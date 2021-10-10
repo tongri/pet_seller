@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import axios from '_axios'
 
 import { getConfigByToken } from 'utils/config'
+import { clearAds } from 'utils/rviewed'
 import { STORAGE_VIEWED } from 'consts/storage'
 
 const useViewed = () => {
@@ -24,9 +25,11 @@ const useViewed = () => {
                     getConfigByToken(token)
                 )
 
+                if (result.data.data.length === 0) clearAds()
+
                 setAds(result.data.data)
             } catch (err) {
-                return
+                clearAds()
             }
         }
 
