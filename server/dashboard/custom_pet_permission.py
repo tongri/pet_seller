@@ -6,3 +6,13 @@ class OwnPetPermission(BasePermission):
         if request.method in SAFE_METHODS:
             return True
         return request.user == obj.owner
+
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user.is_authenticated
+
+
+class PrivatePetPermission(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user == obj.owner

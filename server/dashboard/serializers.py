@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import MyUser, Pet, ImagePet
+from .models import MyUser, Pet, ImagePet, FavouritePet
 
 
 class LoginUserSerializer(serializers.Serializer):
@@ -68,4 +68,18 @@ class DetailPetSerializer(serializers.ModelSerializer):
 class ImagePetSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImagePet
+        fields = '__all__'
+
+
+class DetailFavouritePetSerializer(serializers.ModelSerializer):
+    pet = DetailPetSerializer()
+
+    class Meta:
+        model = FavouritePet
+        exclude = ('user', )
+
+
+class FavouritePetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavouritePet
         fields = '__all__'
