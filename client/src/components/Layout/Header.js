@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { PAGE_MAIN } from 'consts/routes'
+
 import {
     MDBNavbar,
     MDBContainer,
@@ -26,7 +28,7 @@ const Header = () => {
                     tag="span"
                     className="header-title text-warning"
                 >
-                    <Link to="/" className="text-warning h3 mb-0">
+                    <Link to={PAGE_MAIN} className="text-warning h3 mb-0">
                         Pet Home
                     </Link>
                 </MDBNavbarBrand>

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
 import moment from 'moment'
 
+import { PAGE_AD } from 'consts/routes'
+
 import Heart from 'components/Icons/Heart'
 
 import Active from 'components/Buttons/Active'
@@ -40,7 +42,7 @@ const Ad = ({
                         <div>
                             <div className="row g-0">
                                 <div className="col">
-                                    <Link to={`/ad/${id}`}>
+                                    <Link to={PAGE_AD(id)}>
                                         <h5 className="card-title text-dark">
                                             {name}
                                         </h5>

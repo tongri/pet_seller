@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { PAGE_SAVED, PAGE_PROFILE, PAGE_AD_CREATE } from 'consts/routes'
+
 import {
     MDBDropdown,
     MDBDropdownToggle,
@@ -20,11 +22,7 @@ const AuthenticatedNavbar = () => {
     return (
         <ul className="navbar-nav d-flex align-items-center gap-2">
             <li className="nav-item active">
-                <Link
-                    to="/users/saved/"
-                    className="nav-link"
-                    aria-current="page"
-                >
+                <Link to={PAGE_SAVED} className="nav-link" aria-current="page">
                     <Heart className="fa-lg nav-link p-0" clickable={false} />
                 </Link>
             </li>
@@ -40,12 +38,12 @@ const AuthenticatedNavbar = () => {
                     <MDBDropdownMenu>
                         <MDBDropdownItem />
                         <MDBDropdownItem>
-                            <Link to="/profile" className="dropdown-item">
+                            <Link to={PAGE_PROFILE} className="dropdown-item">
                                 My Ads
                             </Link>
                         </MDBDropdownItem>
                         <MDBDropdownItem>
-                            <Link to="/profile" className="dropdown-item">
+                            <Link to={PAGE_PROFILE} className="dropdown-item">
                                 Settings
                             </Link>
                         </MDBDropdownItem>
@@ -62,7 +60,7 @@ const AuthenticatedNavbar = () => {
                 </MDBDropdown>
             </li>
             <li className="nav-item">
-                <Link to="/ad/create/" className="btn btn-warning">
+                <Link to={PAGE_AD_CREATE} className="btn btn-warning">
                     Create ad
                 </Link>
             </li>
