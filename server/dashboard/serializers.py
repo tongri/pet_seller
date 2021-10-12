@@ -16,7 +16,6 @@ class LoginUserSerializer(serializers.Serializer):
 
 
 class RegSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = '__all__'
         model = MyUser
@@ -38,6 +37,12 @@ class MyUserSerializer(serializers.ModelSerializer):
         fields = '__all__'''
 
 
+class ImagePetHyperlinked(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ImagePet
+        fields = ('image',)
+
+
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
@@ -48,16 +53,10 @@ class PetIdSerializer(serializers.Serializer):
     ids = serializers.ListField(child=serializers.IntegerField())
 
 
-class ImagePetHyperlinked(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = ImagePet
-        fields = ('image', )
-
-
 class DetailPetSerializer(serializers.ModelSerializer):
     owner = MyUserSerializer()
     #health = HealthSerializer()
-    images = ImagePetHyperlinked(many=True)
+    files = ImagePetHyperlinked(many=True)
     birthday = serializers.CharField()
 
     class Meta:

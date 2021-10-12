@@ -11,7 +11,6 @@ import Modal from 'components/Layout/Modal'
 import { PRIVATE_ROUTES, PUBLIC_ROUTES, ROUTES } from 'consts/routes'
 
 const App = () => {
-    console.log(ROUTES, PUBLIC_ROUTES, PRIVATE_ROUTES)
     const dsp = useDispatch()
 
     // eslint-disable-next-line

@@ -36,7 +36,7 @@ export const convertToInactive = (id) => async (dispatch, getState) => {
             { is_active: false },
             getConfig(getState)
         )
-        console.log('After request')
+
         dispatch({
             type: AD_TO_INACTIVE,
             payload: id,

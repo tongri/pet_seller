@@ -13,6 +13,7 @@ import Inactive from 'components/Buttons/Inactive'
 const AdDetails = ({ ad, id }) => {
     const { isAuthenticated, username } = useSelector((state) => state.users)
 
+    console.log(ad.files)
     return (
         <>
             <Header />
@@ -50,11 +51,29 @@ const AdDetails = ({ ad, id }) => {
                         <div className="row my-4 justify-content-between">
                             <div className="col-md-8 col-lg-8 col-sm-12">
                                 <div className="card">
-                                    {ad.images && (
+                                    {/* {ad.files && Array.isArray(ad.files) ? (
                                         <Carousel
-                                            imageSet={ad.images.map(
+                                            imageSet={ad.files.map(
                                                 (img) => img && img.image
                                             )}
+                                        />
+                                    ) : Array.isArray(ad.files) ? (
+                                        <Carousel
+                                            imageSet={ad.files.map(
+                                                (img) => img && img.image
+                                            )}
+                                        />
+                                    )
+                                            } */}
+                                    {ad.files && Array.isArray(ad.files) ? (
+                                        <Carousel
+                                            imageSet={ad.files.map(
+                                                (img) => img && img.image
+                                            )}
+                                        />
+                                    ) : (
+                                        <Carousel
+                                            imageSet={Object.values(ad.files)}
                                         />
                                     )}
                                 </div>

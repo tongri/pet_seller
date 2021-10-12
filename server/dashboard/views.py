@@ -13,6 +13,7 @@ from .custom_exceptions import NoFiles
 from .custom_favourite_eprmission import FavouritePermission
 from .custom_pet_permission import OwnPetPermission, PrivatePetPermission
 from .models import Pet, MyUser, ImagePet, FavouritePet
+
 # Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -70,7 +71,7 @@ class VerifyToken(APIView):
         if request.auth is not None and request.auth.user:
             user = request.auth.user
             return Response({
-		'id': user.id,
+                'id': user.id,
                 'username': user.username,
                 'token': user.auth_token.key
             })
@@ -119,31 +120,32 @@ class PetModelViewSet(ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
+        if 'files' in self.request.FILES.keys() and len(self.request.FILES.getlist('files')):
             super().perform_create(serializer)
             instance = Pet.objects.get(id=serializer.data.get('id'))
-            ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
-                                         .getlist('files')])
+            ImagePet.objects.bulk_create([
+                ImagePet(pet=instance, image=image) for image in self.request.FILES.getlist('files')
+            ])
         else:
-            print(self.request._files)
+            print(self.request.FILES)
             raise NoFiles
 
-
     def perform_update(self, serializer):
-        if self.request.method == 'put':
-            if 'files' in self.request._files.keys() and len(self.request._files.getlist('files')):
+        if self.request.method == 'PUT' or self.request.method == 'PATCH':
+            if 'files' in self.request.FILES.keys() and len(self.request.FILES.getlist('files')):
                 super().perform_update(serializer)
                 instance = Pet.objects.get(id=serializer.data.get('id'))
-                ImagePet.objects.bulk_create([ImagePet(pet=instance, image=image) for image in self.request._files
-                                             .getlist('files')])
+                ImagePet.objects.bulk_create([
+                    ImagePet(pet=instance, image=image) for image in self.request.FILES.getlist('files')
+                ])
             else:
                 raise NoFiles
         else:
             super().perform_update(serializer)
 
-    @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated, ))
+    @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated,))
     def get_my_ads(self, request):
-        ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), many=True)
+        ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), context={'request': request}, many=True)
         return Response(ser.data)
 
     @action(methods=('post', ), detail=False)
@@ -151,7 +153,7 @@ class PetModelViewSet(ModelViewSet):
         ser = PetIdSerializer(data=request.data)
         if ser.is_valid():
             pets = Pet.objects.filter(id__in=ser.data.get('ids'))
-            pets_serialized = DetailPetSerializer(pets, many=True)
+            pets_serialized = DetailPetSerializer(pets, context={'request': request}, many=True)
             return Response({'data': pets_serialized.data})
         return Response({'errors': ser.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -163,7 +165,7 @@ class PetModelViewSet(ModelViewSet):
         except ObjectDoesNotExist:
             return None
 
-    @action(methods=('get', ), detail=True, permission_classes=(PrivatePetPermission, ))
+    @action(methods=('get',), detail=True, permission_classes=(PrivatePetPermission, ))
     def personal(self, request, pk=None):
         if pk is not None:
             pet = self.check_if_exists(pk)
@@ -189,13 +191,16 @@ class PetModelViewSet(ModelViewSet):
     def personal_patch(self, request, pk=None):
         if pk is None:
             return Response({'error': 'no pet id'}, status=status.HTTP_400_BAD_REQUEST)
+
         pet = self.check_if_exists(pk)
         if pet is None:
-           return Response({'error': 'wrong pet id'}, status=status.HTTP_400_BAD_REQUEST)
-        pet.is_active = request.data.get('is_active')
-        pet.save()
+            return Response({'error': 'wrong pet id'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(PetSerializer(pet).data)
+        pet_serializer = PetSerializer(pet, data=request.data, partial=True)
+        pet_serializer.is_valid(raise_exception=True)
+        pet_serializer.save()
+
+        return Response(pet_serializer.validated_data)
 
 
 class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
