@@ -80,6 +80,8 @@ class DetailFavouritePetSerializer(serializers.ModelSerializer):
 
 
 class FavouritePetSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(default=True)
+
     class Meta:
         model = FavouritePet
         fields = '__all__'
