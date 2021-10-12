@@ -25,7 +25,7 @@ const Ad = ({
         <div className="card mb-3">
             <div className="row g-0">
                 <div className="col-md-2 col-sm-6">
-                    <LazyLoad className="h-100">
+                    <div className="h-100">
                         <img
                             src={tags.files[0].image}
                             alt="Pet"
@@ -35,7 +35,7 @@ const Ad = ({
                                 objectPosition: 'center',
                             }}
                         />
-                    </LazyLoad>
+                    </div>
                 </div>
                 <div className="col-md-10 col-sm-6">
                     <div className="card-body d-flex flex-column justify-content-between h-100">

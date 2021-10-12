@@ -141,7 +141,7 @@ class PetModelViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=False, permission_classes=(IsAuthenticated,))
     def get_my_ads(self, request):
-        ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), context={"request": request}, many=True)
+        ser = DetailPetSerializer(Pet.objects.filter(owner=request.user), context={'request': request}, many=True)
         return Response(ser.data)
 
     @action(methods=('post', ), detail=False)
@@ -149,7 +149,7 @@ class PetModelViewSet(ModelViewSet):
         ser = PetIdSerializer(data=request.data)
         if ser.is_valid():
             pets = Pet.objects.filter(id__in=ser.data.get('ids'))
-            pets_serialized = DetailPetSerializer(pets, many=True)
+            pets_serialized = DetailPetSerializer(pets, context={'request': request}, many=True)
             return Response({'data': pets_serialized.data})
         return Response({'errors': ser.errors}, status=status.HTTP_400_BAD_REQUEST)
 
