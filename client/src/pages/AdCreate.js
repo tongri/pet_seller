@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MDBInput } from 'mdb-react-ui-kit'
 
 import useCreateAd from 'hooks/useCreateAd'
+import useSelect from 'hooks/useSelect'
 
 import Header from 'components/Layout/Header'
 import Card from 'components/Layout/Card'
@@ -13,10 +14,19 @@ const AdCreate = () => {
     const [form, setForm, setFormAge, save] = useCreateAd()
     const [accepted, setAcceptance] = useState(false)
 
+    const [cities, setCountry] = useSelect()
+    const [contactCities, setContactCountry] = useSelect()
+
     const setPhoto = (e) => setForm({ e, files: true })
     const setNested = (e, name) => setForm({ e, nested: true, name })
     const setNotNested = (e) => setForm({ e })
     const setAge = (value) => setFormAge(value)
+
+    useEffect(() => setCountry(form.country), [form.country])
+    useEffect(
+        () => setContactCountry(form.contact_country),
+        [form.contact_country]
+    )
 
     return (
         <>
@@ -222,7 +232,7 @@ const AdCreate = () => {
                     >
                         <Select
                             title="Country"
-                            options={['Ukraine', 'Russia', 'Polland']}
+                            options={['Ukraine', 'Russia', 'Poland']}
                             name="country"
                             value={form.country}
                             onChange={(e) => setNotNested(e)}
@@ -230,7 +240,7 @@ const AdCreate = () => {
                         />
                         <Select
                             title="City"
-                            options={['Kharkiv', 'Moskow', 'Warsawa']}
+                            options={cities}
                             name="city"
                             value={form.city}
                             onChange={(e) => setNotNested(e)}
@@ -245,7 +255,7 @@ const AdCreate = () => {
                         <MDBInput
                             label="Your name*"
                             name="contact_name"
-                            value={form.contacts.name}
+                            value={form.contacts.contact_name}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
@@ -253,7 +263,7 @@ const AdCreate = () => {
                             label="Your phone number*"
                             type="phone"
                             name="contact_phone"
-                            value={form.contacts.phone}
+                            value={form.contacts.contact_phone}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
@@ -261,23 +271,23 @@ const AdCreate = () => {
                             label="Your email*"
                             type="email"
                             name="contact_email"
-                            value={form.contacts.email}
+                            value={form.contacts.contact_email}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
                         <Select
                             title="Country"
-                            options={['Ukraine', 'Russia', 'Polland']}
+                            options={['Ukraine', 'Russia', 'Poland']}
                             name="contact_country"
-                            value={form.contacts.country}
+                            value={form.contacts.contact_country}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
                         <Select
                             title="City"
-                            options={['Kharkiv', 'Moskow', 'Russia']}
+                            options={contactCities}
                             name="contact_city"
-                            value={form.contacts.city}
+                            value={form.contacts.contact_city}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />

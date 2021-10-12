@@ -8,6 +8,7 @@ const InActive = ({ id, className }) => {
 
     const deleteHandler = () => dsp(deleteAd(id))
 
+    console.log(id)
     return (
         <>
             <button

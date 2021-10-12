@@ -7,7 +7,7 @@ import axios from '_axios'
 
 import { AD } from 'consts/ads'
 
-const useRetrieveAd = (id) => {
+const useRetrieveAd = (id, personal = false) => {
     const [ad, setAd] = useState(AD)
     const [isLoading, setIsLoading] = useState(false)
     const token = useSelector((state) => state.users.token)
@@ -17,7 +17,7 @@ const useRetrieveAd = (id) => {
             setIsLoading(true)
             try {
                 const result = await axios.get(
-                    `/api/v1/pets/${id}`,
+                    `/api/v1/pets/${id}/${personal ? 'personal' : ''}`,
                     getConfigByToken(token)
                 )
 

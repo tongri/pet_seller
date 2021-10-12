@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
 import moment from 'moment'
 
-import { PAGE_AD } from 'consts/routes'
+import { PAGE_AD, PAGE_AD_PERSONAL } from 'consts/routes'
 
 import Heart from 'components/Icons/Heart'
 
@@ -42,7 +42,13 @@ const Ad = ({
                         <div>
                             <div className="row g-0">
                                 <div className="col">
-                                    <Link to={PAGE_AD(id)}>
+                                    <Link
+                                        to={
+                                            isOwner
+                                                ? PAGE_AD_PERSONAL(id)
+                                                : PAGE_AD(id)
+                                        }
+                                    >
                                         <h5 className="card-title text-dark">
                                             {name}
                                         </h5>

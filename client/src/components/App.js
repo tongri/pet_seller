@@ -11,6 +11,7 @@ import Modal from 'components/Layout/Modal'
 import { PRIVATE_ROUTES, PUBLIC_ROUTES, ROUTES } from 'consts/routes'
 
 const App = () => {
+    console.log(ROUTES, PUBLIC_ROUTES, PRIVATE_ROUTES)
     const dsp = useDispatch()
 
     // eslint-disable-next-line
@@ -20,11 +21,6 @@ const App = () => {
         <BrowserRouter>
             <Suspense fallback={<p>Loading...</p>}>
                 <Switch>
-                    {ROUTES.map(({ path, component: Component }, index) => (
-                        <Route path={path} exact key={index}>
-                            <Component />
-                        </Route>
-                    ))}
                     {PUBLIC_ROUTES.map(
                         ({ path, component: Component }, index) => (
                             <PublicRoute path={path} exact key={index}>
@@ -39,6 +35,11 @@ const App = () => {
                             </PrivateRoute>
                         )
                     )}
+                    {ROUTES.map(({ path, component: Component }, index) => (
+                        <Route path={path} exact key={index}>
+                            <Component />
+                        </Route>
+                    ))}
                 </Switch>
             </Suspense>
 

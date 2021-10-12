@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
 from .custom_exceptions import NoFiles
-# from .custom_favourite_permission import FavouritePermission
+from .custom_favourite_eprmission import FavouritePermission
 from .custom_pet_permission import OwnPetPermission, PrivatePetPermission
 from .models import Pet, MyUser, ImagePet, FavouritePet
 # Create your views here.
@@ -80,11 +80,14 @@ class CitiesByCountry(APIView): # view to get cities according to country
 
     def get(self, request):
         country = request.query_params.get('country')
-        if country is Pet.UKRAINE:
-            return Response({"data": {'cities': ['Kharkiv', 'Kyiv']}})
-        elif country is Pet.POLAND:
-            return Response({"data": {'cities': ['Warsaw', 'Wroclaw']}})
-        return Response({'data': None})
+        print(country, Pet.POLAND, country == Pet.UKRAINE, country is Pet.UKRAINE)
+        if country == Pet.UKRAINE:
+            return Response({'cities': ['Kharkiv', 'Kyiv']})
+        elif country == Pet.POLAND:
+            return Response({'cities': ['Warsaw', 'Wroclaw']})
+        elif country == Pet.RUSSIA:
+            return Response({'cities': ['Moskow', 'St. Peterburg']})
+        return Response({'cities': []})
 
 
 '''class HealthModelViewSet(ModelViewSet):
@@ -177,6 +180,18 @@ class PetModelViewSet(ModelViewSet):
                 pet.delete()
                 return Response({'status': 'deleted'}, status=status.HTTP_200_OK)
         return Response({'error': 'no pet id'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @personal.mapping.patch
+    def personal_patch(self, request, pk=None):
+        if pk is None:
+            return Response({'error': 'no pet id'}, status=status.HTTP_400_BAD_REQUEST)
+        pet = self.check_if_exists(pk)
+        if pet is None:
+           return Response({'error': 'wrong pet id'}, status=status.HTTP_400_BAD_REQUEST)
+        pet.is_active = request.data.get('is_active')
+        pet.save()
+
+        return Response(PetSerializer(pet).data)
 
 
 class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):

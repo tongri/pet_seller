@@ -32,7 +32,7 @@ export const loadUsersAds = () => async (dispatch, getState) => {
 export const convertToInactive = (id) => async (dispatch, getState) => {
     try {
         await axios.patch(
-            `/api/v1/pets/${id}/`,
+            `/api/v1/pets/${id}/personal/`,
             { is_active: false },
             getConfig(getState)
         )
@@ -41,9 +41,7 @@ export const convertToInactive = (id) => async (dispatch, getState) => {
             type: AD_TO_INACTIVE,
             payload: id,
         })
-    } catch (err) {
-        console.log('ERROR', err)
-        console.log(err.response)
+    } catch {
         // TODO: Handle errors
     }
 }
@@ -53,7 +51,7 @@ export const convertToInactive = (id) => async (dispatch, getState) => {
 export const convertToActive = (id) => async (dispatch, getState) => {
     try {
         await axios.patch(
-            `/api/v1/pets/${id}/`,
+            `/api/v1/pets/${id}/personal/`,
             { is_active: true },
             getConfig(getState)
         )
@@ -70,7 +68,7 @@ export const convertToActive = (id) => async (dispatch, getState) => {
 // @method  PATCH
 export const deleteAd = (id) => async (dispatch, getState) => {
     try {
-        await axios.delete(`/api/v1/pets/${id}/`, getConfig(getState))
+        await axios.delete(`/api/v1/pets/${id}/personal/`, getConfig(getState))
 
         dispatch({
             type: AD_DELETE,

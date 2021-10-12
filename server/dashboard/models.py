@@ -41,7 +41,7 @@ class Pet(models.Model):
         (FEMALE, 'Female'),
     )
     UKRAINE = 'Ukraine'
-    POLAND = 'Polland'
+    POLAND = 'Poland'
     RUSSIA = 'Russia'
     COUNTRY_CHOICES = (
         (UKRAINE, 'Ukraine'),
