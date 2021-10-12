@@ -27,7 +27,7 @@ const Ad = ({
                 <div className="col-md-2 col-sm-6">
                     <LazyLoad className="h-100">
                         <img
-                            src={tags.images[0].image}
+                            src={tags.files[0].image}
                             alt="Pet"
                             className="rounded w-100 h-100"
                             style={{

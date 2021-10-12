@@ -94,13 +94,14 @@ class Pet(models.Model):
 
 
 class ImagePet(models.Model):
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='images', related_query_name='images')
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='files', related_query_name='files')
     image = models.FileField(upload_to='uploads/')
 
 
 class FavouritePet(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+
 
 '''class Health(models.Model):
     HEALTHY = 'H'

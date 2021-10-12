@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import axios from '_axios'
-import { getConfigByToken } from 'utils/config'
 
-import { AD } from 'consts/ads'
+import { getConfigByToken } from 'utils/config'
 import { changeAdAge, changeAd } from 'utils/cuAd'
 
-const useUpdateAd = ({ downloadingURL, uploadingURL, testing }) => {
+import { AD } from 'consts/ads'
+
+const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
     const [ad, setAd] = useState(AD)
     const token = useSelector((state) => state.users.token)
-    const firstAd = useSelector((state) => state.pets.list[0])
+
+    const setAdData = (data) => changeAd({ ...data, setAd })
+    const setAdAge = (value) => changeAdAge({ value, setAd })
 
     useEffect(() => {
         const loadAd = async () => {
@@ -21,11 +24,12 @@ const useUpdateAd = ({ downloadingURL, uploadingURL, testing }) => {
                 )
 
                 setAd(result.data)
-            } catch {
+            } catch (err) {
+                console.log(err)
                 return
             }
         }
-        testing ? setAd(firstAd) : loadAd()
+        loadAd()
         // eslint-disable-next-line
     }, [downloadingURL, token])
 
@@ -37,10 +41,7 @@ const useUpdateAd = ({ downloadingURL, uploadingURL, testing }) => {
         uploadAd()
     }
 
-    const setAdData = (data) => changeAd({ ...data, setAd })
-    const setAdAge = (value) => changeAdAge({ value, setAd })
-
-    return [ad, { setAdData, setAdAge }, save]
+    return [ad, setAdData, setAdAge, save]
 }
 
 export default useUpdateAd
