@@ -16,7 +16,7 @@ const useSelect = () => {
                     `/api/v1/get-cities/?country=${country}`,
                     getConfigByToken(token)
                 )
-
+                console.log('City', result.data)
                 setCities(result.data.cities)
             } catch {
                 // TODO: Handle exceptions...

@@ -30,15 +30,24 @@ export const filterPets = (filter) => async (dispatch, getState) => {
     try {
         const config = {
             ...getConfig(getState),
-            params: { filter },
+            params: Object.fromEntries(
+                Object.entries(filter).filter(([_, v]) => v != 'None')
+            ),
         }
+
+        console.log(
+            Object.fromEntries(
+                Object.entries(filter).filter(([_, v]) => v != 'None')
+            )
+        )
 
         const result = await axios.get('/api/v1/pets/', config)
         dispatch({
             type: PETS_FILTER_SUCCESS,
-            payload: result.datas,
+            payload: result.data,
         })
     } catch (err) {
+        console.log(err)
         // TODO: Handle errors...
     }
 }

@@ -20,6 +20,8 @@ const AdEdit = () => {
         uploadingURL: '',
     })
 
+    console.log(form)
+
     const [cities, setCountry] = useSelect()
     useEffect(() => setCountry(form.country), [form.country])
 

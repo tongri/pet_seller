@@ -1,21 +1,36 @@
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { filterPets } from '_redux/actions/pets.action'
 
+import { LIST_OF_FILTERS, filters } from 'consts/filter'
+
 import Search from './Search'
 import Select from '../Forms/Select'
+import useSelect from 'hooks/useSelect'
 
-const LIST_OF_FILTERS = [
-    { name: 'countries', title: 'Country' },
-    { name: 'cities', title: 'City' },
-    { name: 'kinds', title: 'Kind of animal' },
-    { name: 'genders', title: 'Gender' },
-    { name: 'sizes', title: 'Size' },
-    { name: 'ages', title: 'Age' },
-]
+const Filter = () => {
+    const [filter, setFilters] = useState(filters)
+    const [cities, setCountry] = useSelect()
+    const [chosenFilters, setChosenFilters] = useState({})
 
-const Filter = ({ filters }) => {
     const dsp = useDispatch()
-    const changeHandler = (val) => dsp(filterPets(val))
+    const changeHandler = (e) => {
+        if (e.target.name === 'country') {
+            setCountry(() => e.target.value)
+        }
+
+        setChosenFilters((state) => ({
+            ...state,
+            [e.target.name]: e.target.value,
+        }))
+    }
+
+    useEffect(() => dsp(filterPets(chosenFilters)), [chosenFilters])
+
+    useEffect(
+        () => setFilters((state) => ({ ...state, city: cities })),
+        [cities]
+    )
 
     return (
         <div>
@@ -33,7 +48,7 @@ const Filter = ({ filters }) => {
                         <Select
                             key={key}
                             {...filt}
-                            options={filters[filt.name]}
+                            options={filter[filt.name]}
                             onChange={changeHandler}
                         />
                     ))}

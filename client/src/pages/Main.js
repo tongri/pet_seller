@@ -4,11 +4,9 @@ import Header from 'components/Layout/Header'
 import AdList from 'components/Ads/AdList'
 import Filter from 'components/Filter/Filter'
 import Scroller from 'components/Layout/Scroller'
-import useFetch from 'hooks/useFetch'
 
 const Main = () => {
-    const { list, ...filters } = useSelector((state) => state.pets)
-    const { data, isLoading } = useFetch('/api/v1/pets/')[0]
+    const { list, isLoading } = useSelector((state) => state.pets)
 
     return (
         <>
@@ -16,13 +14,13 @@ const Main = () => {
 
             <div className="container-fluid row justify-content-center gap-5 mt-5">
                 <div className="col-md-2">
-                    <Filter filters={filters} />
+                    <Filter />
                 </div>
                 <div className="col-md-6">
                     {isLoading ? (
                         <p className="text-center">Loading...</p>
                     ) : (
-                        <AdList list={data} />
+                        <AdList list={list} />
                     )}
                 </div>
             </div>

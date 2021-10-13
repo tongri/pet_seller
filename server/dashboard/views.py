@@ -37,8 +37,10 @@ def create_health_pet(sender, instance=None, created=False, **kwargs):
         Health.objects.create(pet=instance)'''
 
 
-class CreateAuth(APIView):  # creating new user
-
+class CreateAuth(APIView):
+    """
+    Creating new User
+    """
     def post(self, request, *args, **kwargs):
         serialized = RegSerializer(data=request.data)
         if serialized.is_valid():
@@ -78,11 +80,12 @@ class VerifyToken(APIView):
         return Response({'error': 'invalid user credentials'}, status=status.HTTP_403_FORBIDDEN)
 
 
-class CitiesByCountry(APIView): # view to get cities according to country
-
+class CitiesByCountry(APIView):
+    """
+    View to get cities according to country
+    """
     def get(self, request):
         country = request.query_params.get('country')
-        print(country, Pet.POLAND, country == Pet.UKRAINE, country is Pet.UKRAINE)
         if country == Pet.UKRAINE:
             return Response({'cities': ['Kharkiv', 'Kyiv']})
         elif country == Pet.POLAND:
@@ -116,7 +119,7 @@ class PetModelViewSet(ModelViewSet):
             return queryset
         if self.request.user.is_authenticated and self.request.method in SAFE_METHODS:
             queryset = queryset.exclude(owner=self.request.user)
-            query_dicit = dict.fromkeys('')
+            # query_dicit = dict.fromkeys('')
         return queryset
 
     def perform_create(self, serializer):
@@ -171,7 +174,7 @@ class PetModelViewSet(ModelViewSet):
             if pet is None:
                 return Response({'error': 'wrong pet id'}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                ser = DetailPetSerializer(pet)
+                ser = DetailPetSerializer(pet, context={"request": request})
                 return Response(ser.data)
         return Response({'error': 'no pet id'}, status=status.HTTP_400_BAD_REQUEST)
 
