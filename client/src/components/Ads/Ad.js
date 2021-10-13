@@ -1,5 +1,5 @@
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import LazyLoad from 'react-lazyload'
 import moment from 'moment'
 
 import { PAGE_AD, PAGE_AD_PERSONAL } from 'consts/routes'
@@ -17,10 +17,12 @@ const Ad = ({
     date,
     name,
     favourite,
+    is_liked,
     isOwner = false,
     isActive = true,
     ...tags
 }) => {
+    const user_id = useSelector((state) => state.users.id)
     return (
         <div className="card mb-3">
             <div className="row g-0">
@@ -55,7 +57,13 @@ const Ad = ({
                                     </Link>
                                 </div>
                                 <div className="col text-end">
-                                    {!isOwner && <Heart id={id} />}
+                                    {!isOwner && (
+                                        <Heart
+                                            id={id}
+                                            user_id={user_id}
+                                            isActive={is_liked}
+                                        />
+                                    )}
                                 </div>
                             </div>
 

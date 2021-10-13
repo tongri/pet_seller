@@ -46,14 +46,29 @@ export const filterPets = (filter) => async (dispatch, getState) => {
 // @desc        Add Ad to favourite
 // @method      POST
 // @permissions Authenticated only
-export const makeFavourite = (ad_id) => async (_, getState) => {
+export const makeFavourite = (ad_id, user_id) => async (_, getState) => {
     try {
         await axios.post(
-            '/api/v1/ads/favourite/add/',
-            ad_id,
+            '/api/v1/ads/favourite/',
+            { pet: ad_id, user: user_id },
             getConfig(getState)
         )
     } catch (err) {
+        // TODO: Handle errors...
+    }
+}
+
+// @desc        Remove Ad from favourite
+// @method      Delete
+// @permissions Authenticated only
+export const removeFavourite = (ad_id, user_id) => async (_, getState) => {
+    try {
+        await axios.delete(
+            '/api/v1/ads/favourite/',
+            { pet: ad_id, user: user_id },
+            getConfig(getState)
+        )
+    } catch {
         // TODO: Handle errors...
     }
 }

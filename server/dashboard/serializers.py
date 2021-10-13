@@ -55,13 +55,23 @@ class PetIdSerializer(serializers.Serializer):
 
 class DetailPetSerializer(serializers.ModelSerializer):
     owner = MyUserSerializer()
-    #health = HealthSerializer()
+    # health = HealthSerializer()
     files = ImagePetHyperlinked(many=True)
     birthday = serializers.CharField()
 
     class Meta:
         model = Pet
         fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+
+        user = self.context["request"].user
+        if not user.is_authenticated:
+            response['is_liked'] = False
+        else:
+            response['is_liked'] = len(user.favouritepet_set.filter(id=instance.id)) != 0
+        return response
 
 
 class ImagePetSerializer(serializers.ModelSerializer):
@@ -75,11 +85,14 @@ class DetailFavouritePetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FavouritePet
-        exclude = ('user', )
+        exclude = ('user',)
+
+    def to_representation(self, instance):
+        return DetailPetSerializer(instance.pet, context=self.context).data
 
 
 class FavouritePetSerializer(serializers.ModelSerializer):
-    is_active = serializers.BooleanField(default=True)
+    # is_active = serializers.BooleanField(default=True)
 
     class Meta:
         model = FavouritePet

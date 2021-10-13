@@ -123,7 +123,6 @@ class PetModelViewSet(ModelViewSet):
                 ImagePet(pet=instance, image=image) for image in self.request.FILES.getlist('files')
             ])
         else:
-            print(self.request.FILES)
             raise NoFiles
 
     def perform_update(self, serializer):
@@ -200,18 +199,18 @@ class PetModelViewSet(ModelViewSet):
 
 
 class MyUserModelViewSet(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
-    permission_classes = (OwnAccountPermission, )
+    permission_classes = (OwnAccountPermission,)
     serializer_class = MyUserSerializer
     queryset = MyUser.objects.all()
 
 
 class FavouriteModelViewSet(RetrieveModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin, GenericViewSet):
-    permission_classes = (FavouritePermission, )
+    permission_classes = (FavouritePermission,)
     serializer_class = FavouritePetSerializer
     queryset = FavouritePet.objects.all()
 
     def get_serializer_class(self):
-        if self.action not in ['destroy', 'update', 'create']:
+        if self.action not in {'destroy', 'update', 'create'}:
             return DetailFavouritePetSerializer
         return super().get_serializer_class()
 

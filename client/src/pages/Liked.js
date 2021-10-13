@@ -14,10 +14,8 @@ import Watchlist from 'components/User/Watchlist'
 import RecentlyViewed from 'components/User/RecentlyViewed'
 
 const Liked = () => {
-    // const { data, isLoading, isError } = useFetch('/api/v1/users/favourite/')[0]
-
-    const pets = useSelector((state) => state.pets.list)
     const [tabActive, setTabActive] = useState('tab1')
+
     const handleTabClick = (value) => {
         if (tabActive === value) return
         setTabActive(value)
@@ -50,7 +48,7 @@ const Liked = () => {
 
             <MDBTabsContent>
                 <MDBTabsPane show={tabActive === 'tab1'}>
-                    <Watchlist list={pets} />
+                    <Watchlist />
                 </MDBTabsPane>
                 <MDBTabsPane show={tabActive === 'tab2'}>
                     <RecentlyViewed />
