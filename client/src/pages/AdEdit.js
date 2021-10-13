@@ -131,6 +131,7 @@ const AdEdit = () => {
                             onChange={setNotNested}
                         />
                     </Card>
+
                     <Card title="Biography*" className="mt-5">
                         Write here what you know about life of this animal
                         <MDBInput

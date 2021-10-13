@@ -23,7 +23,14 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
                     getConfigByToken(token)
                 )
 
-                setAd(result.data)
+                setAd(
+                    Object.fromEntries(
+                        Object.entries(result.data).map(([key, value]) => {
+                            console.log(value ? value : '')
+                            return [key, value ? value : '']
+                        })
+                    )
+                )
             } catch (err) {
                 console.log(err)
                 return
