@@ -15,12 +15,10 @@ import AgeInput from 'components/Forms/AgeInput'
 const AdEdit = () => {
     const { id } = useParams()
 
-    const [form, setAdData, setAdAge] = useUpdateAd({
+    const [form, setAdData, setAdAge, save] = useUpdateAd({
         downloadingURL: `/api/v1/pets/${id}/personal/`,
-        uploadingURL: '',
+        uploadingURL: `/api/v1/pets/${id}/personal/`,
     })
-
-    console.log(form)
 
     const [cities, setCountry] = useSelect()
     useEffect(() => setCountry(form.country), [form.country])
@@ -123,7 +121,16 @@ const AdEdit = () => {
                             value={form.size}
                             dflt="Choose"
                         />
-                        <AgeInput title="Age*" name="age" onChange={setAge} />
+                        <AgeInput
+                            title="Age*"
+                            name="age"
+                            onChange={setAge}
+                            value={
+                                form.age !== 0
+                                    ? `${form.age} years`
+                                    : `${form.days} days`
+                            }
+                        />
                         <MDBInput
                             name="breed"
                             label="Breed*"
@@ -170,7 +177,7 @@ const AdEdit = () => {
                             title="General state of health"
                             name="state_of_health"
                             dflt="Choose"
-                            options={['Healthy', 'Sick']}
+                            options={['Healthy', 'Ill']}
                             value={form.state_of_health}
                             onChange={(e) => setNotNested(e)}
                         />
@@ -185,7 +192,7 @@ const AdEdit = () => {
                         <Select
                             title="Behavioral disorders"
                             dflt="Choose"
-                            options={['Psycho', 'Another one']}
+                            options={['Fearfulness', 'Rabies']}
                             name="behaviour_disorders"
                             value={form.behaviour_disorders}
                             onChange={(e) => setNotNested(e)}
@@ -221,7 +228,10 @@ const AdEdit = () => {
 
                     <div className="row mb-5">
                         <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end mt-5">
-                            <button className="btn btn-warning btn-lg">
+                            <button
+                                className="btn btn-warning btn-lg"
+                                onClick={() => save()}
+                            >
                                 Save
                             </button>
                         </div>

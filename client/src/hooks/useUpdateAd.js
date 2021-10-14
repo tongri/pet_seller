@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux'
 import axios from '_axios'
 
 import { getConfigByToken } from 'utils/config'
-import { changeAdAge, changeAd } from 'utils/cuAd'
+import { changeAdAge, changeAd, convertToFormData } from 'utils/cuAd'
 
 import { AD } from 'consts/ads'
 
 const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
     const [ad, setAd] = useState(AD)
-    const token = useSelector((state) => state.users.token)
+    const token = useSelector((state) => state.token)
 
     const setAdData = (data) => changeAd({ ...data, setAd })
     const setAdAge = (value) => changeAdAge({ value, setAd })
@@ -25,10 +25,10 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
 
                 setAd(
                     Object.fromEntries(
-                        Object.entries(result.data).map(([key, value]) => {
-                            console.log(value ? value : '')
-                            return [key, value ? value : '']
-                        })
+                        Object.entries(result.data).map(([key, value]) => [
+                            key,
+                            value != null ? value : '',
+                        ])
                     )
                 )
             } catch (err) {
@@ -42,7 +42,22 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
 
     const save = () => {
         const uploadAd = async () => {
-            await axios.put(uploadingURL, ad, getConfigByToken(token))
+            try {
+                const { owner, contacts, ...ad_data } = ad
+
+                const form = convertToFormData({
+                    ...ad_data,
+                    files: Object.values(ad.files).filter((el) => el !== ''),
+                })
+
+                await axios.patch(
+                    uploadingURL,
+                    form,
+                    getConfigByToken(token, true)
+                )
+            } catch (err) {
+                console.log(err.response)
+            }
         }
 
         uploadAd()

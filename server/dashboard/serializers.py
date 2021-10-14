@@ -28,7 +28,7 @@ class RegSerializer(serializers.ModelSerializer):
 class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ('id', 'first_name', 'last_name', 'username', 'number', 'email')
+        fields = ('id', 'first_name', 'username', 'number', 'email')
 
 
 '''class HealthSerializer(serializers.ModelSerializer):
@@ -71,6 +71,7 @@ class DetailPetSerializer(serializers.ModelSerializer):
             response['is_liked'] = False
         else:
             response['is_liked'] = len(user.favouritepet_set.filter(id=instance.id)) != 0
+
         return response
 
 

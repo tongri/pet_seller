@@ -21,13 +21,13 @@ const AdDetails = ({ ad, id }) => {
                 <div className="row justify-content-center">
                     <div className="col-lg-10 col-md-10 col-sm-12">
                         <div className="row">
-                            <div className="col-lg-2 col-md-2 col-sm-2 small">
+                            <div className="col-lg-4 col-md-4 col-sm-4 small">
                                 <i className="far fa-clock"></i>{' '}
                                 {moment(ad.date).format('MMM Do YY')}
                             </div>
                         </div>
                         <div className="row justify-content-between">
-                            <div className="col-md-2 col-lg-2 col-sm-3">
+                            <div className="col-md-4 col-lg-4 col-sm-8">
                                 <span className="h3 me-2">{ad.name}</span>{' '}
                                 <Heart className="fa-lg" id={id} />
                             </div>

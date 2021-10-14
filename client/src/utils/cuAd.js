@@ -52,10 +52,27 @@ export const changeAd = ({
 }
 
 export const changeAdAge = ({ value, setAd }) => {
+    console.log('CHANGE AD', value)
     const [num, measure] = value.split(' ')
     setAd((state) => ({
         ...state,
-        age: measure === 'years' ? num : 1,
-        days: measure === 'days' ? num : 1,
+        age: measure === 'years' ? num : 0,
+        days: measure === 'days' ? num : 0,
     }))
+}
+
+export const convertToFormData = (value) => {
+    const form = new FormData()
+
+    for (let key in value) {
+        if (typeof value[key] === 'object' && value[key] !== null) {
+            if (Array.isArray(value[key]))
+                for (let item of value[key]) form.append(key, item)
+            else
+                for (let subkey in value[key])
+                    form.append(subkey, value[key][subkey])
+        } else form.append(key, value[key])
+    }
+
+    return form
 }

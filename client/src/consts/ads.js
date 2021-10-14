@@ -1,4 +1,5 @@
 export const AD = {
+    age: 0,
     name: '',
     kind_of_animal: '',
     breed: '',
