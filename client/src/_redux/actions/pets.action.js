@@ -58,7 +58,7 @@ export const filterPets = (filter) => async (dispatch, getState) => {
 export const makeFavourite = (ad_id, user_id) => async (_, getState) => {
     try {
         await axios.post(
-            '/api/v1/ads/favourite/',
+            '/api/v1/favourite/',
             { pet: ad_id, user: user_id },
             getConfig(getState)
         )

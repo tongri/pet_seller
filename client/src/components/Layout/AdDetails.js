@@ -11,9 +11,12 @@ import Active from 'components/Buttons/Active'
 import Inactive from 'components/Buttons/Inactive'
 
 const AdDetails = ({ ad, id }) => {
-    const { isAuthenticated, username } = useSelector((state) => state.users)
+    const {
+        id: user_id,
+        isAuthenticated,
+        username,
+    } = useSelector((state) => state.users)
 
-    console.log(ad.files)
     return (
         <>
             <Header />
@@ -29,7 +32,14 @@ const AdDetails = ({ ad, id }) => {
                         <div className="row justify-content-between">
                             <div className="col-md-4 col-lg-4 col-sm-8">
                                 <span className="h3 me-2">{ad.name}</span>{' '}
-                                <Heart className="fa-lg" id={id} />
+                                {!ad.isOwner && (
+                                    <Heart
+                                        id={id}
+                                        user_id={user_id}
+                                        isActive={ad.is_liked}
+                                        className="fa-lg"
+                                    />
+                                )}
                             </div>
                             {isAuthenticated &&
                                 username === ad.owner.username && (

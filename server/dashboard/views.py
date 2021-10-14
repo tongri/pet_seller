@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .custom_account_permission import OwnAccountPermission
 from .custom_exceptions import NoFiles
-from .custom_favourite_eprmission import FavouritePermission
+from .custom_favourite_permission import FavouritePermission
 from .custom_pet_permission import OwnPetPermission, PrivatePetPermission
 from .models import Pet, MyUser, ImagePet, FavouritePet
 
@@ -223,5 +223,16 @@ class FavouriteModelViewSet(RetrieveModelMixin, ListModelMixin, DestroyModelMixi
 
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
-        queryset.filter(pet__is_active=True, user=self.request.user)
-        return queryset
+        return queryset.filter(user=self.request.user)
+
+    @action(methods=('delete',), detail=False, permission_classes=(FavouritePermission,))
+    def remove_favourite(self, request, pk=None):
+        pet_id = request.query_params.get('pet')
+        user = request.user
+
+        pet = FavouritePet.objects.get(pet=pet_id, user=user)
+        if not pet:
+            return Response({"error": "Pet not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        pet.delete()
+        return Response({"status": "success"})

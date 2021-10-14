@@ -13,5 +13,5 @@ export const filters = {
     kind_of_animal: ['Dog', 'Cat'],
     gender: ['Male', 'Female'],
     size: ['10-30', '30-50', '50-70'],
-    age: ['10-30-2020'],
+    age: ['1', '2', '3', '4', '5'],
 }
