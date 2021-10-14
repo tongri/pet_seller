@@ -229,8 +229,9 @@ class FavouriteModelViewSet(RetrieveModelMixin, ListModelMixin, DestroyModelMixi
         pet_id = request.query_params.get('pet')
         user = request.user
 
-        pet = FavouritePet.objects.get(pet=pet_id, user=user)
-        if not pet:
+        try:
+            pet = FavouritePet.objects.get(pet=pet_id, user=user)
+        except ObjectDoesNotExist:
             return Response({"error": "Pet not found"}, status=status.HTTP_404_NOT_FOUND)
 
         pet.delete()
