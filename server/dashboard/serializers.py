@@ -69,9 +69,7 @@ class DetailPetSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         if not user.is_authenticated:
             response['is_liked'] = False
-            print("user is not authenticated")
         else:
-            print(user)
             response['is_liked'] = len(user.favouritepet_set.filter(pet=instance.id)) != 0
 
         return response

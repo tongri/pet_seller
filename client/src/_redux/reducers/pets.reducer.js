@@ -18,7 +18,6 @@ const Reducer = (state = initialState, action) => {
                 isLoading: false,
             }
         case PETS_FILTER_SUCCESS:
-            console.log(action.payload)
             return {
                 ...state,
                 list: action.payload,

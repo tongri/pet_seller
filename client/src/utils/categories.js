@@ -28,7 +28,7 @@ const getTags = (category, value) => {
             )
         return combineIconAndTitle(ICONS[category], value)
     } catch {
-        console.log('CATEGORIES', category, value)
+        // TODO: Handle errors...
     }
 }
 

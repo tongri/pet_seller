@@ -35,19 +35,35 @@ export const filterPets = (filter) => async (dispatch, getState) => {
             ),
         }
 
-        console.log(
-            Object.fromEntries(
-                Object.entries(filter).filter(([_, v]) => v != 'None')
-            )
-        )
-
         const result = await axios.get('/api/v1/pets/', config)
         dispatch({
             type: PETS_FILTER_SUCCESS,
             payload: result.data,
         })
-    } catch (err) {
-        console.log(err)
+    } catch {
+        // TODO: Handle errors...
+    }
+}
+
+// @desc        Filter pets by name
+// @method      GET
+// @permissions Any
+export const filterPetsByName = (filter) => async (dispatch, getState) => {
+    dispatch({ type: PETS_LOADING })
+    try {
+        const config = {
+            ...getConfig(getState),
+            params: {
+                name: filter,
+            },
+        }
+
+        const result = await axios.get('/api/v1/pets', config)
+        dispatch({
+            type: PETS_FILTER_SUCCESS,
+            payload: result.data,
+        })
+    } catch {
         // TODO: Handle errors...
     }
 }
@@ -68,13 +84,12 @@ export const makeFavourite = (ad_id, user_id) => async (_, getState) => {
 }
 
 // @desc        Remove Ad from favourite
-// @method      Delete
+// @method      DELETE
 // @permissions Authenticated only
-export const removeFavourite = (ad_id, user_id) => async (_, getState) => {
+export const removeFavourite = (ad_id) => async (_, getState) => {
     try {
         await axios.delete(
-            '/api/v1/ads/favourite/',
-            { pet: ad_id, user: user_id },
+            `/api/v1/favourite/remove?pet=${ad_id}`,
             getConfig(getState)
         )
     } catch {

@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux'
 import { saveUserSettings } from 'api/ads.api'
 
 import { MDBInput } from 'mdb-react-ui-kit'
-// import Select from 'components/Forms/Select'
 
 import useFetch from 'hooks/useFetch'
 import { getConfigByToken } from 'utils/config'
@@ -48,20 +47,6 @@ const Settings = () => {
                             name="email"
                             onChange={handleInput}
                         />
-                        {/* <Select
-                            name="country"
-                            title="Country"
-                            dflt="Choose"
-                            options={['Ukraine', 'Russia']}
-                            onChange={(e) => console.log('h')}
-                        />
-                        <Select
-                            name="city"
-                            title="City"
-                            dflt="Choose"
-                            options={['Kharkiv', 'Moskow']}
-                            onChange={(e) => console.log('h')}
-                        /> */}
                         <div className="d-flex justify-content-end">
                             <button
                                 className="btn btn-outline-warning"

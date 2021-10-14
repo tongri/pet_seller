@@ -31,9 +31,8 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
                         ])
                     )
                 )
-            } catch (err) {
-                console.log(err)
-                return
+            } catch {
+                // TODO: Handle errors...
             }
         }
         loadAd()
@@ -55,8 +54,8 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
                     form,
                     getConfigByToken(token, true)
                 )
-            } catch (err) {
-                console.log(err.response)
+            } catch {
+                // TODO: Handle errors...
             }
         }
 

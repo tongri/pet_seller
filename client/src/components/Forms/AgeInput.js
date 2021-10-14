@@ -14,7 +14,6 @@ const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
 
     useEffect(() => {
         if (value) {
-            console.log('VALUE', value)
             const tmp = value.split(' ')
             setAge((state) => ({ ...state, age: tmp[0], measure: tmp[1] }))
             setDataParsed(false)
@@ -22,7 +21,6 @@ const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
     }, [value])
 
     useEffect(() => {
-        console.log('WTF', value)
         if (dataParsed) return
         onChange(`${age.age} ${age.measure}`)
         setDataParsed(true)

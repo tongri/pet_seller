@@ -38,8 +38,8 @@ const useCreateAd = () => {
             )
 
             await Promise.all([petRequest, userRequest])
-        } catch (err) {
-            console.log(err)
+        } catch {
+            // TODO: Handle errors...
         }
     }
 

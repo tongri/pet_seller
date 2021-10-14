@@ -224,14 +224,16 @@ class FavouriteModelViewSet(RetrieveModelMixin, ListModelMixin, DestroyModelMixi
         queryset = super().filter_queryset(queryset)
         return queryset.filter(user=self.request.user)
 
-    @action(methods=('delete',), detail=False, permission_classes=(FavouritePermission,))
+    @action(methods=('delete',), detail=False, permission_classes=(FavouritePermission,), url_path="remove")
     def remove_favourite(self, request, pk=None):
+        print("WTF")
         pet_id = request.query_params.get('pet')
         user = request.user
 
         try:
             pet = FavouritePet.objects.get(pet=pet_id, user=user)
         except ObjectDoesNotExist:
+            print(pet_id)
             return Response({"error": "Pet not found"}, status=status.HTTP_404_NOT_FOUND)
 
         pet.delete()

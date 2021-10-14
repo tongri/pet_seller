@@ -17,9 +17,7 @@ const Heart = ({
     const clickHandler = () => {
         if (!clickable) return
 
-        isActive
-            ? dsp(removeFavourite(id, user_id))
-            : dsp(makeFavourite(id, user_id))
+        isActive ? dsp(removeFavourite(id)) : dsp(makeFavourite(id, user_id))
         setState((state) => !state)
     }
 
