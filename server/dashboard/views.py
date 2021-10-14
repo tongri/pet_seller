@@ -106,7 +106,7 @@ class PetModelViewSet(ModelViewSet):
     queryset = Pet.objects.filter(is_active=True)
     permission_classes = (OwnPetPermission, )
     filter_backends = (DjangoFilterBackend, )
-    filterset_fields = ('country', 'city', 'kind_of_animal', 'gender', 'size', 'age', 'state_of_health')
+    filterset_fields = ('country', 'city', 'kind_of_animal', 'gender', 'size', 'age', 'state_of_health', 'name')
 
     def get_serializer_class(self):
         if self.action not in ['destroy', 'update', 'create']:
@@ -119,7 +119,6 @@ class PetModelViewSet(ModelViewSet):
             return queryset
         if self.request.user.is_authenticated and self.request.method in SAFE_METHODS:
             queryset = queryset.exclude(owner=self.request.user)
-            # query_dicit = dict.fromkeys('')
         return queryset
 
     def perform_create(self, serializer):
