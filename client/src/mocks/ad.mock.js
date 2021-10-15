@@ -1,0 +1,115 @@
+export const AD = {
+    age: 0,
+    name: '',
+    kind_of_animal: '',
+    breed: '',
+    gender: '',
+    days: 0,
+    size: '',
+    bio: '',
+    country: '',
+    city: '',
+    vaccination: '',
+    allergies: '',
+    state_of_health: '',
+    disease: '',
+    behaviour_disorders: '',
+    disorders_description: '',
+    owner: {
+        first_name: '',
+        phone: '',
+        email: '',
+    },
+    files: {
+        main: '',
+        image1: '',
+        image2: '',
+        image3: '',
+    },
+    contacts: {
+        first_name: '',
+        number: '',
+        email: '',
+    },
+}
+
+export const FORM_DATA = {
+    files: [
+        { name: 'main', id: 'main' },
+        { name: 'image1', id: 'image1' },
+        { name: 'image2', id: 'image2' },
+        { name: 'image3', id: 'image3' },
+    ],
+    PET_INFO: [
+        { name: 'name', label: 'Name*', type: 'text' },
+        {
+            name: 'kind_of_animal',
+            title: 'Kind of animal*',
+            type: 'select',
+            options: ['Cat', 'Dog'],
+            dflt: 'Choose',
+        },
+        {
+            name: 'gender',
+            title: 'Gender*',
+            type: 'select',
+            options: ['Male', 'Female'],
+            dflt: 'Choose',
+        },
+        {
+            name: 'size',
+            title: 'Size*',
+            type: 'select',
+            options: ['10-30', '30-50', '50-70'],
+            dflt: 'Choose',
+        },
+        {
+            name: 'age',
+            title: 'Age*',
+            type: 'date',
+        },
+        { name: 'breed', label: 'Breed*', type: 'text' },
+    ],
+    HEALTH: [
+        { name: 'vaccination', label: 'Basic vaccination', type: 'input' },
+        { name: 'allergies', label: 'Allergies', type: 'input' },
+        {
+            name: 'state_of_health',
+            title: 'General state of health',
+            options: ['Healthy', 'Ill'],
+            dflt: 'Choose',
+            type: 'select',
+        },
+        {
+            name: 'disease',
+            label: 'Describe the disease of animal',
+            type: 'input',
+        },
+        {
+            name: 'behaviour_disorders',
+            title: 'Behavioural disorders',
+            options: ['Fearfulness', 'Rabies'],
+            dflt: 'Choose',
+            type: 'select',
+        },
+        {
+            name: 'disorders_description',
+            label: 'Describe the behavioural disorder of animal',
+            type: 'textarea',
+        },
+    ],
+    LOCATION: [
+        {
+            name: 'country',
+            title: 'Country',
+            options: ['Ukraine', 'Russia', 'Poland'],
+            dflt: 'Choose',
+        },
+        { name: 'city', title: 'City', options: [], dflt: 'Choose' },
+    ],
+    CONTACT: [
+        { name: 'first_name', label: 'Your name', type: 'text' },
+        { name: 'number', label: 'Your phone number', type: 'phone' },
+        { name: 'email', label: 'Your email', type: 'email' },
+    ],
+}

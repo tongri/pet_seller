@@ -75,3 +75,31 @@ export const convertToFormData = (value) => {
 
     return form
 }
+
+export const handlePhotoChange = ({ e, setState }) => {
+    setState((form) => ({
+        ...form,
+        files: {
+            ...form.files,
+            [e.target.name]: e.target.value,
+        },
+    }))
+}
+
+export const handleInputChange = ({ e, setState }) =>
+    setState((form) => ({ ...form, [e.target.name]: e.target.value }))
+
+export const handleContactsChange = ({ e, setState }) =>
+    setState((form) => ({
+        ...form,
+        contacts: { ...form.contacts, [e.target.name]: e.target.value },
+    }))
+
+export const handleAgeChange = ({ value, setState }) => {
+    const [num, measure] = value.split(' ')
+    setState((state) => ({
+        ...state,
+        age: measure === 'years' ? num : 0,
+        days: measure === 'days' ? num : 0,
+    }))
+}
