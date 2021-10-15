@@ -23,14 +23,23 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
                     getConfigByToken(token)
                 )
 
-                setAd(
-                    Object.fromEntries(
-                        Object.entries(result.data).map(([key, value]) => [
-                            key,
-                            value != null ? value : '',
-                        ])
-                    )
+                const result_ad = Object.fromEntries(
+                    Object.entries(result.data).map(([key, value]) => [
+                        key,
+                        value != null ? value : '',
+                    ])
                 )
+
+                setAd({
+                    ...result_ad,
+                    files: Object.fromEntries(
+                        result_ad.files.map((el, key) => {
+                            if (key === 0) return ['main', el]
+
+                            return [`image${key}`, el]
+                        })
+                    ),
+                })
             } catch {
                 // TODO: Handle errors...
             }
@@ -46,7 +55,9 @@ const useUpdateAd = ({ downloadingURL, uploadingURL }) => {
 
                 const form = convertToFormData({
                     ...ad_data,
-                    files: Object.values(ad.files).filter((el) => el !== ''),
+                    files: Object.values(ad.files).filter(
+                        (el) => el !== '' && el instanceof File
+                    ),
                 })
 
                 await axios.patch(

@@ -10,6 +10,7 @@ import { AD } from 'consts/ads'
 const useRetrieveAd = (id, personal = false) => {
     const [ad, setAd] = useState(AD)
     const [isLoading, setIsLoading] = useState(false)
+    const [errors, setErrors] = useState('')
     const token = useSelector((state) => state.users.token)
 
     useEffect(() => {
@@ -24,14 +25,15 @@ const useRetrieveAd = (id, personal = false) => {
                 setAd(result.data)
                 setIsLoading(false)
             } catch {
-                // TODO: Handle errors...
+                setErrors('Something went wrong')
+                setIsLoading(false)
             }
         }
 
         retrieveAd()
     }, [id, token, personal])
 
-    return [ad, isLoading]
+    return [ad, isLoading, errors]
 }
 
 export default useRetrieveAd

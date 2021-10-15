@@ -31,9 +31,13 @@ const useCreateAd = () => {
                 getConfigByToken(token, true)
             )
 
+            const contacts = Object.fromEntries(
+                Object.entries(ad.contacts).filter(([_, val]) => val !== '')
+            )
+
             const userRequest = axios.patch(
                 `/api/v1/user/${id}/`,
-                ad.contacts,
+                contacts,
                 getConfigByToken(token)
             )
 

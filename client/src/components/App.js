@@ -7,6 +7,7 @@ import PrivateRoute from 'routes/PrivateRoute'
 import PublicRoute from 'routes/PublicRoute'
 
 import Modal from 'components/Layout/Modal'
+import Scroller from 'components/Layout/Scroller'
 
 import { PRIVATE_ROUTES, PUBLIC_ROUTES, ROUTES } from 'consts/routes'
 
@@ -42,6 +43,7 @@ const App = () => {
                 </Switch>
             </Suspense>
 
+            <Scroller />
             <Modal />
         </BrowserRouter>
     )

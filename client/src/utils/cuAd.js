@@ -52,7 +52,6 @@ export const changeAd = ({
 }
 
 export const changeAdAge = ({ value, setAd }) => {
-    console.log('CHANGE AD', value)
     const [num, measure] = value.split(' ')
     setAd((state) => ({
         ...state,

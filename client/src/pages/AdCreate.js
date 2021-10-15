@@ -256,40 +256,24 @@ const AdCreate = () => {
                     >
                         <MDBInput
                             label="Your name*"
-                            name="contact_name"
-                            value={form.contacts.contact_name}
+                            name="first_name"
+                            value={form.contacts.first_name}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Your phone number*"
                             type="phone"
-                            name="contact_phone"
-                            value={form.contacts.contact_phone}
+                            name="number"
+                            value={form.contacts.number}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />
                         <MDBInput
                             label="Your email*"
                             type="email"
-                            name="contact_email"
-                            value={form.contacts.contact_email}
-                            onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
-                        />
-                        <Select
-                            title="Country"
-                            options={['Ukraine', 'Russia', 'Poland']}
-                            name="contact_country"
-                            value={form.contacts.contact_country}
-                            onChange={(e) => setNested(e, 'contacts')}
-                            disabled={!accepted}
-                        />
-                        <Select
-                            title="City"
-                            options={contactCities}
-                            name="contact_city"
-                            value={form.contacts.contact_city}
+                            name="email"
+                            value={form.contacts.email}
                             onChange={(e) => setNested(e, 'contacts')}
                             disabled={!accepted}
                         />

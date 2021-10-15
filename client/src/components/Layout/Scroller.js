@@ -4,10 +4,7 @@ const Scroller = () => {
     const [visible, setVisibility] = useState(false)
 
     useEffect(
-        () =>
-            document.addEventListener('scroll', (e) => {
-                scrollHandler()
-            }),
+        () => document.addEventListener('scroll', (e) => scrollHandler()),
         []
     )
 

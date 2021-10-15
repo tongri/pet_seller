@@ -31,12 +31,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-''''@receiver(post_save, sender=Pet)
-def create_health_pet(sender, instance=None, created=False, **kwargs):
-    if created:
-        Health.objects.create(pet=instance)'''
-
-
 class CreateAuth(APIView):
     """
     Creating new User
@@ -93,12 +87,6 @@ class CitiesByCountry(APIView):
         elif country == Pet.RUSSIA:
             return Response({'cities': ['Moskow', 'St. Peterburg']})
         return Response({'cities': []})
-
-
-'''class HealthModelViewSet(ModelViewSet):
-    serializer_class = HealthSerializer
-    queryset = Health.objects.all()
-    permission_classes = (OwnHealthPermission, )'''
 
 
 class PetModelViewSet(ModelViewSet):
@@ -200,6 +188,11 @@ class PetModelViewSet(ModelViewSet):
         pet_serializer = PetSerializer(pet, data=request.data, partial=True)
         pet_serializer.is_valid(raise_exception=True)
         pet_serializer.save()
+
+        if 'files' in request.FILES.keys() and len(request.FILES.getlist('files')):
+            ImagePet.objects.bulk_create([
+                ImagePet(pet=pet, image=image) for image in self.request.FILES.getlist('files')
+            ])
 
         return Response(pet_serializer.validated_data)
 

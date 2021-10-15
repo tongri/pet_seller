@@ -27,10 +27,8 @@ export const AD = {
         photo3: '',
     },
     contacts: {
-        contact_name: '',
-        contact_phone: '',
-        contact_email: '',
-        contact_country: '',
-        contact_city: '',
+        first_name: '',
+        number: '',
+        email: '',
     },
 }

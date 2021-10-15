@@ -7,11 +7,17 @@ import AdDetails from 'components/Layout/AdDetails'
 
 const AdMore = () => {
     const { id } = useParams()
-    const [ad, isLoading] = useRetrieveAd(+id)
+    const [ad, isLoading, errors] = useRetrieveAd(+id)
 
     useEffect(() => addAd(id), [id])
 
-    return isLoading ? <p>Loading...</p> : <AdDetails ad={ad} id={id} />
+    return isLoading ? (
+        <p>Loading...</p>
+    ) : errors ? (
+        <p className="text-center">{errors}</p>
+    ) : (
+        <AdDetails ad={ad} id={id} />
+    )
 }
 
 export default AdMore
