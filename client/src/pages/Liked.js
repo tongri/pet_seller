@@ -1,5 +1,3 @@
-// import useFetch from 'hooks/useFetch'
-import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import {
     MDBTabs,

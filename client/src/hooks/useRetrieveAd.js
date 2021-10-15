@@ -23,11 +23,13 @@ const useRetrieveAd = (id, personal = false) => {
 
                 setAd(result.data)
                 setIsLoading(false)
-            } catch {}
+            } catch {
+                // TODO: Handle errors...
+            }
         }
 
         retrieveAd()
-    }, [id, token])
+    }, [id, token, personal])
 
     return [ad, isLoading]
 }

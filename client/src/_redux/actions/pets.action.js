@@ -31,7 +31,7 @@ export const filterPets = (filter) => async (dispatch, getState) => {
         const config = {
             ...getConfig(getState),
             params: Object.fromEntries(
-                Object.entries(filter).filter(([_, v]) => v != 'None')
+                Object.entries(filter).filter(([_, v]) => v !== 'None')
             ),
         }
 

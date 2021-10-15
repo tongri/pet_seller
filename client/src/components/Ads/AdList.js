@@ -3,8 +3,8 @@ import Ad from './Ad'
 const AdList = ({ list, isOwner = false, isActive = true }) => {
     return list.length !== 0 ? (
         <div className="container-md-5">
-            {list.map((ad, key) => (
-                <Ad key={key} {...ad} isOwner={isOwner} isActive={isActive} />
+            {list.map((ad) => (
+                <Ad key={ad.id} {...ad} isOwner={isOwner} isActive={isActive} />
             ))}
         </div>
     ) : (

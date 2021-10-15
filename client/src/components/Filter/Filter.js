@@ -25,6 +25,7 @@ const Filter = () => {
         }))
     }
 
+    // eslint-disable-next-line
     useEffect(() => dsp(filterPets(chosenFilters)), [chosenFilters])
 
     useEffect(

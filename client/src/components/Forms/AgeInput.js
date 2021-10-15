@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MDBInput } from 'mdb-react-ui-kit'
 import Select from './Select'
@@ -25,9 +25,6 @@ const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
         onChange(`${age.age} ${age.measure}`)
         setDataParsed(true)
     }, [age, dataParsed, onChange])
-
-    // eslint-disable-next-line
-    // useEffect(() => onChange(`${age} ${measure}`), [age, measure])
 
     return (
         <div className="form m-0 p-0">

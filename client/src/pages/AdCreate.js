@@ -22,9 +22,11 @@ const AdCreate = () => {
     const setNotNested = (e) => setForm({ e })
     const setAge = (value) => setFormAge(value)
 
+    // eslint-disable-next-line
     useEffect(() => setCountry(form.country), [form.country])
     useEffect(
         () => setContactCountry(form.contact_country),
+        // eslint-disable-next-line
         [form.contact_country]
     )
 

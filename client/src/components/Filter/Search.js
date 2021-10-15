@@ -16,6 +16,7 @@ const Search = () => {
         }
 
         dsp(filterPetsByName(value))
+        // eslint-disable-next-line
     }, [value])
 
     return (

@@ -21,6 +21,7 @@ const AdEdit = () => {
     })
 
     const [cities, setCountry] = useSelect()
+    // eslint-disable-next-line
     useEffect(() => setCountry(form.country), [form.country])
 
     const setPhoto = (e) => setAdData({ e, files: true })
