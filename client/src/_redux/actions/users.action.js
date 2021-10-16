@@ -64,5 +64,25 @@ export const verifyToken = () => async (dispatch, getState) => {
     }
 }
 
+// @desc Authentication with google
+// @method POST
+export const authenticateGoogle = (data) => async (dispatch, getState) => {
+    dispatch({ type: USER_LOADING })
+    try {
+        const result = await axios.post(
+            '/api/v1/google_auth/',
+            data,
+            getConfig(getState)
+        )
+
+        dispatch({
+            type: USER_SUCCESS,
+            payload: result.data
+        })
+    } catch (err) {
+        dispatch({ type: USER_FAILED })
+    }
+}
+
 // @desc    Log out user
 export const logoutUser = () => (dispatch) => dispatch({ type: USER_LOGOUT })

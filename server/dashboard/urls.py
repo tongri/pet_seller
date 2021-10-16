@@ -4,7 +4,7 @@ from rest_framework import routers
 
 from pet import settings
 from .views import CustomAuthToken, VerifyToken, CitiesByCountry, PetModelViewSet, MyUserModelViewSet, \
-    FavouriteModelViewSet
+    FavouriteModelViewSet, GoogleAuth
 
 from .views import CreateAuth
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('login/', CustomAuthToken.as_view()),
     path('token-verify/', VerifyToken.as_view()),
     path('get-cities/', CitiesByCountry.as_view()),
+    path('google_auth/', GoogleAuth.as_view()),
     #path('/', ImageApiView.as_view()),
     *router.urls
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
