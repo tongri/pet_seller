@@ -1,4 +1,6 @@
-const Photo = ({ main = false, value, ...rest }) => {
+import { memo } from 'react'
+
+const Photo = memo(({ main = false, value, ...rest }) => {
     return (
         <label
             className={`card text-muted text-center ${main && 'bg-warning'}`}
@@ -21,6 +23,6 @@ const Photo = ({ main = false, value, ...rest }) => {
             <input type="file" style={{ display: 'none' }} {...rest} />
         </label>
     )
-}
+})
 
 export default Photo

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { MDBInput } from 'mdb-react-ui-kit'
 import Select from './Select'
 
-const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
+const AgeInput = memo(({ title, onChange, value = ' days', disabled }) => {
     const [age, setAge] = useState({ age: 0, measure: '' })
     const [dataParsed, setDataParsed] = useState(false)
 
@@ -51,6 +51,6 @@ const AgeInput = ({ title, onChange, value = ' days', disabled }) => {
             </div>
         </div>
     )
-}
+})
 
 export default AgeInput

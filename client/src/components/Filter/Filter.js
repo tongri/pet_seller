@@ -25,8 +25,12 @@ const Filter = () => {
         }))
     }
 
-    // eslint-disable-next-line
-    useEffect(() => dsp(filterPets(chosenFilters)), [chosenFilters])
+    useEffect(() => {
+        if (Object.keys(chosenFilters).length === 0) return
+        dsp(filterPets(chosenFilters))
+
+        // eslint-disable-next-line
+    }, [chosenFilters])
 
     useEffect(
         () => setFilters((state) => ({ ...state, city: cities })),

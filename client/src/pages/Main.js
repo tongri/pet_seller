@@ -1,4 +1,6 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadPets } from '_redux/actions/pets.action'
 
 import Header from 'components/Layout/Header'
 import AdList from 'components/Ads/AdList'
@@ -6,6 +8,10 @@ import Filter from 'components/Filter/Filter'
 
 const Main = () => {
     const { list, isLoading } = useSelector((state) => state.pets)
+    const token = useSelector((state) => state.users.token)
+    const dsp = useDispatch()
+
+    useEffect(() => dsp(loadPets()), [token, dsp])
 
     return (
         <>

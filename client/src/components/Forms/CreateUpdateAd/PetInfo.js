@@ -35,6 +35,11 @@ const PetInfo = memo(({ isAccepted }) => {
                         <AgeInput
                             {...input}
                             disabled={!isAccepted}
+                            value={
+                                state.age !== 0
+                                    ? `${state.age} years`
+                                    : `${state.days} days`
+                            }
                             onChange={(value) =>
                                 handleAgeChange({ value, setState })
                             }

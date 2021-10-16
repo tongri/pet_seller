@@ -15,6 +15,7 @@ const Search = () => {
             return
         }
 
+        console.log('IFU')
         dsp(filterPetsByName(value))
         // eslint-disable-next-line
     }, [value])

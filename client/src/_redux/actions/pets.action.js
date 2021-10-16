@@ -9,6 +9,7 @@ import { PETS_FILTER_SUCCESS, PETS_LOADING, PETS_SUCCESS } from '_redux/types'
 export const loadPets = () => async (dispatch, getState) => {
     // loading...
     dispatch({ type: PETS_LOADING })
+    console.log('WTF')
 
     try {
         const result = await axios.get('/api/v1/pets/', getConfig(getState))
