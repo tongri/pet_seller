@@ -15,7 +15,8 @@ const Form = memo(({ id, isAccepted }) => {
     const { read, update } = useContext(AdContext)
     const token = useSelector((state) => state.users.token)
 
-    useEffect(() => read({ id, token }), [id, token, read])
+    // eslint-disable-next-line
+    useEffect(() => read({ id, token }), [id])
 
     return (
         <div className="row mb-5">

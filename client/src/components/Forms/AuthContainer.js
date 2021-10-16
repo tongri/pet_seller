@@ -6,7 +6,7 @@ import {
     MDBTabsContent,
     MDBTabsPane,
 } from 'mdb-react-ui-kit'
-import GoogleLogin from 'react-google-login'
+
 import GoogleAuth from './GoogleAuth'
 
 const SignInForm = lazy(() => import('./SignInForm'))
@@ -62,14 +62,6 @@ const AuthContainer = () => {
                         </div>
                         <div className="d-flex flex-column mt-3 gap-2">
                             <GoogleAuth />
-                            <button className="btn btn-outline-dark flex-fill align-items-center d-flex justify-content-center gap-1">
-                                <i className="fab fa-facebook-f fa-2x text-primary"></i>
-                                Continue with Facebook
-                            </button>
-                            <button className="btn btn-outline-dark flex-fill align-items-center d-flex justify-content-center gap-1">
-                                <i className="fab fa-google fa-2x text-success"></i>
-                                Continue with Google
-                            </button>
                         </div>
                     </div>
                 </div>
