@@ -25,6 +25,12 @@ class RegSerializer(serializers.ModelSerializer):
         return user
 
 
+class GoogleSerializer(serializers.Serializer):
+    google_id = serializers.CharField(max_length=22)
+    username = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
+
+
 class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser

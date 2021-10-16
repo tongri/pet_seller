@@ -25,6 +25,7 @@ class MyUser(AbstractUser):
     first_name = models.CharField(max_length=20, null=True)
     last_name = models.CharField(max_length=20, null=True)
     email = models.EmailField(max_length=20, null=True)
+    google_id = models.CharField(max_length=22, null=True, blank=True, unique=True)
 
 
 class Pet(models.Model):

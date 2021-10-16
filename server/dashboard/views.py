@@ -20,7 +20,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer, \
-    PetIdSerializer, FavouritePetSerializer, DetailFavouritePetSerializer
+    PetIdSerializer, FavouritePetSerializer, DetailFavouritePetSerializer, GoogleSerializer
 from pet import settings
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -35,8 +35,10 @@ class CreateAuth(APIView):
     """
     Creating new User
     """
+    serializer_class = RegSerializer
+
     def post(self, request, *args, **kwargs):
-        serialized = RegSerializer(data=request.data)
+        serialized = self.serializer_class(data=request.data)
         if serialized.is_valid():
             user = serialized.save()
             user.save()
@@ -47,10 +49,11 @@ class CreateAuth(APIView):
 
 
 class CustomAuthToken(ObtainAuthToken):
+    serializer_class = LoginUserSerializer
 
     def post(self, request, *args, **kwargs):
         # get token via logging in
-        serializer = LoginUserSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         token, created = Token.objects.get_or_create(user=user)
@@ -72,6 +75,29 @@ class VerifyToken(APIView):
                 'token': user.auth_token.key
             })
         return Response({'error': 'invalid user credentials'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class GoogleAuth(APIView):
+    serializer_class = GoogleSerializer
+
+    def post(self, request):
+        data = request.data
+        data.update({'password': '1'})
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        try:
+            user = MyUser.objects.get(google_id=user.get('google_id'))
+            token = Token.objects.get(user=user)
+        except ObjectDoesNotExist:
+            user = MyUser.objects.create_user(**serializer.validated_data)
+            token = Token.objects.get(user=user)
+
+        return Response({
+            'id': user.id,
+            'token': token.key,
+            "username": user.username
+        })
 
 
 class CitiesByCountry(APIView):
@@ -218,15 +244,13 @@ class FavouriteModelViewSet(RetrieveModelMixin, ListModelMixin, DestroyModelMixi
         return queryset.filter(user=self.request.user)
 
     @action(methods=('delete',), detail=False, permission_classes=(FavouritePermission,), url_path="remove")
-    def remove_favourite(self, request, pk=None):
-        print("WTF")
+    def remove_favourite(self, request):
         pet_id = request.query_params.get('pet')
         user = request.user
 
         try:
             pet = FavouritePet.objects.get(pet=pet_id, user=user)
         except ObjectDoesNotExist:
-            print(pet_id)
             return Response({"error": "Pet not found"}, status=status.HTTP_404_NOT_FOUND)
 
         pet.delete()
