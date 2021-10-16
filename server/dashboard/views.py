@@ -20,7 +20,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from .serializers import RegSerializer, LoginUserSerializer, PetSerializer, DetailPetSerializer, MyUserSerializer, \
-    PetIdSerializer, FavouritePetSerializer, DetailFavouritePetSerializer
+    PetIdSerializer, FavouritePetSerializer, DetailFavouritePetSerializer, GoogleSerializer
 from pet import settings
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -78,7 +78,7 @@ class VerifyToken(APIView):
 
 
 class GoogleAuth(APIView):
-    serializer_class = RegSerializer
+    serializer_class = GoogleSerializer
 
     def post(self, request):
         data = request.data
@@ -90,7 +90,7 @@ class GoogleAuth(APIView):
             user = MyUser.objects.get(google_id=user.get('google_id'))
             token = Token.objects.get(user=user)
         except ObjectDoesNotExist:
-            user = serializer.save()
+            user = MyUser.objects.create_user(**serializer.validated_data)
             token = Token.objects.get(user=user)
 
         return Response({
